@@ -1,16 +1,20 @@
+#define GLEW_STATIC
 #include <GL/glew.h>
 #include "shprogram.h"
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <iostream>
 #include <iterator>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 using namespace std;
 
 const GLuint WIDTH = 800, HEIGHT = 600;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	cout << key << endl;
+	cout << key << endl ;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
@@ -30,7 +34,7 @@ int main()
 	{
 		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 04", nullptr, nullptr);
 		if (window == nullptr)
-			throw std::runtime_error("GLFW window not created");
+			throw std::runtime_error("GLFW window not crgdffgsdfgsdeated");
 		glfwMakeContextCurrent(window);
 		glfwSetKeyCallback(window, key_callback);
 
@@ -46,9 +50,8 @@ int main()
 		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
 		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
-		system("pwd");
 		// Build, compile and link shader program
-		ShaderProgram theProgram("res/gl_04.vert", "res/gl_04.frag");
+		ShaderProgram theProgram("../res/gl_04.vert", "../res/gl_04.frag");
 
 		// Set up vertex data
 		GLfloat vertices[] = {
@@ -103,7 +106,7 @@ int main()
 
 		// prepare textures
 		int width, height;
-		unsigned char* image = SOIL_load_image("res/iipw.png", &width, &height, 0, SOIL_LOAD_RGB);
+		unsigned char* image = SOIL_load_image("../res/iipw.png", &width, &height, 0, SOIL_LOAD_RGB);
 		if (image == nullptr)
 			throw std::runtime_error("Failed to load texture file");
 

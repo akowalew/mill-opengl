@@ -11,8 +11,9 @@ bool initialized = false;
 
 void doTerminate()
 {
-	puts("[GLFW] Terminating...");
 	glfwTerminate();
+
+	puts("[GLFW] Terminated");
 }
 
 }

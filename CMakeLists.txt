@@ -3,7 +3,10 @@ cmake_minimum_required (VERSION 3.8 FATAL_ERROR)
 
 project("ZW1-Mlyn")
 
-# Include subdirectories
 add_subdirectory("submodules")
-add_subdirectory("src")
-add_subdirectory("res")
+
+# Include subdirectories
+add_subdirectory("app")
+add_subdirectory("gl-cpp")
+add_subdirectory("glfw-cpp")
+add_subdirectory("util")

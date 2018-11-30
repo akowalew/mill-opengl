@@ -103,17 +103,16 @@ public:
 
 	void setParam(GLenum name, GLint value)
 	{
-		// Preconditions
-		assert(isBound());
-
+		bind();
 		glTexParameteri(GL_TEXTURE_2D, name, value);
 	}
 
 	void setParams(std::initializer_list<std::pair<GLenum /*name*/, GLint /*value*/>> params)
 	{
+		bind();
 		for(const auto [name, value]: params)
 		{
-			setParam(name, value);
+			glTexParameteri(GL_TEXTURE_2D, name, value);
 		}
 	}
 

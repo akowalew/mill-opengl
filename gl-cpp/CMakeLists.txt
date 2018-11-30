@@ -35,4 +35,5 @@ target_link_libraries(gl-cpp
 	PUBLIC
 		libglew_static
 		SOIL_static
+		glm_static
 )

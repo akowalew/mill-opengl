@@ -6,6 +6,9 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 namespace gl {
 
 class Uniform
@@ -48,6 +51,11 @@ public:
 	void setValue(GLint v0, GLint v1, GLint v2)
 	{
 		glUniform3i(location, v0, v1, v2);
+	}
+
+	void setValue(const glm::mat4& v, GLboolean transpose)
+	{
+		glUniformMatrix4fv(location, 1, transpose, glm::value_ptr(v));
 	}
 
 	operator Location() const noexcept { return location; }

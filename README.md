@@ -39,6 +39,11 @@ Projekt (mimo braku takich wymagań) z założenia ma być uruchamiany przynajmn
 	./ZW1-Mlyn
 ```
 
+## Kontrybucja
+
+Stworzyłem dla projektu stosowną grupę Slack: `zw1-mlyn.slack.com`
+Do niej też podpięte są nityfikacje z serwera Gitlab.
+
 ## Autorzy
 
 - Anna Kamińska

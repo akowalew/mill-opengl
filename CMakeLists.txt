@@ -7,6 +7,6 @@ add_subdirectory("submodules")
 
 # Include subdirectories
 add_subdirectory("app")
+add_subdirectory("gkom")
 add_subdirectory("gl-cpp")
-add_subdirectory("glfw-cpp")
-add_subdirectory("util")
+# add_subdirectory("util")

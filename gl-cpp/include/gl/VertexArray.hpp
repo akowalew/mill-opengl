@@ -62,12 +62,12 @@ public:
 private:
 	static Handle generateNative()
 	{
-		puts("[GL] Generating vertex array name...");
+		puts("[GL] Generating vertex array...");
 		Handle handle;
 		glGenVertexArrays(1, &handle);
 		if(!handle)
 		{
-			throw std::runtime_error("Could not generate vertex array name");
+			throw std::runtime_error("Could not generate vertex array");
 		}
 
 		return handle;

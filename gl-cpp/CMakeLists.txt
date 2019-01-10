@@ -1,8 +1,8 @@
 add_library(gl-cpp
+	src/gl.cpp include/gl/gl.hpp
+
 	src/Shader.cpp include/gl/Shader.hpp
 	src/Program.cpp include/gl/Program.hpp
-	src/gl.cpp include/gl/gl.hpp
-	src/glew.cpp include/gl/glew.hpp
 )
 
 set_target_properties(gl-cpp
@@ -34,6 +34,6 @@ target_include_directories(gl-cpp
 target_link_libraries(gl-cpp
 	PUBLIC
 		libglew_static
-		SOIL_static
 		glm_static
+		SOIL_static
 )

@@ -2,9 +2,9 @@
 
 #include <vector>
 
-#include "gkom/Window.hpp"
+#include "glfw/Window.hpp"
 
-namespace gkom {
+namespace glfw {
 namespace detail {
 
 class WindowsRegistry
@@ -37,4 +37,4 @@ private:
 };
 
 } // detail
-} // gkom
+} // glfw

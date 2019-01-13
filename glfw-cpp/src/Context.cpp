@@ -1,4 +1,4 @@
-#include "gkom/Context.hpp"
+#include "glfw/Context.hpp"
 
 #include <cassert>
 #include <cstdio>
@@ -7,14 +7,14 @@
 #include "gl/gl.hpp"
 #include <GLFW/glfw3.h>
 
-namespace gkom {
+namespace glfw {
 
 Context::Context(Handle handle)
 	:	handle_(handle)
 {
 	assert(handle_);
 
-	puts("[GKOM][Context] Initializing...");
+	puts("[GLFW][Context] Initializing...");
 	activate();
 	gl::init();
 }
@@ -23,7 +23,7 @@ Context::~Context()
 {
 	if(handle_ != nullptr)
 	{
-		puts("[GKOM][Context] Destroyed");
+		puts("[GLFW][Context] Destroyed");
 	}
 }
 
@@ -59,4 +59,4 @@ void Context::swapBuffers()
 	glfwSwapBuffers(handle_);
 }
 
-} // gkom
+} // glfw

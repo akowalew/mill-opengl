@@ -1,50 +1,47 @@
-#include "gkom/Box.hpp"
+#include "gkom/geometry/Pyramid.hpp"
 
 namespace gkom {
+namespace geometry {
 
-Box::Box()
+Pyramid::Pyramid()
 {
 
 }
 
-void Box::render()
-{
-
-}
-
-float Box::width() const
+float Pyramid::width() const
 {
 	return width_;
 }
 
-void Box::setWidth(float width)
+void Pyramid::setWidth(float width)
 {
 	width_ = width;
 }
 
-float Box::height() const
+float Pyramid::height() const
 {
 	return height_;
 }
 
-void Box::setHeight(float height)
+void Pyramid::setHeight(float height)
 {
 	height_ = height;
 }
 
-float Box::length() const
+float Pyramid::length() const
 {
 	return length_;
 }
 
-void Box::setLength(float length)
+void Pyramid::setLength(float length)
 {
 	length_ = length;
 }
 
+} // geometry
 } // gkom
 
-// #include "Box.hpp"
+// #include "Pyramid.hpp"
 
 // #include <array>
 // #include <tuple>
@@ -111,8 +108,8 @@ void Box::setLength(float length)
 // Rectangle::Rectangle()
 // 	:	vao{}
 // 	,	vbo{Vertices, GL_STATIC_DRAW}
-// 	,	vsh{"res/Box.vsh"}
-// 	,	fsh{"res/Box.fsh"}
+// 	,	vsh{"res/Pyramid.vsh"}
+// 	,	fsh{"res/Pyramid.fsh"}
 // 	,	program{vsh, fsh}
 //     ,	positionAttr{program.getAttribute("position")}
 //     ,	colorAttr{program.getAttribute("color")}

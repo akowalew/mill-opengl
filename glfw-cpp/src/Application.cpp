@@ -1,17 +1,17 @@
-#include "gkom/Application.hpp"
+#include "glfw/Application.hpp"
 
 #include <cassert>
 #include <cstdio>
 
 #include <GLFW/glfw3.h>
 
-#include "gkom/detail/WindowsRegistry.hpp"
+#include "glfw/detail/WindowsRegistry.hpp"
 
-namespace gkom {
+namespace glfw {
 
 Application::Application()
 {
-	puts("[GKOM][Application] Initializing...");
+	puts("[GLFW][Application] Initializing...");
 	if(glfwInit() != GL_TRUE)
 	{
 		throw std::runtime_error("Could not initialize application");
@@ -21,12 +21,12 @@ Application::Application()
 Application::~Application()
 {
 	glfwTerminate();
-	puts("[GKOM][Application] Terminated");
+	puts("[GLFW][Application] Terminated");
 }
 
 int Application::exec()
 {
-	puts("[GKOM][Application] Running...");
+	puts("[GLFW][Application] Running...");
 	while(true)
 	{
 		glfwPollEvents();
@@ -52,8 +52,8 @@ int Application::exec()
 		}
 	}
 
-	puts("[GKOM][Application] Finished");
+	puts("[GLFW][Application] Finished");
 	return 0;
 }
 
-} // gkom
+} // glfw

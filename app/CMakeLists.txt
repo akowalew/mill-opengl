@@ -24,6 +24,7 @@ target_include_directories(ZW1-Mlyn
 target_link_libraries(ZW1-Mlyn
 	PRIVATE
 		gkom
+		glfw-cpp
 		# glm_static
 		# SOIL_static
 )

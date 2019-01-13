@@ -2,10 +2,12 @@
 
 namespace gkom {
 
-class Object
+class Material
 {
 public:
-	virtual void render() = 0;
+
+private:
+
 };
 
 } // gkom

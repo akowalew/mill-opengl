@@ -2,7 +2,7 @@
 
 struct GLFWwindow; // Forward declaration
 
-namespace gkom {
+namespace glfw {
 
 class Context
 {
@@ -27,4 +27,4 @@ private:
 	Handle handle_;
 };
 
-} // gkom
+} // glfw

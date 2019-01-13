@@ -6,16 +6,12 @@
 # )
 
 add_library(gkom
-	src/detail/WindowsRegistry.cpp include/gkom/detail/WindowsRegistry.hpp
-
-	src/Application.cpp include/gkom/Application.hpp
-	src/Window.cpp include/gkom/Window.hpp
-	src/Context.cpp include/gkom/Context.hpp
 	src/Scene.cpp include/gkom/Scene.hpp
 	src/Camera.cpp include/gkom/Camera.hpp
-	src/World.cpp include/gkom/World.hpp
+	src/Mesh.cpp include/gkom/Mesh.hpp
 
-	src/Box.cpp include/gkom/Box.hpp
+	src/geometry/Box.cpp include/gkom/geometry/Box.hpp
+	src/geometry/Pyramid.cpp include/gkom/geometry/Pyramid.hpp
 )
 
 set_target_properties(gkom PROPERTIES
@@ -35,7 +31,6 @@ target_link_libraries(gkom
 		glm_static
 	PRIVATE
 		libglew_static
-		glfw
 		SOIL_static
 		gl-cpp
 )

@@ -3,32 +3,42 @@
  * @brief Entry point of the application
  */
 
-#include "gkom/Application.hpp"
-#include "gkom/Window.hpp"
-#include "gkom/Scene.hpp"
-#include "gkom/Box.hpp"
-#include "gkom/World.hpp"
-#include "gkom/Camera.hpp"
+#include "glfw/Application.hpp"
+#include "glfw/Window.hpp"
 
 int main(int /*argc*/, char** /*argv*/)
 {
-	gkom::Application app;
-
-	gkom::Window window;
-	gkom::Scene scene;
-	gkom::Camera camera;
-	gkom::World world;
-	gkom::Box box;
-
-	world.addShape(&box);
-	scene.setActiveWorld(&world);
-	scene.setActiveCamera(&camera);
-	scene.setBackgroundColor(glm::vec4{0.1f, 0.1f, 0.0f, 1.0f});
-	window.addObject(&scene);
-
+	glfw::Application app;
+	glfw::Window window;
 	window.show();
 	return app.exec();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -70,43 +80,6 @@ int main(int /*argc*/, char** /*argv*/)
 // 		// const auto nearPlane = 0.5f;
 // 		// const auto farPlane = 10.0f;
 
-// 		// window.onKeyPress([&fieldOfView](auto key, auto mods)
-// 		// 				  {
-// 		// 					  switch(key)
-// 		// 					  {
-// 		// 						  case GLFW_KEY_LEFT:
-// 		// 							  fieldOfView -= glm::radians(5.0f);
-// 		// 						      break;
-// 		// 					      case GLFW_KEY_RIGHT:
-// 		// 							  fieldOfView += glm::radians(5.0f);
-// 		// 						      break;
-// 		// 					      case GLFW_KEY_UP:
-// 		// 						      fieldOfView += glm::radians(5.0f);
-// 		// 						      break;
-// 		// 						  case GLFW_KEY_DOWN:
-// 		// 							  fieldOfView -= glm::radians(5.0f);
-// 		// 					  }
-// 		// 				  });
-
-// 		window.show();
-
-// 		puts("[Application] Started");
-// 		while(!window.shouldClose())
-// 		{
-// 			glfw::pollEvents();
-// 			window.activate();
-
-// 			window.display();
-// 		}
-// 	}
-// 	catch(std::exception& ex)
-// 	{
-// 		printf("Exception occured: '%s'\n", ex.what());
-// 		return EXIT_FAILURE;
-// 	}
-
-// 	return EXIT_SUCCESS;
-// }
 
 // void GLAPIENTRY messageCallback(GLenum /*source*/,
 // 								GLenum type,

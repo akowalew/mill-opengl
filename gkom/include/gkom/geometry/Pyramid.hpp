@@ -3,12 +3,13 @@
 #include "gkom/Mesh.hpp"
 
 namespace gkom {
+namespace geometry {
 
-class Box
+class Pyramid
 	:	public Mesh
 {
 public:
-	Box();
+	Pyramid();
 
 	float width() const;
 
@@ -42,4 +43,5 @@ private:
 	float length_ = 0.0f;
 };
 
+} // geometry
 } // gkom

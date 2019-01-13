@@ -1,6 +1,6 @@
 #pragma once
 
-namespace gkom {
+namespace glfw {
 
 class Application
 {
@@ -12,4 +12,4 @@ public:
 	int exec();
 };
 
-} // gkom
+} // glfw

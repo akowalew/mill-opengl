@@ -1,9 +1,9 @@
-#include "gkom/detail/WindowsRegistry.hpp"
+#include "glfw/detail/WindowsRegistry.hpp"
 
 #include <cassert>
 #include <cstdio>
 
-namespace gkom {
+namespace glfw {
 namespace detail {
 
 WindowsRegistry::Container WindowsRegistry::windows_ {};
@@ -11,7 +11,8 @@ WindowsRegistry::Container WindowsRegistry::windows_ {};
 void WindowsRegistry::add(Window* window)
 {
 	assert(window);
-	printf("[GKOM][Window] Registering window %p...\n", window);
+	printf("[GLFW][Window] Registering window %p...\n",
+		   static_cast<void*>(window));
 	const auto windowsEnd = windows_.end();
 	const auto pos = std::find(windows_.begin(),
 		                       windowsEnd,
@@ -33,13 +34,15 @@ void WindowsRegistry::remove(Window* window)
 	// Preconditions
 	assert(pos != windowsEnd);
 	windows_.erase(pos);
-	printf("[GKOM][Window] Window %p unregistered\n", window);
+	printf("[GLFW][Window] Window %p unregistered\n",
+		   static_cast<void*>(window));
 }
 
 Window* WindowsRegistry::at(Window::Handle handle)
 {
 	assert(handle);
-	printf("[GKOM][Window] Getting window with handle %p...\n", handle);
+	printf("[GLFW][Window] Getting window with handle %p...\n",
+		   static_cast<void*>(handle));
 	const auto predicate = [handle] (auto window)
 	                       {
 		                       return window->handle() == handle;
@@ -59,8 +62,8 @@ void WindowsRegistry::replace(Window* oldWindow, Window* newWindow)
 {
 	assert(oldWindow);
 	assert(newWindow);
-	printf("[GKOM][Window] Replacing window %p with %p...\n",
-		   oldWindow, newWindow);
+	printf("[GLFW][Window] Replacing window %p with %p...\n",
+		   static_cast<void*>(oldWindow), static_cast<void*>(newWindow));
 
 	const auto windowsEnd = windows_.end();
 	const auto pos = std::find(windows_.begin(),
@@ -72,4 +75,5 @@ void WindowsRegistry::replace(Window* oldWindow, Window* newWindow)
 }
 
 } // detail
-} // gkom
+
+} // glfw

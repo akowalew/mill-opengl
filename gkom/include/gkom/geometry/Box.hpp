@@ -3,6 +3,7 @@
 #include "gkom/Mesh.hpp"
 
 namespace gkom {
+namespace geometry {
 
 class Box
 	:	public Mesh
@@ -42,4 +43,5 @@ private:
 	float length_ = 0.0f;
 };
 
+} // geometry
 } // gkom

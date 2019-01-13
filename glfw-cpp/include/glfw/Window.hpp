@@ -3,12 +3,12 @@
 #include <vector>
 #include <functional>
 
-#include "gkom/Context.hpp"
-#include "gkom/Object.hpp"
+#include "glfw/Context.hpp"
+#include "glfw/Renderer.hpp"
 
 struct GLFWwindow; // Forward declaration
 
-namespace gkom {
+namespace glfw {
 
 class Window
 {
@@ -25,10 +25,6 @@ public:
 
 	Window& operator=(Window&& other) noexcept;
 
-	void addObject(Object* object);
-
-	void removeObject(Object* object);
-
 	void update();
 
 	void show();
@@ -43,21 +39,30 @@ public:
 
 	void onKeyPress(KeyPressHandler keyPressHandler);
 
+	void setRenderer(Renderer* renderer);
+
+	Size size() const;
+
 	Handle handle() const noexcept;
 
 private:
+	void listenSizeCallback();
+
 	void releaseCallbacks();
 
 	static void keyCallback(Window::Handle handle,
 		       		        int key, int scancode,
 		       		        int action, int mods);
 
+	static void sizeCallback(Window::Handle handle,
+							 int width, int height);
+
 	static Handle createNative();
 
 	Handle handle_;
 	Context context_;
 	KeyPressHandler keyPressHandler_;
-	std::vector<Object*> objects_;
+	Renderer* renderer_ {nullptr};
 };
 
-} // gkom
+} // glfw

@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <initializer_list>
 
-#include "gkom/Mesh.hpp"
+#include "gkom/Geometry.hpp"
 #include "gkom/Vertex.hpp"
 #include "gkom/GraphicsManager.hpp"
 #include "gkom/Logging.hpp"
@@ -21,7 +21,7 @@ BoxFactory::BoxFactory(GraphicsManager& graphicsManager)
 
 BoxFactory::~BoxFactory() = default;
 
-Mesh* BoxFactory::createBox()
+Geometry* BoxFactory::createBox()
 {
 	if(!box_)
 	{
@@ -33,7 +33,7 @@ Mesh* BoxFactory::createBox()
 	return box_.get();
 }
 
-std::unique_ptr<Mesh> BoxFactory::makeBox()
+std::unique_ptr<Geometry> BoxFactory::makeBox()
 {
 	logger_("Making box...");
 
@@ -66,7 +66,7 @@ std::unique_ptr<Mesh> BoxFactory::makeBox()
 	const auto vertexArray =
 		graphicsManager_.createVertexArray(vertices, indices);
 	const auto indicesCount = static_cast<int>(indices.size());
-	return std::make_unique<Mesh>(vertexArray, indicesCount);
+	return std::make_unique<Geometry>(vertexArray, indicesCount);
 }
 
 } // gkom

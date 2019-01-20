@@ -62,7 +62,7 @@ public:
 			const auto entity = world.createEntity();
 			assert(entity != nullptr);
 			entity->transform = Transform{position, scale, rotation};
-			entity->mesh = shapesFactory.createBox();
+			entity->geometry = shapesFactory.createBox();
 			entity->material = materialsFactory.createColorMaterial(color);
 			entities.emplace_back(entity);
 		}

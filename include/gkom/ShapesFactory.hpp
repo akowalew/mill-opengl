@@ -5,7 +5,7 @@
 namespace gkom {
 
 class Logger;
-class Mesh; // Forward declaration
+class Geometry; // Forward declaration
 class GraphicsManager; // Forward declaration
 
 class ShapesFactory
@@ -13,15 +13,15 @@ class ShapesFactory
 public:
 	ShapesFactory(GraphicsManager& graphicsManager);
 
-	Mesh* createBox();
+	Geometry* createBox();
 
-	Mesh* createPyramid();
+	Geometry* createPyramid();
 
-	Mesh* createCone(int sides);
+	Geometry* createCone(int sides);
 
-	Mesh* createSphere(int segments);
+	Geometry* createSphere(int segments);
 
-	Mesh* createCylinder(int sides);
+	Geometry* createCylinder(int sides);
 
 private:
 	gkom::BoxFactory boxFactory_;

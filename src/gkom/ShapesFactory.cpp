@@ -13,7 +13,7 @@ ShapesFactory::ShapesFactory(GraphicsManager& graphicsManager)
 	logger_("Initialized");
 }
 
-Mesh* ShapesFactory::createBox()
+Geometry* ShapesFactory::createBox()
 {
 	logger_("Creating box...");
 

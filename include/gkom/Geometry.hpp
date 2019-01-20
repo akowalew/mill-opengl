@@ -4,10 +4,12 @@
 
 namespace gkom {
 
-class Mesh
+class Geometry
 {
 public:
-	Mesh(unsigned int vertexArray,
+	Geometry() = default;
+
+	Geometry(unsigned int vertexArray,
 		 int indicesCount)
 		:	vertexArray(vertexArray)
 		,	indicesCount(indicesCount)

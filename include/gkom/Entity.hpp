@@ -5,7 +5,7 @@
 namespace gkom {
 
 // Forward declarations
-class Mesh;
+class Geometry;
 class Material;
 
 class Entity
@@ -13,7 +13,7 @@ class Entity
 public:
 	Transform transform;
 
-	Mesh* mesh {nullptr};
+	Geometry* geometry {nullptr};
 	Material* material {nullptr};
 };
 

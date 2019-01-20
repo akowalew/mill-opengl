@@ -5,7 +5,7 @@
 namespace gkom {
 
 //! Forward declarations
-class Mesh;
+class Geometry;
 class GraphicsManager;
 class Logger;
 
@@ -16,13 +16,13 @@ public:
 
 	~BoxFactory();
 
-	Mesh* createBox();
+	Geometry* createBox();
 
 private:
-	std::unique_ptr<Mesh> makeBox();
+	std::unique_ptr<Geometry> makeBox();
 
 	GraphicsManager& graphicsManager_;
-	std::unique_ptr<Mesh> box_;
+	std::unique_ptr<Geometry> box_;
 	Logger& logger_;
 };
 

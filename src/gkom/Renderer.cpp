@@ -8,7 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "gkom/Entity.hpp"
-#include "gkom/Mesh.hpp"
+#include "gkom/Geometry.hpp"
 #include "gkom/Material.hpp"
 #include "gkom/Logging.hpp"
 #include "gkom/ShaderProgram.hpp"
@@ -51,9 +51,9 @@ void Renderer::render(const std::vector<Entity*>& entities)
 		assert(entity != nullptr);
 
 		const auto& transform = entity->transform;
-		const auto mesh = entity->mesh;
+		const auto geometry = entity->geometry;
 		const auto material = entity->material;
-		if(mesh == nullptr || material == nullptr)
+		if(geometry == nullptr || material == nullptr)
 		{
 			continue; // Don't render object, which are not renderable
 		}
@@ -75,10 +75,10 @@ void Renderer::render(const std::vector<Entity*>& entities)
 			transUniform.loadMatrix(trans);
 			colorUniform.loadValue(color);
 
-			auto vertexArray = VertexArray{mesh->vertexArray};
+			auto vertexArray = VertexArray{geometry->vertexArray};
 			vertexArray.bind();
 				vertexArray.enableAttribute(0);
-				glDrawElements(GL_TRIANGLES, mesh->indicesCount,
+				glDrawElements(GL_TRIANGLES, geometry->indicesCount,
 							   GL_UNSIGNED_INT, 0);
 				vertexArray.disableAttribute(0);
 			vertexArray.unbind();

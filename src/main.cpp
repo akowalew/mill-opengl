@@ -62,7 +62,7 @@ public:
 			const auto entity = world.createEntity();
 			assert(entity != nullptr);
 			entity->transform = Transform{position, scale, rotation};
-			entity->geometry = shapesFactory.createPyramid();
+			entity->geometry = shapesFactory.createCone(20);
 			entity->material = materialsFactory.createColorMaterial(color);
 			entities.emplace_back(entity);
 		}
@@ -99,7 +99,8 @@ int main()
 	World world;
 	EntityGenerator entityGenerator{world, graphicsManager,
 									shapesFactory, materialsFactory};
-	const auto entitiesCount = 20;
+
+	const auto entitiesCount = 10;
 	auto entities = entityGenerator(entitiesCount);
 
 	window.show();

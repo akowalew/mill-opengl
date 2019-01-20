@@ -1,25 +1,34 @@
 #pragma once
 
+#include <memory>
 #include <unordered_map>
 
+#include "gkom/Geometry.hpp"
+
 namespace gkom {
-namespace meshes {
 
 //! Forward declarations
 class GraphicsManager;
-class Mesh;
+class Geometry;
+class Logger;
 
 class ConeFactory
 {
 public:
 	ConeFactory(GraphicsManager& graphicsManager);
 
-	Mesh* createCone(int sides);
+	~ConeFactory();
+
+	Geometry* createCone(int sides);
+
+	Geometry* findCone(int sides);
 
 private:
+	Geometry makeCone(int sides);
+
 	GraphicsManager& graphicsManager_;
-	std::unordered_map<int /*sides*/, Mesh*> cones_;
+	Logger& logger_;
+	std::unordered_map<int /*sides*/, Geometry> cones_;
 };
 
-} // meshes
 } // gkom

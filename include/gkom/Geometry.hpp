@@ -10,7 +10,7 @@ public:
 	Geometry() = default;
 
 	Geometry(unsigned int vertexArray,
-		 int indicesCount)
+		     int indicesCount)
 		:	vertexArray(vertexArray)
 		,	indicesCount(indicesCount)
 	{}

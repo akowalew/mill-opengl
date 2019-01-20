@@ -2,6 +2,7 @@
 
 #include "gkom/BoxFactory.hpp"
 #include "gkom/PyramidFactory.hpp"
+#include "gkom/ConeFactory.hpp"
 
 namespace gkom {
 
@@ -27,6 +28,7 @@ public:
 private:
 	gkom::BoxFactory boxFactory_;
 	gkom::PyramidFactory pyramidFactory_;
+	gkom::ConeFactory coneFactory_;
 
 	Logger& logger_;
 };

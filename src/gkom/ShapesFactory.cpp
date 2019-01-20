@@ -9,6 +9,7 @@ namespace gkom {
 ShapesFactory::ShapesFactory(GraphicsManager& graphicsManager)
 	:	boxFactory_(graphicsManager)
 	,	pyramidFactory_(graphicsManager)
+	,	coneFactory_(graphicsManager)
 	,	logger_(Logging::getLogger("ShapesFactory"))
 {
 	logger_("Initialized");
@@ -31,5 +32,15 @@ Geometry* ShapesFactory::createPyramid()
 	assert(pyramid != nullptr);
 	return pyramid;
 }
+
+Geometry* ShapesFactory::createCone(int sides)
+{
+	logger_("Creating pyramid...");
+
+	const auto cone = coneFactory_.createCone(sides);
+	assert(cone != nullptr);
+	return cone;
+}
+
 
 } // gkom

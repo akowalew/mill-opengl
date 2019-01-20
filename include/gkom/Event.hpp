@@ -12,6 +12,8 @@ enum class KeyCode
 	Left = 263,
 	Down = 264,
 	Up = 265,
+	Subtract = 333,
+	Add = 334,
 };
 
 enum class KeyAction

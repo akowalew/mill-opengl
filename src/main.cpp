@@ -124,6 +124,11 @@ int main()
 	            				window.setShouldClose(true);
 	            				break;
 
+	            			case KeyCode::Enter:
+	            				world.clear();
+	            				entities = entityGenerator(entitiesCount);
+	            				break;
+
 	            			case KeyCode::Right:
 	            				camera.position[0] -= 0.1;
 	            				break;
@@ -140,9 +145,12 @@ int main()
 	            				camera.position[2] -= 0.1;
 	            				break;
 
-	            			case KeyCode::Enter:
-	            				world.clear();
-	            				entities = entityGenerator(entitiesCount);
+	            			case KeyCode::Subtract:
+	            				camera.fieldOfView += glm::radians(5.0f);
+	            				break;
+
+	            			case KeyCode::Add:
+	            				camera.fieldOfView -= glm::radians(5.0f);
 	            				break;
 
 	            			default:

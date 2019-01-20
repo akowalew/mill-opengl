@@ -10,6 +10,7 @@ ShapesFactory::ShapesFactory(GraphicsManager& graphicsManager)
 	:	boxFactory_(graphicsManager)
 	,	pyramidFactory_(graphicsManager)
 	,	coneFactory_(graphicsManager)
+	,	prismFactory_(graphicsManager)
 	,	logger_(Logging::getLogger("ShapesFactory"))
 {
 	logger_("Initialized");
@@ -40,6 +41,15 @@ Geometry* ShapesFactory::createCone(int sides)
 	const auto cone = coneFactory_.createCone(sides);
 	assert(cone != nullptr);
 	return cone;
+}
+
+Geometry* ShapesFactory::createPrism(int sides)
+{
+	logger_("Creating prism...");
+
+	const auto prism = prismFactory_.createPrism(sides);
+	assert(prism != nullptr);
+	return prism;
 }
 
 

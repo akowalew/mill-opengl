@@ -62,7 +62,7 @@ public:
 			const auto entity = world.createEntity();
 			assert(entity != nullptr);
 			entity->transform = Transform{position, scale, rotation};
-			entity->geometry = shapesFactory.createCone(20);
+			entity->geometry = shapesFactory.createPrism(4);
 			entity->material = materialsFactory.createColorMaterial(color);
 			entities.emplace_back(entity);
 		}

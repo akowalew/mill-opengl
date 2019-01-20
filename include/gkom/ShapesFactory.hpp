@@ -3,6 +3,7 @@
 #include "gkom/BoxFactory.hpp"
 #include "gkom/PyramidFactory.hpp"
 #include "gkom/ConeFactory.hpp"
+#include "gkom/PrismFactory.hpp"
 
 namespace gkom {
 
@@ -25,10 +26,13 @@ public:
 
 	Geometry* createCylinder(int sides);
 
+	Geometry* createPrism(int sides);
+
 private:
 	gkom::BoxFactory boxFactory_;
 	gkom::PyramidFactory pyramidFactory_;
 	gkom::ConeFactory coneFactory_;
+	gkom::PrismFactory prismFactory_;
 
 	Logger& logger_;
 };

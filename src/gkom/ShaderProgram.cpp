@@ -3,7 +3,7 @@
 #include <cassert>
 #include <vector>
 #include <stdexcept>
-
+#include <string>
 #define GLEW_STATIC
 #include <GL/glew.h>
 

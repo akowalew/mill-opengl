@@ -4,6 +4,7 @@
 #include <vector>
 #include <stdexcept>
 #include <cstdio>
+#include <string>
 
 #define GLEW_STATIC
 #include <GL/glew.h>

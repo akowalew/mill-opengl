@@ -27,8 +27,8 @@ set(GLM_TEST_ENABLE_SIMD_SSE4_2 ON CACHE BOOL "Enable SSE 4.2 optimizations for 
 set(GLM_TEST_ENABLE_SIMD_AVX ON CACHE BOOL "Enable AVX optimizations for GLM")
 set(GLM_TEST_ENABLE_SIMD_AVX2 ON CACHE BOOL "Enable AVX2 optimizations for GLM")
 add_subdirectory(glm)
-target_include_directories(glm_static PUBLIC glm/glm)
-target_include_directories(glm_shared PUBLIC glm/glm)
+target_include_directories(glm_static PUBLIC glm/)
+target_include_directories(glm_shared PUBLIC glm/)
 
 ## SOIL
 if(ANDROID)

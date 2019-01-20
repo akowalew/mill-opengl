@@ -1,0 +1,279 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"all"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - all",
+			"working_dir": "${project_path}/build",
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"clean"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - clean",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"install/strip"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - install/strip",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"install"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - install",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"install/local"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - install/local",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"list_install_components"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - list_install_components",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"edit_cache"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - edit_cache",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"rebuild_cache"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - rebuild_cache",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"SOIL_static"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - SOIL_static",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"SOIL_static/fast"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - SOIL_static/fast",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"libglew_static"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "glew - libglew_static",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"libglew_static/fast"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "glew - libglew_static/fast",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"glfw"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "GLFW - glfw",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"glfw/fast"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "GLFW - glfw/fast",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"uninstall"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "glm - uninstall",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"glm_shared"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "glm - glm_shared",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"glm_shared/fast"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "glm - glm_shared/fast",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"glm_static"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "glm - glm_static",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"glm_static/fast"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "glm - glm_static/fast",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"ZW1-Mlyn"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - ZW1-Mlyn",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"ZW1-Mlyn/fast"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - ZW1-Mlyn/fast",
+			"working_dir": "${project_path}/build"
+		},
+		{
+			"cmd":
+			[
+				"/usr/bin/make",
+				"-f",
+				"Makefile",
+				"resources"
+			],
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+			"name": "ZW1-Mlyn - resources",
+			"working_dir": "${project_path}/build"
+		}
+	],
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				"build"
+			],
+			"path": "."
+		}
+	]
+}

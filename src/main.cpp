@@ -1,160 +1,164 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include "shprogram.h"
-#include <GLFW/glfw3.h>
-#include <SOIL.h>
-#include <iostream>
-#include <iterator>
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
-#include <gtc/type_ptr.hpp>
-using namespace std;
+#include <cstdio>
 
-const GLuint WIDTH = 800, HEIGHT = 600;
+#include <cassert>
+#include <random>
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+#include <glm/trigonometric.hpp>
+
+#include "gkom/GraphicsManager.hpp"
+#include "gkom/ShaderLoader.hpp"
+#include "gkom/ShapesFactory.hpp"
+#include "gkom/MaterialsFactory.hpp"
+#include "gkom/Camera.hpp"
+#include "gkom/Window.hpp"
+#include "gkom/Renderer.hpp"
+#include "gkom/Entity.hpp"
+#include "gkom/World.hpp"
+
+class EntityGenerator
 {
-	cout << key << endl ;
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-}
+public:
+	gkom::World& world;
+	gkom::GraphicsManager& graphicsManager;
+	gkom::ShapesFactory& shapesFactory;
+	gkom::MaterialsFactory& materialsFactory;
+
+	std::vector<gkom::Entity*> operator()(int count) const
+	{
+		using namespace gkom;
+		assert(count > 0);
+
+	    std::random_device rdevice;
+	    std::default_random_engine rengine(rdevice());
+	    std::uniform_real_distribution<float> positionDist(0.0, 1.0);
+	    std::uniform_real_distribution<float> scaleDist(0.1, 0.2);
+	    std::uniform_real_distribution<float> rotationDist(0.1, 0.3);
+	    std::uniform_real_distribution<float> colorDist(0.0, 1.0);
+
+		std::vector<Entity*> entities;
+		for(auto i = 0; i < count; ++i)
+		{
+			const auto px = positionDist(rengine);
+			const auto py = positionDist(rengine);
+			const auto pz = positionDist(rengine);
+			const auto position = glm::vec3{px, py, pz};
+
+			const auto sx = scaleDist(rengine);
+			const auto sy = sx;
+			const auto sz = sx;
+			const auto scale = glm::vec3{sx, sy, sz};
+
+			const auto rx = glm::radians(rotationDist(rengine) * 360.0f);
+			const auto ry = glm::radians(rotationDist(rengine) * 360.0f);
+			const auto rz = glm::radians(rotationDist(rengine) * 360.0f);
+			const auto rotation = glm::vec3{rx, ry, rz};
+
+			const auto red = colorDist(rengine);
+			const auto green = colorDist(rengine);
+			const auto blue = colorDist(rengine);
+			const auto alpha = 1.0f;
+			const auto color = glm::vec4(red, green, blue, alpha);
+
+			const auto entity = world.createEntity();
+			assert(entity != nullptr);
+			entity->transform = Transform{position, scale, rotation};
+			entity->mesh = shapesFactory.createBox();
+			entity->material = materialsFactory.createColorMaterial(color);
+			entities.emplace_back(entity);
+		}
+
+		return entities;
+	}
+};
 
 int main()
 {
-	if (glfwInit() != GL_TRUE)
+	using namespace gkom;
+	using namespace std::chrono;
+
+	Window window;
+	window.setTitle("ZW1-Mlyn");
+	window.setSize({1024, 768});
+	window.activate();
+
+	Camera camera;
+	camera.position = glm::vec3{1.5f, 1.5f, 1.5f};
+	camera.fieldOfView = glm::radians(45.0f);
+	camera.nearPlane = 1.0f;
+	camera.farPlane = 10.0f;
+
+	Renderer renderer;
+	renderer.setCamera(&camera);
+	renderer.setBackgroundColor({0.1f, 0.1f, 0.2f, 1.0f});
+
+	GraphicsManager graphicsManager;
+	ShapesFactory shapesFactory(graphicsManager);
+	ShaderLoader shaderLoader(graphicsManager);
+	MaterialsFactory materialsFactory(shaderLoader);
+
+	World world;
+	EntityGenerator entityGenerator{world, graphicsManager,
+									shapesFactory, materialsFactory};
+	const auto entitiesCount = 20;
+	auto entities = entityGenerator(entitiesCount);
+
+	window.show();
+	while(!window.shouldClose())
 	{
-		cout << "GLFW initialization failed" << endl;
-		return -1;
-	}
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	try
-	{
-		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 04", nullptr, nullptr);
-		if (window == nullptr)
-			throw std::runtime_error("GLFW window not crgdffgsdfgsdeated");
-		glfwMakeContextCurrent(window);
-		glfwSetKeyCallback(window, key_callback);
-
-		glewExperimental = GL_TRUE;
-		if (glewInit() != GLEW_OK)
-			throw std::runtime_error("GLEW Initialization failed");
-
-		glViewport(0, 0, WIDTH, HEIGHT);
-
-		// Let's check what are maximum parameters counts
-		GLint nrAttributes;
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
-		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
-		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
-		// Build, compile and link shader program
-		ShaderProgram theProgram("../res/gl_04.vert", "../res/gl_04.frag");
-
-		// Set up vertex data
-		GLfloat vertices[] = {
-			// coordinates			// color			// texture
-			 0.25f,  0.5f,  0.0f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,
-			-0.75f,  0.5f,  0.0f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,
-			-0.25f, -0.5f,  0.0f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,
-			 0.75f, -0.5f,  0.0f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,
-		};
-
-		GLuint indices[] = {
-			0, 1, 2,
-			0, 2, 3,
-		};
-
-		GLuint VBO, EBO, VAO;
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		// vertex geometry data
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
-
-		// vertex color data
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(1);
-
-		// vertex texture coordinates
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-
-		glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-
-		// Set the texture wrapping parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		// Set texture filtering parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		// prepare textures
-		int width, height;
-		unsigned char* image = SOIL_load_image("../res/iipw.png", &width, &height, 0, SOIL_LOAD_RGB);
-		if (image == nullptr)
-			throw std::runtime_error("Failed to load texture file");
-
-		GLuint texture0;
-		glGenTextures(1, &texture0);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture0);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		// freeing unnecessary texture stuff
-		SOIL_free_image_data(image);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		// main event loop
-		while (!glfwWindowShouldClose(window))
+		Event event;
+		while(window.pollEvent(event))
 		{
-			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-			glfwPollEvents();
+	        std::visit([&](auto&& ev) {
+	            using T = std::decay_t<decltype(ev)>;
+	            if constexpr (std::is_same_v<T, KeyEvent>)
+	            {
+	            	if(ev.action == KeyAction::Press
+	            		|| ev.action == KeyAction::Repeat)
+	            	{
+	            		printf("[main] Key pressed: %d\n",
+	            			   static_cast<int>(ev.code));
 
-			// Clear the colorbuffer
-			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+	            		switch(ev.code)
+	            		{
+	            			case KeyCode::Escape:
+	            				window.setShouldClose(true);
+	            				break;
 
-			// Bind Textures using texture units
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture0);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
+	            			case KeyCode::Right:
+	            				camera.position[0] -= 0.1;
+	            				break;
 
-			// Draw our first triangle
-			theProgram.Use();
+	            			case KeyCode::Left:
+	            				camera.position[0] += 0.1;
+	            				break;
 
-			glBindVertexArray(VAO);
-			glDrawElements(GL_TRIANGLES, std::size(indices), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
+	            			case KeyCode::Down:
+	            				camera.position[2] += 0.1;
+	            				break;
 
-			// Swap the screen buffers
-			glfwSwapBuffers(window);
+	            			case KeyCode::Up:
+	            				camera.position[2] -= 0.1;
+	            				break;
+
+	            			case KeyCode::Enter:
+	            				world.clear();
+	            				entities = entityGenerator(entitiesCount);
+	            				break;
+
+	            			default:
+	            				break;
+	            		}
+	            	}
+	            }
+	            else if constexpr (std::is_same_v<T, SizeEvent>)
+	            {
+	            	puts("[main] Window resized");
+	            	renderer.surfaceChanged(ev.width, ev.height);
+	            }
+	        }, event);
 		}
-		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(1, &VBO);
-		glDeleteBuffers(1, &EBO);
-	}
-	catch (std::exception& ex)
-	{
-		cout << ex.what() << endl;
-	}
-	glfwTerminate();
 
-	return 0;
+		renderer.render(entities);
+		window.update();
+	}
 }

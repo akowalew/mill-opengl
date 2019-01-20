@@ -22,6 +22,7 @@ add_executable(ZW1-Mlyn
 	src/gkom/MaterialsFactory.cpp include/gkom/MaterialsFactory.hpp
 	src/gkom/ShapesFactory.cpp include/gkom/ShapesFactory.hpp
 	src/gkom/BoxFactory.cpp include/gkom/BoxFactory.hpp
+	src/gkom/PyramidFactory.cpp include/gkom/PyramidFactory.hpp
 	src/gkom/Renderer.cpp include/gkom/Renderer.hpp
 	src/gkom/IndexBuffer.cpp include/gkom/IndexBuffer.hpp
 	src/gkom/VertexBuffer.cpp include/gkom/VertexBuffer.hpp

@@ -38,10 +38,13 @@ std::unique_ptr<Geometry> BoxFactory::makeBox()
 	logger_("Making box...");
 
 	const auto vertices = Vertices{
+		// Front face
 		{{-0.5f, 0.5f, 0.5f}},
 		{{0.5f, 0.5f, 0.5f}},
 		{{-0.5f, -0.5f, 0.5f}},
 		{{0.5f, -0.5f, 0.5f}},
+
+		// Back face
 		{{-0.5f, 0.5f, -0.5f}},
 		{{0.5f, 0.5f, -0.5f}},
 		{{-0.5f, -0.5f, -0.5f}},

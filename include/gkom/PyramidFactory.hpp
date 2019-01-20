@@ -1,23 +1,30 @@
 #pragma once
 
+#include <memory>
+
 namespace gkom {
-namespace meshes {
 
 //! Forward declarations
 class GraphicsManager;
-class Mesh;
+class Geometry;
+class Logger;
 
 class PyramidFactory
 {
 public:
 	PyramidFactory(GraphicsManager& graphicsManager);
 
-	Mesh* createPyramid();
+	~PyramidFactory();
+
+	Geometry* createPyramid();
 
 private:
+	std::unique_ptr<Geometry> makePyramid();
+
 	GraphicsManager& graphicsManager_;
-	Mesh* pyramid_ {nullptr};
+	Logger& logger_;
+
+	std::unique_ptr<Geometry> pyramid_;
 };
 
-} // meshes
 } // gkom

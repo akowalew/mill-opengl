@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gkom/BoxFactory.hpp"
+#include "gkom/PyramidFactory.hpp"
 
 namespace gkom {
 
@@ -25,6 +26,7 @@ public:
 
 private:
 	gkom::BoxFactory boxFactory_;
+	gkom::PyramidFactory pyramidFactory_;
 
 	Logger& logger_;
 };

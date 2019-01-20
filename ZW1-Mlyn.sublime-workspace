@@ -4,6 +4,450 @@
 		"selected_items":
 		[
 			[
+				"empl",
+				"emplace_hint\titerator emplace_hint(const_iterator __pos, _Args &&__args...)"
+			],
+			[
+				"create",
+				"createColorMaterial\tMaterial * createColorMaterial(const glm::vec4 &color)"
+			],
+			[
+				"mater",
+				"materialsFactory"
+			],
+			[
+				"re",
+				"rengine\tstd::default_random_engine rengine"
+			],
+			[
+				"color",
+				"color"
+			],
+			[
+				"colo",
+				"colorMaterialsEnd\tconst __normal_iterator<unique_ptr<Material, default_delete<Material> > *, vector<unique_ptr<Material, default_delete<Material> >, allocator<unique_ptr<Material, default_delete<Material> > > > > colorMaterialsEnd"
+			],
+			[
+				"shader",
+				"shaderProgram"
+			],
+			[
+				"Ma",
+				"MaterialsFactory"
+			],
+			[
+				"MA",
+				"MaterialsFactory"
+			],
+			[
+				"M",
+				"MaterialsFactory"
+			],
+			[
+				"gra",
+				"graphicsManager"
+			],
+			[
+				"Mate",
+				"Material"
+			],
+			[
+				"Mater",
+				"MaterialsFactory"
+			],
+			[
+				"MAte",
+				"MaterialsFactory\tMaterialsFactory"
+			],
+			[
+				"indi",
+				"indicesCount\tconst int indicesCount"
+			],
+			[
+				"In",
+				"Indices\tIndices"
+			],
+			[
+				"vert",
+				"Vertices\tVertices"
+			],
+			[
+				"crae",
+				"createVertexArray\tunsigned int createVertexArray(const Vertices &vertices, const Indices &indices)"
+			],
+			[
+				"verte",
+				"vertexArray"
+			],
+			[
+				"loadD",
+				"loadData\tvoid loadData(const std::vector<T> &indices)"
+			],
+			[
+				"load",
+				"loadData\tvoid loadData(const std::vector<T> &vertices)"
+			],
+			[
+				"createVerte",
+				"createVertexBuffer"
+			],
+			[
+				"ini",
+				"indices"
+			],
+			[
+				"inid",
+				"indicesBytes"
+			],
+			[
+				"Index",
+				"IndexBuffer\tIndexBuffer::"
+			],
+			[
+				"gener",
+				"generateBufferOnly"
+			],
+			[
+				"Vertex",
+				"VertexArray"
+			],
+			[
+				"program",
+				"program_invocation_name\tchar * program_invocation_name"
+			],
+			[
+				"shad",
+				"shaders_"
+			],
+			[
+				"vertex",
+				"vertexBuffers_\tstd::vector<unsigned int> vertexBuffers_"
+			],
+			[
+				"ve",
+				"vertexShader"
+			],
+			[
+				"hand",
+				"handle_"
+			],
+			[
+				"use",
+				"isUsed\tbool isUsed() const"
+			],
+			[
+				"Shader",
+				"ShaderProgram"
+			],
+			[
+				"con",
+				"const\tconst"
+			],
+			[
+				"Sha",
+				"ShaderProgram"
+			],
+			[
+				"han",
+				"handle_"
+			],
+			[
+				"handle",
+				"glGetHandleARB\tglGetHandleARB"
+			],
+			[
+				"length",
+				"lengths\tconst int *const lengths"
+			],
+			[
+				"loadSou",
+				"loadSources\tvoid loadSources(int count, const char **strings, const int *lengths)"
+			],
+			[
+				"vsh",
+				"vshCode"
+			],
+			[
+				"fsh",
+				"fshCode"
+			],
+			[
+				"emplca",
+				"emplace_back\treference emplace_back(_Args &&__args...)"
+			],
+			[
+				"crate",
+				"createShaderProgram\tShaderProgram createShaderProgram()"
+			],
+			[
+				"Shad",
+				"ShaderProgram\tShaderProgram"
+			],
+			[
+				"loadS",
+				"loadShaderCode\tstd::string loadShaderCode(std::string_view name)"
+			],
+			[
+				"fragme",
+				"fragmentShaderPos"
+			],
+			[
+				"glTexImage",
+				"glTexImage2D\tvoid glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void *pixels)"
+			],
+			[
+				"loadTe",
+				"loadTextureImage\tImage loadTextureImage(std::string_view name)"
+			],
+			[
+				"en",
+				"entity"
+			],
+			[
+				"enti",
+				"entities"
+			],
+			[
+				"bgColor",
+				"bgColor_\tColor bgColor_"
+			],
+			[
+				"ba",
+				"backgroundColor_"
+			],
+			[
+				"back",
+				"backgroundColor_"
+			],
+			[
+				"camer",
+				"camera"
+			],
+			[
+				"buffers_",
+				"GLEW_OES_draw_buffers_indexed\tGLEW_OES_draw_buffers_indexed"
+			],
+			[
+				"buffe",
+				"buffers_\tstd::vector<unsigned int> buffers_"
+			],
+			[
+				"glBindV",
+				"glBindVertexArray\tglBindVertexArray"
+			],
+			[
+				"glDeleteArray",
+				"glDeleteVertexArrays\tglDeleteVertexArrays"
+			],
+			[
+				"even",
+				"events_"
+			],
+			[
+				"unor",
+				"unordered_map\tunordered_map<class _Key, class _Tp>"
+			],
+			[
+				"unorder",
+				"unordered_map\tstandard header (since c++11)"
+			],
+			[
+				"key",
+				"keyPressHandler_"
+			],
+			[
+				"ke",
+				"keyPressHandler_"
+			],
+			[
+				"size",
+				"resizeHandler_\tResizeHandler resizeHandler_"
+			],
+			[
+				"glfwcontext",
+				"glfwGetCurrentContext\tGLFWwindow * glfwGetCurrentContext()"
+			],
+			[
+				"window",
+				"windowHandle_"
+			],
+			[
+				"acti",
+				"activate\tvoid activate()"
+			],
+			[
+				"Cont",
+				"ContextGuard"
+			],
+			[
+				"context",
+				"context_"
+			],
+			[
+				"Conte",
+				"ContextGuard\tContextGuard"
+			],
+			[
+				"Rende",
+				"RenderEngine\tRenderEngine"
+			],
+			[
+				"update",
+				"updateBehaviour\tUpdateBehavior updateBehaviour"
+			],
+			[
+				"glfwWindowUser",
+				"glfwGetWindowUserPointer\tvoid * glfwGetWindowUserPointer(GLFWwindow *window)"
+			],
+			[
+				"Ve",
+				"VertexArray"
+			],
+			[
+				"scene",
+				"scene_"
+			],
+			[
+				"Vert",
+				"VerticesData\tconst float [1] VerticesData"
+			],
+			[
+				"main",
+				"mainRenderer"
+			],
+			[
+				"camera",
+				"camera_"
+			],
+			[
+				"sce",
+				"scene_\tScene * scene_"
+			],
+			[
+				"ne",
+				"nearPlane"
+			],
+			[
+				"glfwSetSize",
+				"glfwSetWindowSizeCallback\tGLFWwindowsizefun glfwSetWindowSizeCallback(GLFWwindow *window, GLFWwindowsizefun cbfun)"
+			],
+			[
+				"onS",
+				"onSurfaceChanged\tvoid onSurfaceChanged(int width, int height)"
+			],
+			[
+				"rendere",
+				"renderer_"
+			],
+			[
+				"ren",
+				"renderer\tRenderer * renderer"
+			],
+			[
+				"rota",
+				"rotation"
+			],
+			[
+				"bac",
+				"backgroundColor"
+			],
+			[
+				"far",
+				"farPlane"
+			],
+			[
+				"nar",
+				"nearPlane"
+			],
+			[
+				"aspe",
+				"aspectRatio"
+			],
+			[
+				"fie",
+				"fieldOfView"
+			],
+			[
+				"up",
+				"upAxis"
+			],
+			[
+				"cen",
+				"centerPoint"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"positio",
+				"position_"
+			],
+			[
+				"he",
+				"height_"
+			],
+			[
+				"wid",
+				"width_"
+			],
+			[
+				"render",
+				"renderImpl\tvoid renderImpl()"
+			],
+			[
+				"obje",
+				"objects_\tstd::vector<Object *> objects_"
+			],
+			[
+				"objec",
+				"objects_"
+			],
+			[
+				"obj",
+				"objects_"
+			],
+			[
+				"nea",
+				"nearPlane_"
+			],
+			[
+				"fiel",
+				"fieldOfView_"
+			],
+			[
+				"upA",
+				"upAxis_"
+			],
+			[
+				"pro",
+				"projection_"
+			],
+			[
+				"windo",
+				"windows_"
+			],
+			[
+				"wind",
+				"windows_"
+			],
+			[
+				"Window",
+				"WindowsRegistry\tWindowsRegistry::"
+			],
+			[
+				"Win",
+				"Window\tWindow::"
+			],
+			[
+				"Wind",
+				"WindowsRegistry"
+			],
+			[
+				"nam",
+				"name\tNamespace"
+			],
+			[
 				"model",
 				"modelUni"
 			],
@@ -56,10 +500,6 @@
 				"Texture2D"
 			],
 			[
-				"color",
-				"colorSize"
-			],
-			[
 				"image",
 				"imageData"
 			],
@@ -74,282 +514,6 @@
 			[
 				"GL_VERTEX",
 				"GL_VERTEX_SHADER\tGL_VERTEX_SHADER"
-			],
-			[
-				"glGet",
-				"glGetIntegerv\tvoid glGetIntegerv(GLenum pname, GLint *params)"
-			],
-			[
-				"GLFWMoni",
-				"GLFWmonitor\tGLFWmonitor"
-			],
-			[
-				"DEfau",
-				"DefaultWidth\tconst int DefaultWidth"
-			],
-			[
-				"Window",
-				"WindowTitle"
-			],
-			[
-				"Windo",
-				"WindowHeight\tconst int WindowHeight"
-			],
-			[
-				"GLFW_OPEN",
-				"GLFW_OPENGL_CORE_PROFILE\tGLFW_OPENGL_CORE_PROFILE"
-			],
-			[
-				"GLFW_CONTEXT",
-				"GLFW_CONTEXT_VERSION_MINOR"
-			],
-			[
-				"GLFW_CONTEXT_VERS",
-				"GLFW_CONTEXT_VERSION_MAJOR\tGLFW_CONTEXT_VERSION_MAJOR"
-			],
-			[
-				"main",
-				"mainWindow_\tmainWindow_(args)"
-			],
-			[
-				"CMAKE_cURREN_",
-				"CMAKE_CURRENT_SOURCE_DIR\tbuiltin"
-			],
-			[
-				"fra",
-				"FragmentShaderPath\tconst char *const FragmentShaderPath"
-			],
-			[
-				"fragme",
-				"fragmentShaderPath"
-			],
-			[
-				"hna",
-				"handle"
-			],
-			[
-				"vertex",
-				"vertexShaderCode\tbasic_string<char, char_traits<char>, allocator<char> > vertexShaderCode"
-			],
-			[
-				"verte",
-				"vertexShaderStream\tbasic_ifstream<char> vertexShaderStream"
-			],
-			[
-				"vert",
-				"VertexShaderPath\tconst char *const VertexShaderPath"
-			],
-			[
-				"trian",
-				"triangleVertices"
-			],
-			[
-				"windo",
-				"window_\tglfw::Window window_"
-			],
-			[
-				"glfwWi",
-				"glfwWindowShouldClose\tint glfwWindowShouldClose(GLFWwindow *window)"
-			],
-			[
-				"nam",
-				"namespace"
-			],
-			[
-				"target",
-				"target_include_directories\tcommand"
-			],
-			[
-				"handle",
-				"handle_\tHandle handle_"
-			],
-			[
-				"key",
-				"keyCallback"
-			],
-			[
-				"glfwDes",
-				"glfwDestroyWindow\tvoid glfwDestroyWindow(GLFWwindow *window)"
-			],
-			[
-				"glfw",
-				"glfw-cpp"
-			],
-			[
-				"run",
-				"runtime_error"
-			],
-			[
-				"ZW",
-				"ZW1-Mlyn"
-			],
-			[
-				"CMAKE_CURRENT",
-				"CMAKE_CURRENT_SOURCE_DIR\tbuiltin"
-			],
-			[
-				"soil",
-				"SOIL_INCLUDE_DIRS\tline 37"
-			],
-			[
-				"CMAKE_CURREN",
-				"CMAKE_CURRENT_SOURCE_DIR\tbuiltin"
-			],
-			[
-				"aligned_storag",
-				"aligned_storage_t\taligned_storage_t<size_t _Len, size_t _Align>"
-			],
-			[
-				"last",
-				"int_least16_t\tint_least16_t"
-			],
-			[
-				"fir",
-				"firstNode\tauto firstNode"
-			],
-			[
-				"_s",
-				"_sentinel"
-			],
-			[
-				"BOOST",
-				"BOOST_AUTO_TEST_CASE_TEMPLATE"
-			],
-			[
-				"const",
-				"const_iterator\tconst_iterator"
-			],
-			[
-				"reverse",
-				"reverse_iterator\treverse_iterator<typename _Iterator>"
-			],
-			[
-				"BOOS",
-				"BOOST_CHECK"
-			],
-			[
-				"ve",
-				"vector\tstd::vector"
-			],
-			[
-				"BOO",
-				"BOOST_AUTO_TEST_CASE_TEMPLATE"
-			],
-			[
-				"vec",
-				"vector2"
-			],
-			[
-				"BO",
-				"BOOST_CHECK"
-			],
-			[
-				"BOST",
-				"BOOST_AUTO_TEST_CASE_TEMPLATE"
-			],
-			[
-				"s",
-				"_size\tsize_type _size"
-			],
-			[
-				"BOSO",
-				"BOOST_AUTO_TEST_CASE_TEMPLATE"
-			],
-			[
-				"ptr",
-				"ptrdiff_t\tptrdiff_t"
-			],
-			[
-				"pre",
-				"previousSize"
-			],
-			[
-				"no",
-				"noexcept"
-			],
-			[
-				"vecto",
-				"vector2"
-			],
-			[
-				"Boo",
-				"BOOST_AUTO_TEST_CASE_TEMPLATE"
-			],
-			[
-				"BOOST_",
-				"BOOST_CHECK"
-			],
-			[
-				"new",
-				"newBuffer\tauto newBuffer"
-			],
-			[
-				"B",
-				"BOOST_CHECK"
-			],
-			[
-				"_rx",
-				"_rxHandler\tint _rxHandler"
-			],
-			[
-				"by",
-				"bytesRead"
-			],
-			[
-				"Tx",
-				"TxBuffer"
-			],
-			[
-				"_tx",
-				"_txBuffer\tint _txBuffer"
-			],
-			[
-				"UARTFifoLe",
-				"UARTFIFOLevelSet\tvoid UARTFIFOLevelSet(uint32_t ui32Base, uint32_t ui32TxLevel, uint32_t ui32RxLevel)"
-			],
-			[
-				"UARTFifo",
-				"UARTFIFOLevelGet\tvoid UARTFIFOLevelGet(uint32_t ui32Base, uint32_t *pui32TxLevel, uint32_t *pui32RxLevel)"
-			],
-			[
-				"target_compile",
-				"target_compile_definitions\tcommand"
-			],
-			[
-				"atte",
-				"attemptWrite"
-			],
-			[
-				"FIFO",
-				"FIFOSize"
-			],
-			[
-				"TX",
-				"TxBuffer"
-			],
-			[
-				"Stat",
-				"StaticFunction"
-			],
-			[
-				"sub",
-				"subspan"
-			],
-			[
-				"DATA",
-				"dataHasError\tbool dataHasError(std::uint32_t rawData)"
-			],
-			[
-				"static",
-				"static_assert\tstatic_assert(expression, message)"
-			],
-			[
-				"sts",
-				"systick"
-			],
-			[
-				"cmake",
-				"cmake_minimum_required\tcommand"
 			]
 		]
 	},
@@ -461,6 +625,58 @@
 		"selected_items":
 		[
 			[
+				"ren",
+				"Rename File"
+			],
+			[
+				"move",
+				"File: Move"
+			],
+			[
+				"rena",
+				"Rename File"
+			],
+			[
+				"sett",
+				"Preferences: Settings"
+			],
+			[
+				"de",
+				"File: Delete"
+			],
+			[
+				"dele",
+				"File: Delete"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"settings",
+				"Preferences: Settings"
+			],
+			[
+				"ecc",
+				"EasyClangComplete: Show all errors"
+			],
+			[
+				"setting",
+				"Preferences: Settings"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"brows",
+				"Preferences: Browse Packages"
+			],
+			[
+				"re",
+				"Rename File"
+			],
+			[
 				"git diff",
 				"Git: Diff Current File"
 			],
@@ -473,10 +689,6 @@
 				"Set Syntax: Diff"
 			],
 			[
-				"ren",
-				"Rename File"
-			],
-			[
 				"enable",
 				"Package Control: Enable Package"
 			],
@@ -485,27 +697,11 @@
 				"Package Control: Install Package"
 			],
 			[
-				"setting",
-				"Preferences: Settings"
-			],
-			[
 				"renam",
 				"Rename File"
 			],
 			[
 				"install",
-				"Package Control: Install Package"
-			],
-			[
-				"ecc",
-				"EasyClangComplete: Settings"
-			],
-			[
-				"settings",
-				"Preferences: Settings"
-			],
-			[
-				"instal",
 				"Package Control: Install Package"
 			],
 			[
@@ -561,10 +757,6 @@
 				"EasyClangComplete: Clean current CMake cache"
 			],
 			[
-				"insta",
-				"Package Control: Install Package"
-			],
-			[
 				"remove",
 				"Package Control: Remove Package"
 			],
@@ -575,10 +767,6 @@
 			[
 				"wrap",
 				"Word Wrap: Toggle"
-			],
-			[
-				"sett",
-				"Preferences: Settings"
 			],
 			[
 				"comm",
@@ -657,138 +845,138 @@
 	},
 	"file_history":
 	[
-		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Context.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gkom/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/glfw/Window.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/gkom.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Application.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/gkom.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/src/glfw.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/main.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/TextureLoader.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/ShaderLoader.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/GraphicsManager.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/BoxFactory.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Window.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Logging.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/BoxFactory.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/GraphicsManager.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/Window.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/Logging.cpp",
 		"/home/akowalew/workspace/ZW1-Mlyn/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Window.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Window.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Application.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/Scene.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/glfw/glfw.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Scene.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glfw/include/GLFW/glfw3.h",
-		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/src/Window.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/gl.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Camera.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Color.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/Box.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Object.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Rectangle.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glm/glm/trigonometric.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Triangle.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/VertexBuffer.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/Uniform.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Box.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glm/glm/ext/matrix_clip_space.inl",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/World.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Shape.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Size.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/Attribute.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/Box.vsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/Box.fsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/Program.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/VertexShader.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/ElementBuffer.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/VertexArray.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/Shader.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/main.fsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/main.vsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/Triangle.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glm/glm/gtc/type_ptr.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glm/glm/ext/matrix_transform.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/Texture2D.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/Rectangle.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glew-cmake/auto/src/glew_head.h",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/Triangle.fsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/Rectangle.fsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/Rectangle.vsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/triangle.fsh",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/Logger.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Material.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/MaterialsFactory.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/MaterialsFactory.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/main.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/Renderer.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Entity.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/ShapesFactory.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Mesh.hpp",
+		"/home/akowalew/Documents/Attribute.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/VertexBuffer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/IndexBuffer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/VertexArray.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/VertexArray.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/IndexBuffer.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/VertexBuffer.cpp",
+		"/home/akowalew/Documents/VertexArray.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/TextureLoader.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/ShaderProgram.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Shader.hpp",
 		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glew-cmake/include/GL/glew.h",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/FragmentShader.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glm/glm/detail/type_vec2.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/triangle.vsh",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Buffer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/Buffer.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/ShaderProgram.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/Shader.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/ShaderLoader.hpp",
+		"/home/akowalew/Documents/make",
+		"/home/akowalew/Documents/Program.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/VertexShader.hpp",
+		"/home/akowalew/Documents/Shader.hpp",
+		"/home/akowalew/Documents/FragmentShader.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/Texture.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Texture.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/Texture2D.hpp",
 		"/home/akowalew/workspace/ZW1-Mlyn/submodules/Simple-OpenGL-Image-Library/src/SOIL.h",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/Simple-OpenGL-Image-Library/src/SOIL.c",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/test.fsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/ArrayBuffer.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/test.vsh",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/src/Shader.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/util.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/src/glew.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/glew.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glew-cmake/auto/src/glewinfo_gl.c",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glew-cmake/auto/src/glew_init_tail.c",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/MainWindow.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/MainWindow.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glfw/src/wl_window.c",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Mesh.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Renderer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Camera.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Transform.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/Renderer.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Vertex.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/ShapesFactory.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/meshes/BoxFactory.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Mesh.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Event.hpp",
+		"/home/akowalew/.config/sublime-text-3/Packages/User/Adaptive.sublime-theme",
+		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glfw/include/GLFW/glfw3.h",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/World.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/ShapesManager.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/meshes/ConeFactory.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/meshes/CylinderFactory.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/meshes/SphereFactory.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/meshes/PyramidFactory.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/app/src/main.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/src/Context.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Context.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/src/Window.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/Context.cpp",
 		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glfw/src/context.c",
 		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glfw/src/internal.h",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glfw/src/cocoa_window.m",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/Triangle.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/MainScene.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/Application.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/MainScene.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/include/gl/Program.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/include/gl/util.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/Scene.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/Application.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/include/gl/Shader.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/include/gl/gl.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/src/Shader.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/src/Program.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/src/glew.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/src/util.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/glew-cpp/include/glew/glew.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/test.vert",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/test.frag",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glfw/deps/glad/glad.h",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glew-cmake/auto/src/glew_tail.h",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glew-cmake/src/glew.c",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/src/shprogram.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/util/include/util/final_action.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/util/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glfw/src/window.c",
-		"/home/akowalew/workspace/ZW1-Mlyn/ZW1-Mlyn.sublime-project",
-		"/home/akowalew/.config/sublime-text-3/Packages/ANSIescape/ansi.sublime-settings",
-		"/home/akowalew/.config/sublime-text-3/Packages/User/ansi.sublime-settings",
-		"/home/akowalew/workspace/ZW1-Mlyn/app/res/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/glfw-cpp/include/glfw/Window.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/app/Application.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/app/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/glfw-cpp/glfw.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/Application.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/include/glfw/glfw.hpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/main.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/glfw-cpp/Window.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/glfw-cpp/CMakeLists.txt",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/glfw/glfw.cpp",
-		"/home/akowalew/workspace/ZW1-Mlyn/src/glfw/CMakeLists.txt",
-		"/home/akowalew/workspace/Project/src/main.cpp",
-		"/home/akowalew/workspace/Project/src/shprogram.cpp",
-		"/home/akowalew/workspace/opengl-tutorial/submodules/glm/glm/CMakeLists.txt",
-		"/home/akowalew/workspace/opengl-tutorial/src/main.cpp",
-		"/home/akowalew/workspace/opengl-tutorial/submodules/glfw/CMakeLists.txt",
-		"/home/akowalew/workspace/opengl-tutorial/submodules/glfw/src/CMakeLists.txt",
-		"/home/akowalew/workspace/opengl-tutorial/submodules/glew-cmake/CMakeLists.txt",
-		"/home/akowalew/workspace/opengl-tutorial/submodules/CMakeLists.txt",
-		"/home/akowalew/workspace/opengl-tutorial/CMakeLists.txt",
-		"/home/akowalew/workspace/opengl-tutorial/res/gl_04.vert"
+		"/home/akowalew/workspace/ZW1-Mlyn/src/gkom/RenderEngine.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/RenderEngine.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/glfw/Context.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/UpdateBehaviour.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/include/gkom/Size.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/glfw/Window.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/MainRenderer.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/materials/Coloured.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/geometry/Cone.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/geometry/Sphere.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/geometry/Cylinder.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/materials/ColorMaterial.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/MainRenderer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Node.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/geometry/Box.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Scene.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/VertexBuffer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/VertexArray.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/ElementBuffer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Scene.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/app/CMakeLists.txt",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/geometry/Box.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Camera.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Camera.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/gl.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/glfw/Renderer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/Size.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/CMakeLists.txt",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/glfw/Size.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Material.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/geometry/CMakeLists.txt",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/materials/CMakeLists.txt",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/src/detail/WindowsRegistry.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/geometry/Pyramid.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/CMakeLists.txt",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/src/Application.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/glfw/detail/WindowsRegistry.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/glfw-cpp/include/glfw/Application.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Renderer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/geometry/Pyramid.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Box.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Context.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glm/glm/ext/matrix_transform.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/submodules/glm/glm/gtc/matrix_transform.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Material.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/Renderer.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/build/o",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/Attribute.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/src/gl.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/CMakeLists.txt",
+		"/home/akowalew/workspace/ZW1-Mlyn/gl-cpp/include/gl/glew.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Window.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/World.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/Object.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/src/Box.cpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/app/include/Shape.hpp",
+		"/home/akowalew/workspace/ZW1-Mlyn/gkom/include/gkom/World.hpp"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 42.0
 	},
 	"find_in_files":
 	{
@@ -803,134 +991,134 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"puts",
+			"printf(\"[GKOM][Window] ",
+			"_logger",
+			"puts(\"[GKOM][Window]",
 			"Window",
-			"GLFWwindow*",
-			"handle",
-			"GLFWwindow",
-			"ZW1-Mlyn",
-			"window_hints",
-			"hints",
-			"HIDDEN",
-			"glEnable",
-			"Color",
-			"glm::vec3 ",
-			"perspectiveLH_ZO",
-			"aspectRatio",
-			"shapes",
-			"Shape",
-			"BackgroundColor",
-			"Rectangle",
-			"BackgroundColor",
-			"modelUni",
-			"id",
-			"elements",
-			"7 *",
-			".x",
-			"0.1f",
-			"centerPoint",
-			"1.0",
-			"cameraPosition",
-			"0.1",
-			"0.0",
-			"2f",
-			"1.2",
-			"trans",
-			"rotateSpeedZ",
-			"keyPressHandler",
-			"GLFWkeyfun",
-			"findWindowByHandle",
-			"windowsEnd",
-			"gWindows.end()",
-			"GLFWkeyfun",
-			"(void*)(",
-			"glVertexAttribPointer",
-			"setFormat",
-			"#",
-			"sizeof",
-			"sizeof(Vertex::color)",
-			"Vertex::",
-			"Vertex::position",
-			"position",
-			"GL_FLOAT",
-			"GLfloat",
-			"sizeof(Vertex)",
-			"GL_FALSE",
-			"GL_FLOAT",
-			"texcoord",
-			"sizeof",
-			"position",
-			"GL_LINEAR",
-			"0.8",
-			"0.7",
-			"Triangle",
-			"4.0",
-			"vertices",
-			"texWEITI",
-			"position",
-			"VERTEX",
-			"VertexShader",
-			"GL_REPEAT",
-			"array buffer",
-			"array",
-			"ArrayBuffer",
-			"x",
-			"data",
-			"source",
-			"hints",
-			"windowHints",
-			"texIIPW.setParam(",
-			"param",
-			"format",
-			"attribute",
-			"assign",
-			"uniform",
-			"pgm",
-			"value",
-			"getUniform",
-			"getAttribute",
-			"IIPW",
-			"f(location",
-			"f",
-			"GLfloat",
-			"texIIPW",
-			"tex",
-			"format",
-			"7 * sizeof(GLfloat)",
-			"(void*)",
-			"GL_FALSE",
-			"GL_FLOAT",
-			"LINEAR",
-			"GL_CLAMP_TO_EDGE",
-			"glTexParameteri",
-			"image",
-			"ArrayBuffer",
-			"7 * sizeof(GLfloat)",
-			"color",
-			"test",
-			"GL_ARRAY_BUFFER",
-			"array",
-			"ArrayBuffer",
-			"inColor",
-			"inPosition",
-			"inColor",
-			"inC",
-			"inP",
-			"position",
-			"Attribute",
-			"MessageCallback",
-			"VERTEX_ARRAY",
-			"data",
-			"array",
-			"name",
-			"isBound",
-			"target",
-			"Buffer",
-			"VertexArray",
+			"vector",
+			"graphicsManager",
+			"GraphicsManager",
+			"graphicsManager",
+			"GraphicsManager",
+			"ShapesFactory",
 			"VertexBuffer",
-			"VertexArray",
-			"createNative",
+			"graphicsManager",
+			"graphicsManager_",
+			"indices",
+			"indexBuffer",
+			"vertexBuffer",
+			"buffer",
+			"buffers_",
+			";",
+			"Shader",
+			"ShaderProgram",
+			"Shader",
+			"ShaderProgram",
+			"GL_ELEMENT_ARRAY_BUFFER",
+			"IndexBuffer",
+			"Shader",
+			"handle",
+			";",
+			"handle",
+			"ShaderLoader",
+			";",
+			"Vertex",
+			"type",
+			"fshName",
+			"fsh",
+			"type",
+			"fragmentShaderName",
+			"strs",
+			"TextureLoader",
+			"fragmentShaderPos",
+			";",
+			"GL_ELEMENT_ARRAY_BUFFER",
+			"Index",
+			"IndexBuffer",
+			"Texture",
+			";",
+			"void ",
+			"Buffer",
+			"unsigned int",
+			"TextureLoader",
+			";",
+			"handle",
+			"setImage",
+			"graphicsManager",
+			"const std::string&",
+			"createTexture",
+			"Path",
+			"Transform",
+			"buffer",
+			"backgroundColor",
+			"glm::vec4",
+			"GraphicsManager",
+			"ShapeFactory",
+			"GraphicsManager",
+			"GLsizei",
+			"Window",
+			"indices",
+			"GL_ELEMENT_ARRAY_BUFFER",
+			"vao",
+			"std::size_t",
+			"setupContext",
+			"keyPressHandler_",
+			"functional",
+			"vector",
+			"event",
+			"ShapesManager",
+			"Cylinder",
+			"CylinderFactory",
+			"sides",
+			"Cylinder",
+			"Pyramid",
+			"Box",
+			"// Forward declaration",
+			"setupContext",
+			"Hello",
+			"keyPressHandler",
+			"setupCallbacks",
+			"std::chrono::",
+			"joystick",
+			"This function may be called from any thread",
+			"@thread_safety",
+			"onResize",
+			"glfwSetWindowSizeCallback",
+			"setupCallbacks",
+			"Window",
 			"handle_",
-			"detachShader"
+			"(",
+			"override",
+			"RenderEngige",
+			"void ",
+			"= 0",
+			"glfw",
+			"[GLFW]",
+			"GLFW",
+			"glfw",
+			"thread_safety",
+			"       ",
+			"      ",
+			"size.",
+			"onSurfaceChanged",
+			"size_",
+			"override",
+			"void ",
+			"\\n\", window",
+			", window);",
+			"window",
+			"GLFWwindowsizefun",
+			"Box",
+			"renderer_->",
+			"gkom",
+			"GKOM",
+			"gkom",
+			"GKOM",
+			"gkom",
+			"GKOM",
+			"gkom",
+			"[GKOM]"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -947,7 +1135,7 @@
 	},
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 29.0
 	},
 	"input":
 	{
@@ -973,7 +1161,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.465122349753,
 			1.0
 		],
 		"rows":
@@ -1006,7 +1194,7 @@
 	"pinned_build_system": "ZW1-Mlyn - all",
 	"replace":
 	{
-		"height": 50.0
+		"height": 54.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1016,28 +1204,400 @@
 		"selected_items":
 		[
 			[
-				"window gko",
-				"gkom/src/Window.cpp"
+				"texture",
+				"src/gkom/TextureLoader.cpp"
 			],
 			[
-				"window.cp",
-				"glfw-cpp/src/Window.cpp"
+				"shaderlo",
+				"src/gkom/ShaderLoader.cpp"
+			],
+			[
+				"main",
+				"src/main.cpp"
+			],
+			[
+				"box",
+				"include/gkom/BoxFactory.hpp"
+			],
+			[
+				"window",
+				"include/gkom/Window.hpp"
+			],
+			[
+				"logg",
+				"src/gkom/Logging.cpp"
+			],
+			[
+				"logger",
+				"src/gkom/Logger.cpp"
+			],
+			[
+				"graphi",
+				"include/gkom/GraphicsManager.hpp"
+			],
+			[
+				"cmak",
+				"CMakeLists.txt"
+			],
+			[
+				"graphics",
+				"src/gkom/GraphicsManager.cpp"
+			],
+			[
+				"graphic",
+				"src/gkom/GraphicsManager.cpp"
+			],
+			[
+				"render",
+				"src/gkom/Renderer.cpp"
+			],
+			[
+				"entit",
+				"include/gkom/Entity.hpp"
+			],
+			[
+				"cma",
+				"CMakeLists.txt"
+			],
+			[
+				"cm",
+				"CMakeLists.txt"
+			],
+			[
+				"materia",
+				"include/gkom/Material.hpp"
+			],
+			[
+				"shapes",
+				"include/gkom/ShapesFactory.hpp"
+			],
+			[
+				"mesh",
+				"include/gkom/Mesh.hpp"
+			],
+			[
+				"mes",
+				"include/gkom/Mesh.hpp"
+			],
+			[
+				"boxf",
+				"src/gkom/BoxFactory.cpp"
+			],
+			[
+				"boxfa",
+				"include/gkom/BoxFactory.hpp"
+			],
+			[
+				"vertea",
+				"include/gkom/VertexArray.hpp"
+			],
+			[
+				"verte",
+				"src/gkom/VertexBuffer.cpp"
+			],
+			[
+				"index",
+				"src/gkom/IndexBuffer.cpp"
+			],
+			[
+				"gra",
+				"src/gkom/GraphicsManager.cpp"
+			],
+			[
+				"vertex",
+				"src/gkom/VertexBuffer.cpp"
+			],
+			[
+				"grap",
+				"src/gkom/GraphicsManager.cpp"
+			],
+			[
+				"buffer",
+				"include/gkom/Buffer.hpp"
+			],
+			[
+				"shader",
+				"src/gkom/Shader.cpp"
+			],
+			[
+				"shad",
+				"src/gkom/ShaderProgram.cpp"
+			],
+			[
+				"progra",
+				"include/gkom/ShaderProgram.hpp"
+			],
+			[
+				"shader.c",
+				"src/gkom/Shader.cpp"
+			],
+			[
+				"shader.cp",
+				"src/gkom/Shader.cpp"
+			],
+			[
+				"CMA",
+				"CMakeLists.txt"
+			],
+			[
+				"sha",
+				"src/gkom/Shader.cpp"
+			],
+			[
+				"shaderp",
+				"include/gkom/ShaderProgram.hpp"
+			],
+			[
+				"shader.cpp",
+				"src/gkom/Shader.cpp"
+			],
+			[
+				"grapi",
+				"include/gkom/GraphicsManager.hpp"
+			],
+			[
+				"tex",
+				"src/gkom/TextureLoader.cpp"
+			],
+			[
+				"cmake",
+				"CMakeLists.txt"
+			],
+			[
+				"texturelo",
+				"src/gkom/TextureLoader.cpp"
+			],
+			[
+				"textu",
+				"src/gkom/Texture.cpp"
+			],
+			[
+				"enti",
+				"include/gkom/Entity.hpp"
+			],
+			[
+				"TEXT",
+				"src/gkom/Texture.cpp"
+			],
+			[
+				"textureload",
+				"src/gkom/TextureLoader.cpp"
+			],
+			[
+				"textureloa",
+				"include/gkom/TextureLoader.hpp"
+			],
+			[
+				"soil",
+				"submodules/Simple-OpenGL-Image-Library/src/SOIL.h"
+			],
+			[
+				"texture2",
+				"gl-cpp/include/gl/Texture2D.hpp"
+			],
+			[
+				"entity",
+				"include/gkom/Entity.hpp"
+			],
+			[
+				"tran",
+				"include/gkom/Transform.hpp"
+			],
+			[
+				"camera",
+				"include/gkom/Camera.hpp"
+			],
+			[
+				"ren",
+				"include/gkom/Renderer.hpp"
+			],
+			[
+				"boxfac",
+				"include/gkom/BoxFactory.hpp"
+			],
+			[
+				"MES",
+				"include/gkom/Mesh.hpp"
+			],
+			[
+				"MESH",
+				"gkom/src/Mesh.cpp"
+			],
+			[
+				"rendere",
+				"include/gkom/Renderer.hpp"
 			],
 			[
 				"glfw3",
 				"submodules/glfw/include/GLFW/glfw3.h"
 			],
 			[
-				"window",
-				"glfw-cpp/include/glfw/Window.hpp"
+				"trans",
+				"include/gkom/Transform.hpp"
 			],
 			[
-				"glfw",
-				"glfw-cpp/src/glfw.cpp"
+				"shape",
+				"include/gkom/ShapesManager.hpp"
+			],
+			[
+				"graph",
+				"include/gkom/GraphicsManager.hpp"
+			],
+			[
+				"windo",
+				"src/gkom/Window.cpp"
+			],
+			[
+				"glew",
+				"submodules/glew-cmake/include/GL/glew.h"
+			],
+			[
+				"context.cp",
+				"glfw-cpp/src/Context.cpp"
+			],
+			[
+				"context",
+				"include/gkom/Context.hpp"
+			],
+			[
+				"window.cp",
+				"glfw-cpp/src/Window.cpp"
+			],
+			[
+				"window.c",
+				"glfw-cpp/src/Window.cpp"
+			],
+			[
+				"context.h",
+				"glfw-cpp/include/glfw/Context.hpp"
+			],
+			[
+				"gfw3",
+				"submodules/glfw/include/GLFW/glfw3.h"
+			],
+			[
+				"mainren",
+				"gkom/src/MainRenderer.cpp"
+			],
+			[
+				"material",
+				"gkom/include/gkom/Material.hpp"
+			],
+			[
+				"mainred",
+				"gkom/include/gkom/MainRenderer.hpp"
+			],
+			[
+				"mainre",
+				"gkom/include/gkom/MainRenderer.hpp"
+			],
+			[
+				"element",
+				"gl-cpp/include/gl/ElementBuffer.hpp"
+			],
+			[
+				"scnee",
+				"gkom/include/gkom/Scene.hpp"
+			],
+			[
+				"cmaera",
+				"gkom/include/gkom/Camera.hpp"
+			],
+			[
+				"conte",
+				"glfw-cpp/include/glfw/Context.hpp"
+			],
+			[
+				"gl.hpp",
+				"gl-cpp/include/gl/gl.hpp"
+			],
+			[
+				"size",
+				"glfw-cpp/include/glfw/Size.hpp"
+			],
+			[
+				"camera.cp",
+				"gkom/src/Camera.cpp"
+			],
+			[
+				"windowsre",
+				"glfw-cpp/src/detail/WindowsRegistry.cpp"
+			],
+			[
+				"window.cpp",
+				"glfw-cpp/src/Window.cpp"
+			],
+			[
+				"gtc matrix_trans",
+				"submodules/glm/glm/gtc/matrix_transform.hpp"
+			],
+			[
+				"cmaer",
+				"gkom/include/gkom/Camera.hpp"
+			],
+			[
+				"attribu",
+				"gl-cpp/include/gl/Attribute.hpp"
+			],
+			[
+				"scene",
+				"gkom/include/gkom/Scene.hpp"
+			],
+			[
+				"world",
+				"gkom/include/gkom/World.hpp"
+			],
+			[
+				"box.h",
+				"gkom/include/gkom/Box.hpp"
+			],
+			[
+				"obje",
+				"gkom/include/gkom/Object.hpp"
+			],
+			[
+				"main.c",
+				"app/src/main.cpp"
 			],
 			[
 				"appl",
 				"gkom/include/gkom/Application.hpp"
+			],
+			[
+				"gkom.cpp",
+				"gkom/src/gkom.cpp"
+			],
+			[
+				"glfwwindow",
+				"glfw-cpp/src/Window.cpp"
+			],
+			[
+				"gkom win",
+				"gkom/src/Window.cpp"
+			],
+			[
+				"glfw window",
+				"glfw-cpp/src/Window.cpp"
+			],
+			[
+				"windo gk",
+				"gkom/src/Window.cpp"
+			],
+			[
+				"wind ko",
+				"gkom/include/gkom/Window.hpp"
+			],
+			[
+				"con",
+				"gkom/include/gkom/Context.hpp"
+			],
+			[
+				"window gko",
+				"gkom/src/Window.cpp"
+			],
+			[
+				"glfw",
+				"glfw-cpp/src/glfw.cpp"
 			],
 			[
 				"WINDO",
@@ -1060,22 +1620,6 @@
 				"app/include/Color.hpp"
 			],
 			[
-				"box",
-				"app/src/Box.cpp"
-			],
-			[
-				"scene",
-				"app/include/Scene.hpp"
-			],
-			[
-				"shape",
-				"app/include/Shape.hpp"
-			],
-			[
-				"verte",
-				"gl-cpp/include/gl/VertexBuffer.hpp"
-			],
-			[
 				"unifo",
 				"gl-cpp/include/gl/Uniform.hpp"
 			],
@@ -1088,10 +1632,6 @@
 				"gl-cpp/include/gl/Attribute.hpp"
 			],
 			[
-				"main",
-				"app/src/main.cpp"
-			],
-			[
 				"box.cp",
 				"app/src/Box.cpp"
 			],
@@ -1102,14 +1642,6 @@
 			[
 				"program",
 				"gl-cpp/include/gl/Program.hpp"
-			],
-			[
-				"shader",
-				"gl-cpp/include/gl/Shader.hpp"
-			],
-			[
-				"vertex",
-				"gl-cpp/include/gl/VertexShader.hpp"
 			],
 			[
 				"verteb",
@@ -1156,16 +1688,8 @@
 				"app/src/Triangle.cpp"
 			],
 			[
-				"main.c",
-				"app/src/main.cpp"
-			],
-			[
 				"attri",
 				"gl-cpp/include/gl/Attribute.hpp"
-			],
-			[
-				"element",
-				"gl-cpp/include/gl/ElementBuffer.hpp"
 			],
 			[
 				"progrma",
@@ -1188,211 +1712,71 @@
 				"gl-cpp/include/gl/Program.hpp"
 			],
 			[
-				"progra",
-				"gl-cpp/include/gl/Program.hpp"
-			],
-			[
 				"VERTE",
 				"gl-cpp/include/gl/VertexArray.hpp"
-			],
-			[
-				"shade",
-				"gl-cpp/src/Shader.cpp"
-			],
-			[
-				"glew.h",
-				"submodules/glew-cmake/include/GL/glew.h"
-			],
-			[
-				"widnow.c",
-				"glfw-cpp/src/Window.cpp"
-			],
-			[
-				"mainscene",
-				"app/src/MainScene.cpp"
-			],
-			[
-				"mainsce",
-				"app/src/MainScene.hpp"
-			],
-			[
-				"mainwind",
-				"app/src/MainWindow.cpp"
-			],
-			[
-				"mainwin",
-				"app/src/MainWindow.hpp"
-			],
-			[
-				"PROGRAM",
-				"glew-cpp/include/gl/Program.hpp"
-			],
-			[
-				"progrm",
-				"glew-cpp/include/gl/Program.hpp"
-			],
-			[
-				"triangl",
-				"app/src/Triangle.cpp"
-			],
-			[
-				"tir",
-				"app/src/Triangle.hpp"
-			],
-			[
-				"trian",
-				"app/src/Triangle.hpp"
-			],
-			[
-				"mainwi",
-				"app/src/MainWindow.cpp"
-			],
-			[
-				"mainwindo",
-				"app/src/MainWindow.hpp"
-			],
-			[
-				"glfw.cp",
-				"glfw-cpp/src/glfw.cpp"
-			],
-			[
-				"glfw.hpp",
-				"glfw-cpp/include/glfw/glfw.hpp"
-			],
-			[
-				"mainW",
-				"app/src/MainWindow.hpp"
-			],
-			[
-				"mainWin",
-				"app/src/MainWindow.hpp"
-			],
-			[
-				"APPL",
-				"app/src/Application.cpp"
-			],
-			[
-				"app",
-				"app/src/Application.cpp"
-			],
-			[
-				"window.",
-				"glfw-cpp/src/Window.cpp"
-			],
-			[
-				"windo",
-				"glfw-cpp/include/glfw/Window.hpp"
-			],
-			[
-				"vec",
-				"include/aisdi/Vector.hpp"
-			],
-			[
-				"vector",
-				"test/VectorTest.cpp"
-			],
-			[
-				"span",
-				"submodules/GSL/include/gsl/span"
-			],
-			[
-				"systick",
-				"submodules/tivaware-cmake/src/driverlib/systick.c"
-			],
-			[
-				"int",
-				"submodules/tivaware-cmake/include/tivaware/driverlib/interrupt.h"
-			],
-			[
-				"objdu",
-				"build-release/test/objdump"
-			],
-			[
-				"hwuar",
-				"submodules/tivaware-cmake/include/tivaware/inc/hw_uart.h"
-			],
-			[
-				"staticfu",
-				"submodules/embxx/embxx/util/StaticFunction.h"
-			],
-			[
-				"cmake",
-				"CMakeLists.txt"
-			],
-			[
-				"interru",
-				"submodules/tivaware-cmake/src/driverlib/interrupt.c"
-			],
-			[
-				"interr",
-				"submodules/tivaware-cmake/include/tivaware/driverlib/interrupt.h"
-			],
-			[
-				"HWINT",
-				"submodules/tivaware-cmake/include/tivaware/inc/hw_ints.h"
-			],
-			[
-				"INTER",
-				"submodules/tivaware-cmake/include/tivaware/driverlib/interrupt.h"
-			],
-			[
-				"wordl",
-				"include/tiva/uart/WordLength.hpp"
-			],
-			[
-				"uart",
-				"include/tiva/uart/UART.hpp"
-			],
-			[
-				"obj",
-				"build/test/objdump"
-			],
-			[
-				"objd",
-				"build/test/objdump"
-			],
-			[
-				"sysctl",
-				"submodules/tivaware-cmake/src/driverlib/sysctl.c"
-			],
-			[
-				"ssi",
-				"submodules/tivaware-cmake/src/driverlib/ssi.c"
-			],
-			[
-				"gpioc.",
-				"submodules/tivaware-cmake/src/driverlib/gpio.c"
-			],
-			[
-				"gio.h",
-				"submodules/tivaware-cmake/include/tivaware/driverlib/gpio.h"
-			],
-			[
-				"boj",
-				"build/test/objdump"
-			],
-			[
-				"oj",
-				"build/objdump"
 			]
 		],
 		"width": 0.0
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
-		"height": 374.0,
-		"last_filter": "vec4",
+		"height": 191.0,
+		"last_filter": "gl_element_buffer",
 		"selected_items":
 		[
+			[
+				"gl_element_buffer",
+				"GL_ELEMENT_ARRAY_BUFFER_BINDING"
+			],
+			[
+				"GLsizei",
+				"GLsizei"
+			],
+			[
+				"GLintptr",
+				"GLintptr"
+			],
+			[
+				"GLsizeiptr",
+				"GLsizeiptr"
+			],
+			[
+				"GLenum",
+				"GLenum"
+			],
+			[
+				"GLuint",
+				"GLuint"
+			],
+			[
+				"_GLFWwindow",
+				"_GLFWwindow"
+			],
+			[
+				"glfwMakeContextCurrent",
+				"glfwMakeContextCurrent"
+			],
+			[
+				"vec3",
+				"vec3"
+			],
+			[
+				"rotate",
+				"rotate"
+			],
+			[
+				"scale",
+				"scale"
+			],
 			[
 				"vec4",
 				"vec4"
@@ -1408,10 +1792,6 @@
 			[
 				"value_ptr",
 				"value_ptr"
-			],
-			[
-				"rotate",
-				"rotate"
 			],
 			[
 				"GL_COPY_READ_BUFFER_BINDING",
@@ -1450,15 +1830,11 @@
 				"makeProgram"
 			],
 			[
-				"glfwMakeContextCurrent",
-				"glfwMakeContextCurrent"
-			],
-			[
 				"GLFWCREATE",
 				"glfwCreateWindow"
 			]
 		],
-		"width": 549.0
+		"width": 576.0
 	},
 	"settings":
 	{
@@ -1466,7 +1842,7 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 202.0,
 	"status_bar_visible": true,
 	"template_settings":

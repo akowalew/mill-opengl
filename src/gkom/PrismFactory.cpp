@@ -99,7 +99,6 @@ namespace gkom {
 		}
 		indices.insert(indices.end(), { static_cast<unsigned int>(sides) * 2 + 1, 1, 3 });
 
-
 		const auto vertexArray = graphicsManager_.createVertexArray(vertices,
 			indices);
 		const auto indicesCount = static_cast<int>(indices.size());

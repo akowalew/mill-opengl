@@ -52,5 +52,4 @@ Geometry* ShapesFactory::createPrism(int sides)
 	return prism;
 }
 
-
 } // gkom

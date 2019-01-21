@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <vector>
 
 #include <glm/vec4.hpp>
 
@@ -19,17 +18,13 @@ public:
 
 	~MaterialsFactory();
 
-	Material* createColorMaterial(const glm::vec4& color);
-
-	Material* findColorMaterial(const glm::vec4& color);
+	Material* createMaterial();
 
 private:
-	std::unique_ptr<Material> makeColorMaterial(const glm::vec4& color);
+	std::unique_ptr<Material> makeMaterial();
 
+	std::unique_ptr<Material> material_;
 	ShaderLoader& shaderLoader_;
-
-	std::vector<std::unique_ptr<Material>> colorMaterials_;
-
 	Logger& logger_;
 };
 

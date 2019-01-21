@@ -5,7 +5,9 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
 #include "gkom/Entity.hpp"
 #include "gkom/Geometry.hpp"
@@ -19,26 +21,10 @@
 
 namespace gkom {
 
-void
-MessageCallback( GLenum source,
-                 GLenum type,
-                 GLuint id,
-                 GLenum severity,
-                 GLsizei length,
-                 const GLchar* message,
-                 const void* userParam )
-{
-  fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
-           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
-            type, severity, message );
-}
-
 Renderer::Renderer()
 	:	logger_(Logging::getLogger("Renderer"))
 {
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_DEBUG_OUTPUT);
-	glDebugMessageCallback(MessageCallback, 0);
 
 	logger_("Initialized");
 }
@@ -50,7 +36,7 @@ void Renderer::render()
 		return; // No scene to render, go out
 	}
 
-	glClearColor(bgColor_[0], bgColor_[1], bgColor_[2], bgColor_[3]);
+	glClearColor(bgColor_[0], bgColor_[1], bgColor_[2], 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Transform transform;
@@ -99,6 +85,7 @@ void Renderer::render(Entity* entity, const Transform& transform)
 {
 	assert(entity != nullptr);
 
+	const auto color = entity->color;
 	const auto geometry = entity->geometry;
 	const auto material = entity->material;
 	if(geometry == nullptr || material == nullptr)
@@ -111,12 +98,42 @@ void Renderer::render(Entity* entity, const Transform& transform)
 		auto projUniform = shaderProgram.getUniform("proj");
 		auto viewUniform = shaderProgram.getUniform("view");
 		auto transUniform = shaderProgram.getUniform("trans");
+		auto lightPosition = shaderProgram.getUniform("lightPos");
+		auto lightColor = shaderProgram.getUniform("lightColor");
 		auto colorUniform = shaderProgram.getUniform("color");
 
 		projUniform.loadMatrix(camera_->getProjection());
 		viewUniform.loadMatrix(camera_->getView());
 		transUniform.loadMatrix(transform);
-		colorUniform.loadValue(material->color);
+
+		if(light_ && light_->color && light_->transform)
+		{
+			const auto& lightCol = *light_->color;
+			lightColor.loadValue(lightCol);
+
+			glm::vec3 scale;
+			glm::quat rotation;
+			glm::vec3 translation;
+			glm::vec3 skew;
+			glm::vec4 perspective;
+			const auto& lightTransform = *light_->transform;
+			glm::decompose(lightTransform, scale, rotation,
+						   translation, skew, perspective);
+			lightPosition.loadValue(translation);
+		}
+		else
+		{
+
+		}
+
+		if(color)
+		{
+			colorUniform.loadValue(*color);
+		}
+		else
+		{
+			colorUniform.loadValue(Color{});
+		}
 
 		auto vertexArray = VertexArray{geometry->vertexArray};
 		vertexArray.bind();
@@ -165,9 +182,14 @@ Camera* Renderer::camera()
 	return (camera_ == nullptr) ? &defaultCamera_ : camera_;
 }
 
-const Camera* Renderer::camera() const
+void Renderer::setLight(Entity *light)
 {
-	return (camera_ == nullptr) ? &defaultCamera_ : camera_;
+	light_ = light;
+}
+
+Entity* Renderer::light()
+{
+	return light_;
 }
 
 void Renderer::setBackgroundColor(const Color& bgColor)

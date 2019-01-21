@@ -16,6 +16,9 @@ class ShapesFactory
 public:
 	ShapesFactory(GraphicsManager& graphicsManager);
 
+	// TODO: Add ShapeBuilder to make easy calls like:
+	//  builder.withNormals(true), builder.withBitangents(true) etc
+
 	Geometry* createBox();
 
 	Geometry* createPyramid();

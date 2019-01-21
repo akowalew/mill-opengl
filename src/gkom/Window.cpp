@@ -13,6 +13,20 @@
 
 namespace gkom {
 
+static void
+MessageCallback( GLenum source,
+                 GLenum type,
+                 GLuint id,
+                 GLenum severity,
+                 GLsizei length,
+                 const GLchar* message,
+                 const void* userParam )
+{
+  fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+            type, severity, message );
+}
+
 Window::Window()
 	:	handle_(createNative())
 	,	logger_(Logging::getLogger("Window"))
@@ -170,6 +184,8 @@ void Window::setupContext()
 	{
 		throw std::runtime_error("Could not initialize render device");
 	}
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(MessageCallback, 0);
 	deactivate();
 }
 

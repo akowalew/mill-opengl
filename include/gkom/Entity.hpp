@@ -1,18 +1,16 @@
 #pragma once
 
-#include "gkom/Transform.hpp"
-
 namespace gkom {
 
 // Forward declarations
+class Transform;
 class Geometry;
 class Material;
 
 class Entity
 {
 public:
-	Transform transform;
-
+	Transform* transform {nullptr};
 	Geometry* geometry {nullptr};
 	Material* material {nullptr};
 };

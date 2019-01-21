@@ -9,18 +9,21 @@ SceneNode::SceneNode() = default;
 SceneNode::SceneNode(SceneNode* parent)
 {
 	assert(parent != nullptr);
-	parent->addChildNode(this);
+	parent->attachNode(this);
 }
 
-SceneNode::~SceneNode()
-{
-	// Detaching of entities will be handled in Scene class
-}
+SceneNode::~SceneNode() = default;
 
-void SceneNode::addChildNode(SceneNode* node)
+void SceneNode::attachNode(SceneNode* node)
 {
 	assert(node != nullptr);
-	assert(node->parent_ == nullptr);
+
+	const auto parent = node->parent_;
+	if(parent != nullptr)
+	{
+		// Detach node from parent
+		parent->childNodes_.remove(node);
+	}
 
 	node->parent_ = this;
 	childNodes_.emplace_back(node);
@@ -31,16 +34,14 @@ const std::list<SceneNode*>& SceneNode::childNodes()
 	return childNodes_;
 }
 
-void SceneNode::attachEntity(Entity* entity)
+void SceneNode::setEntity(Entity* entity)
 {
-	assert(entity != nullptr);
-
-	entities_.emplace_back(entity);
+	entity_ = entity;
 }
 
-const std::list<Entity*>& SceneNode::entities()
+Entity* SceneNode::entity()
 {
-	return entities_;
+	return entity_;
 }
 
 SceneNode* SceneNode::parent()

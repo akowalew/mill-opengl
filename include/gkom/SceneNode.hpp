@@ -15,19 +15,19 @@ public:
 
 	~SceneNode();
 
-	void addChildNode(SceneNode* node);
+	void attachNode(SceneNode* node);
 
 	const std::list<SceneNode*>& childNodes();
 
-	void attachEntity(Entity* entity);
+	void setEntity(Entity* entity);
 
-	const std::list<Entity*>& entities();
+	Entity* entity();
 
 	SceneNode* parent();
 
 private:
 	std::list<SceneNode*> childNodes_;
-	std::list<Entity*> entities_;
+	Entity* entity_ {nullptr};
 	SceneNode* parent_ {nullptr};
 };
 

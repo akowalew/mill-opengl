@@ -13,6 +13,7 @@ class Scene;
 class Logger;
 class Entity;
 class SceneNode;
+class Transform;
 
 using Color = glm::vec4;
 
@@ -40,9 +41,9 @@ public:
 	const Color& backgroundColor() const;
 
 private:
-	void render(SceneNode* node);
+	void render(SceneNode* node, const Transform& transform);
 
-	void render(Entity* entity);
+	void render(Entity* entity, const Transform& transform);
 
 	Color bgColor_ {0.0f, 0.0f, 0.0f, 1.0f};
 	Camera defaultCamera_;

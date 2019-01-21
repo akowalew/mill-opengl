@@ -1,5 +1,7 @@
 #include "gkom/World.hpp"
 
+#include <cassert>
+
 #include "gkom/Logging.hpp"
 #include "gkom/Entity.hpp"
 

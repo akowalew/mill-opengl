@@ -3,9 +3,12 @@
 #include <cassert>
 #include <random>
 
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/trigonometric.hpp>
+#include <glm/gtx/transform.hpp>
 
 #include "gkom/GraphicsManager.hpp"
+#include "gkom/TransformManager.hpp"
 #include "gkom/ShaderLoader.hpp"
 #include "gkom/ShapesFactory.hpp"
 #include "gkom/MaterialsFactory.hpp"
@@ -20,6 +23,7 @@ int main()
 {
 	using namespace gkom;
 	using namespace std::chrono;
+	using namespace glm;
 
 	Window window;
 	window.setTitle("ZW1-Mlyn");
@@ -27,11 +31,14 @@ int main()
 	window.activate();
 
 	Camera camera;
-	camera.position = glm::vec3{1.5f, 1.5f, 1.5f};
-	camera.fieldOfView = glm::radians(45.0f);
-	camera.nearPlane = 1.0f;
-	camera.farPlane = 10.0f;
+	camera.position = vec3{0.0f, 0.0f, 10.0f};
+	camera.centerPoint = vec3{0.0f, 0.0f, 0.0f};
+	camera.upAxis = vec3{0.0f, 1.0f, 0.0f};
+	camera.fieldOfView = radians(45.0f);
+	camera.nearPlane = 0.1f;
+	camera.farPlane = 20.0f;
 
+	TransformManager transformManager;
 	GraphicsManager graphicsManager;
 	ShapesFactory shapesFactory(graphicsManager);
 	ShaderLoader shaderLoader(graphicsManager);
@@ -44,26 +51,40 @@ int main()
 	World world;
 	Scene scene;
 
-	const auto millNode = scene.createNode();
-	assert(millNode != nullptr);
-
 	const auto building = world.createEntity();
-	assert(building != nullptr);
+	const auto buildingNode = scene.createNode();
+	const auto buildingColor = vec4{0.2f, 0.3f, 0.0f, 1.0f};
+	const auto buildingTf =
+		translate(vec3{0.0f, 0.0f, 0.0f})
+			// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+				* scale(vec3{2.0f, 2.0f, 1.0f});
+	building->transform = transformManager.createTransform(buildingTf);
 	building->geometry = shapesFactory.createBox();
-	building->material = materialsFactory.createColorMaterial(
-		glm::vec4{1.0f, 0.0f, 0.0f, 1.0f});
+	building->material = materialsFactory.createColorMaterial(buildingColor);
+	buildingNode->setEntity(building);
 
 	const auto roof = world.createEntity();
-	assert(roof != nullptr);
-	roof->transform.scale[1] *= 2;
-	roof->transform.position[1] -= 1.5f;
-	roof->transform.rotation[0] = glm::radians(180.0f);
+	const auto roofNode = scene.createNode();
+	const auto roofColor = vec4{1.0f, 0.3f, 0.1f, 1.0f};
+	const auto roofTf =
+		translate(vec3{0.0f, 3*0.5f, 0.0f})
+			// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+				* scale(vec3{2.0f, 1.0f, 1.0f});
+	roof->transform = transformManager.createTransform(roofTf);
 	roof->geometry = shapesFactory.createPyramid();
-	roof->material = materialsFactory.createColorMaterial(
-		glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
+	roof->material = materialsFactory.createColorMaterial(roofColor);
+	roofNode->setEntity(roof);
 
-	millNode->attachEntity(building);
-	millNode->attachEntity(roof);
+	const auto mill = world.createEntity();
+	const auto millNode = scene.createNode();
+	const auto millTf =
+		translate(vec3{0.0f, 0.0f, 0.0f})
+			* rotate(radians(45.0f), vec3(0.0f, 0.0f, 1.0f))
+				* scale(vec3{0.5f, 0.5f, 0.5f});
+	mill->transform = transformManager.createTransform(millTf);
+	millNode->setEntity(mill);
+	millNode->attachNode(roofNode);
+	millNode->attachNode(buildingNode);
 
 	renderer.setScene(&scene);
 	window.show();
@@ -92,11 +113,11 @@ int main()
 	            				break;
 
 	            			case KeyCode::Right:
-	            				camera.position[0] -= 0.1;
+	            				camera.position[0] -= 0.25;
 	            				break;
 
 	            			case KeyCode::Left:
-	            				camera.position[0] += 0.1;
+	            				camera.position[0] += 0.25;
 	            				break;
 
 	            			case KeyCode::Down:
@@ -108,11 +129,11 @@ int main()
 	            				break;
 
 	            			case KeyCode::Subtract:
-	            				camera.fieldOfView += glm::radians(5.0f);
+	            				camera.fieldOfView += radians(5.0f);
 	            				break;
 
 	            			case KeyCode::Add:
-	            				camera.fieldOfView -= glm::radians(5.0f);
+	            				camera.fieldOfView -= radians(5.0f);
 	            				break;
 
 	            			default:

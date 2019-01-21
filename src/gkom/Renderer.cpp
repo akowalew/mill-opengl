@@ -15,6 +15,7 @@
 #include "gkom/Uniform.hpp"
 #include "gkom/VertexArray.hpp"
 #include "gkom/Scene.hpp"
+#include "gkom/Transform.hpp"
 
 namespace gkom {
 
@@ -52,38 +53,57 @@ void Renderer::render()
 	glClearColor(bgColor_[0], bgColor_[1], bgColor_[2], bgColor_[3]);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	Transform transform;
 	const auto rootNode = scene_->rootNode();
 	assert(rootNode != nullptr);
-	render(rootNode);
+	render(rootNode, transform);
 }
 
-void Renderer::render(SceneNode* node)
+void Renderer::render(SceneNode* node, const Transform& tf)
 {
 	assert(node != nullptr);
-
-	for(const auto entity : node->entities())
+	const auto entity = node->entity();
+	if(entity)
 	{
-		assert(entity != nullptr);
-		render(entity);
+		if(entity->transform)
+		{
+			const auto transform = (tf * (*entity->transform));
+			render(entity, transform);
+			for(const auto node : node->childNodes())
+			{
+				assert(node != nullptr);
+				render(node, transform);
+			}
+		}
+		else
+		{
+			render(entity, tf);
+			for(const auto node : node->childNodes())
+			{
+				assert(node != nullptr);
+				render(node, tf);
+			}
+		}
 	}
-
-	for(const auto node : node->childNodes())
+	else
 	{
-		assert(node != nullptr);
-		render(node);
+		for(const auto node : node->childNodes())
+		{
+			assert(node != nullptr);
+			render(node, tf);
+		}
 	}
 }
 
-void Renderer::render(Entity* entity)
+void Renderer::render(Entity* entity, const Transform& transform)
 {
 	assert(entity != nullptr);
 
-	const auto& transform = entity->transform;
 	const auto geometry = entity->geometry;
 	const auto material = entity->material;
 	if(geometry == nullptr || material == nullptr)
 	{
-		return; // Don't render object, which are not renderable
+		return; // Don't render object, which is not renderable
 	}
 
 	auto shaderProgram = ShaderProgram{material->shaderProgram};
@@ -93,15 +113,10 @@ void Renderer::render(Entity* entity)
 		auto transUniform = shaderProgram.getUniform("trans");
 		auto colorUniform = shaderProgram.getUniform("color");
 
-		const auto proj = camera_->getProjection();
-		const auto view = camera_->getView();
-		const auto trans = transform.getMatrix();
-		const auto& color = material->color;
-
-		projUniform.loadMatrix(proj);
-		viewUniform.loadMatrix(view);
-		transUniform.loadMatrix(trans);
-		colorUniform.loadValue(color);
+		projUniform.loadMatrix(camera_->getProjection());
+		viewUniform.loadMatrix(camera_->getView());
+		transUniform.loadMatrix(transform);
+		colorUniform.loadValue(material->color);
 
 		auto vertexArray = VertexArray{geometry->vertexArray};
 		vertexArray.bind();

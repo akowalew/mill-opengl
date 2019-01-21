@@ -20,6 +20,7 @@ add_executable(ZW1-Mlyn
 	src/gkom/SceneNode.cpp include/gkom/SceneNode.hpp
 	src/gkom/World.cpp include/gkom/World.hpp
 	src/gkom/Transform.cpp include/gkom/Transform.hpp
+	src/gkom/TransformManager.cpp include/gkom/TransformManager.hpp
 	src/gkom/GraphicsManager.cpp include/gkom/GraphicsManager.hpp
 	src/gkom/MaterialsFactory.cpp include/gkom/MaterialsFactory.hpp
 	src/gkom/ShapesFactory.cpp include/gkom/ShapesFactory.hpp

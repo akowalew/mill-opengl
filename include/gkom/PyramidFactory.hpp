@@ -1,30 +1,30 @@
-#pragma once
+// #pragma once
 
-#include <memory>
+// #include <memory>
 
-namespace gkom {
+// namespace gkom {
 
-//! Forward declarations
-class GraphicsManager;
-class Geometry;
-class Logger;
+// //! Forward declarations
+// class GraphicsManager;
+// class Geometry;
+// class Logger;
 
-class PyramidFactory
-{
-public:
-	PyramidFactory(GraphicsManager& graphicsManager);
+// class PyramidFactory
+// {
+// public:
+// 	PyramidFactory(GraphicsManager& graphicsManager);
 
-	~PyramidFactory();
+// 	~PyramidFactory();
 
-	Geometry* createPyramid();
+// 	Geometry* createPyramid();
 
-private:
-	std::unique_ptr<Geometry> makePyramid();
+// private:
+// 	std::unique_ptr<Geometry> makePyramid();
 
-	GraphicsManager& graphicsManager_;
-	Logger& logger_;
+// 	GraphicsManager& graphicsManager_;
+// 	Logger& logger_;
 
-	std::unique_ptr<Geometry> pyramid_;
-};
+// 	std::unique_ptr<Geometry> pyramid_;
+// };
 
-} // gkom
+// } // gkom

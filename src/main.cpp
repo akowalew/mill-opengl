@@ -8,6 +8,7 @@
 #include <glm/gtx/transform.hpp>
 
 #include "gkom/GraphicsManager.hpp"
+#include "gkom/GeometryManager.hpp"
 #include "gkom/ColorFactory.hpp"
 #include "gkom/TransformManager.hpp"
 #include "gkom/ShaderLoader.hpp"
@@ -43,9 +44,10 @@ int main()
 	ColorFactory colorFactory;
 	TransformManager transformManager;
 	GraphicsManager graphicsManager;
-	ShapesFactory shapesFactory(graphicsManager);
-	ShaderLoader shaderLoader(graphicsManager);
-	MaterialsFactory materialsFactory(shaderLoader);
+	GeometryManager geometryManager{graphicsManager};
+	ShapesFactory shapesFactory;
+	ShaderLoader shaderLoader{graphicsManager};
+	MaterialsFactory materialsFactory{shaderLoader};
 
 	World world;
 	Scene scene;
@@ -53,26 +55,28 @@ int main()
 	const auto building = world.createEntity();
 	const auto buildingNode = scene.createNode();
 	const auto buildingColor = vec3{0.2f, 0.3f, 0.0f};
+	const auto buildingMesh = shapesFactory.createBoxWithNormals();
 	const auto buildingTf =
 		translate(vec3{0.0f, 0.0f, 0.0f})
 			// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-				* scale(vec3{2.0f, 2.0f, 1.0f});
+				* scale(vec3{1.0f, 1.0f, 1.0f});
 	building->transform = transformManager.createTransform(buildingTf);
 	building->color = colorFactory.createColor(buildingColor);
-	building->geometry = shapesFactory.createBox();
+	building->geometry = geometryManager.createGeometry(buildingMesh);
 	building->material = materialsFactory.createMaterial();
 	buildingNode->setEntity(building);
 
 	const auto roof = world.createEntity();
 	const auto roofNode = scene.createNode();
 	const auto roofColor = vec3{1.0f, 0.3f, 0.1f};
+	const auto roofMesh = shapesFactory.createBoxWithNormals();
 	const auto roofTf =
-		translate(vec3{0.0f, 3*0.5f, 0.0f})
+		translate(vec3{0.0f, 2*0.5f, 0.0f})
 			// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-				* scale(vec3{2.0f, 1.0f, 1.0f});
+				* scale(vec3{1.0f, 1.0f, 1.0f});
 	roof->transform = transformManager.createTransform(roofTf);
 	roof->color = colorFactory.createColor(roofColor);
-	roof->geometry = shapesFactory.createPyramid();
+	roof->geometry = geometryManager.createGeometry(roofMesh);
 	roof->material = materialsFactory.createMaterial();
 	roofNode->setEntity(roof);
 
@@ -81,7 +85,7 @@ int main()
 	const auto millTf =
 		translate(vec3{0.0f, 0.0f, 0.0f})
 			* rotate(radians(45.0f), vec3(1.0f, 0.0f, 1.0f))
-				* scale(vec3{0.5f, 0.5f, 0.5f});
+				* scale(vec3{1.0f, 1.0f, 1.0f});
 	mill->transform = transformManager.createTransform(millTf);
 	millNode->setEntity(mill);
 	millNode->attachNode(roofNode);

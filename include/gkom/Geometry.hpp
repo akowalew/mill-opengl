@@ -10,13 +10,23 @@ public:
 	Geometry() = default;
 
 	Geometry(unsigned int vertexArray,
-		     int indicesCount)
+		     int itemsCount,
+			 bool withIndices,
+		     bool withNormals,
+		     bool withTexcoords)
 		:	vertexArray(vertexArray)
-		,	indicesCount(indicesCount)
+		,	itemsCount(itemsCount)
+		,	withIndices(withIndices)
+		,	withNormals(withNormals)
+		,	withTexcoords(withTexcoords)
 	{}
 
 	unsigned int vertexArray {0};
-	int indicesCount {-1};
+	int itemsCount {-1};
+
+	bool withIndices {false};
+	bool withNormals {false};
+	bool withTexcoords {false};
 };
 
 } // gkom

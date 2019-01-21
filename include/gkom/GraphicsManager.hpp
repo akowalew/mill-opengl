@@ -4,16 +4,15 @@
 #include <memory>
 #include <string_view>
 
+#include <glm/vec3.hpp>
+
 #include "gkom/Vertex.hpp"
 
 namespace gkom {
 
-using Index = unsigned int;
-using Vertices = std::vector<Vertex>;
-using Indices = std::vector<Index>;
-
 //! Forward declarations
 class Logger;
+class Mesh;
 
 class GraphicsManager
 {
@@ -22,8 +21,11 @@ public:
 
 	~GraphicsManager();
 
-	unsigned int createVertexArray(const Vertices& vertices,
-								   const Indices& indices);
+	// TODO: Shall we accept mesh here? Or maybe raw arrays?
+	// TODO: Or maybe just create vertexArray,vertexBuffers,IndexBuffers
+	//  and let the caller construct what he want?
+
+	unsigned int createVertexArray(Mesh* mesh);
 
 	unsigned int createShaderProgram(std::string_view vertexShaderCode,
 							         std::string_view fragmentShaderCode);
@@ -46,19 +48,11 @@ private:
 
 	unsigned int createVertexArray();
 
-	unsigned int createVertexBuffer(const std::vector<Vertex>& vertices);
-
 	unsigned int createVertexBuffer();
-
-	unsigned int createIndexBuffer(const std::vector<unsigned int>& indices);
 
 	unsigned int createIndexBuffer();
 
 	unsigned int generateBufferOnly();
-
-	void storeIndices(const Indices& indices);
-
-	void storeVertices(const Vertices& vertices);
 
 	std::vector<unsigned int> vertexArrays_;
 	std::vector<unsigned int> vertexBuffers_;

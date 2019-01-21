@@ -123,7 +123,7 @@ void Renderer::render(Entity* entity, const Transform& transform)
 		}
 		else
 		{
-
+			assert(false); // No light!!!
 		}
 
 		if(color)
@@ -138,8 +138,27 @@ void Renderer::render(Entity* entity, const Transform& transform)
 		auto vertexArray = VertexArray{geometry->vertexArray};
 		vertexArray.bind();
 			vertexArray.enableAttribute(0);
-			glDrawElements(GL_TRIANGLES, geometry->indicesCount,
-						   GL_UNSIGNED_INT, 0);
+			if(geometry->withNormals)
+			{
+				vertexArray.enableAttribute(1);
+			}
+
+			if(geometry->withIndices)
+			{
+				assert(geometry->itemsCount != -1);
+				glDrawElements(GL_TRIANGLES, geometry->itemsCount,
+							   GL_UNSIGNED_INT, 0);
+			}
+			else
+			{
+				assert(geometry->itemsCount != -1);
+				glDrawArrays(GL_TRIANGLES, 0, geometry->itemsCount);
+			}
+
+			if(geometry->withNormals)
+			{
+				vertexArray.disableAttribute(1);
+			}
 			vertexArray.disableAttribute(0);
 		vertexArray.unbind();
 	shaderProgram.unuse();

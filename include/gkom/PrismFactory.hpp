@@ -1,34 +1,34 @@
-#pragma once
+// #pragma once
 
-#include <memory>
-#include <unordered_map>
+// #include <memory>
+// #include <unordered_map>
 
-#include "gkom/Geometry.hpp"
+// #include "gkom/Geometry.hpp"
 
-namespace gkom {
+// namespace gkom {
 
-	//! Forward declarations
-	class GraphicsManager;
-	class Geometry;
-	class Logger;
+// 	//! Forward declarations
+// 	class GraphicsManager;
+// 	class Geometry;
+// 	class Logger;
 
-	class PrismFactory
-	{
-	public:
-		PrismFactory(GraphicsManager& graphicsManager);
+// 	class PrismFactory
+// 	{
+// 	public:
+// 		PrismFactory(GraphicsManager& graphicsManager);
 
-		~PrismFactory();
+// 		~PrismFactory();
 
-		Geometry* createPrism(int sides);
+// 		Geometry* createPrism(int sides);
 
-		Geometry* findPrism(int sides);
+// 		Geometry* findPrism(int sides);
 
-	private:
-		Geometry makePrism(int sides);
+// 	private:
+// 		Geometry makePrism(int sides);
 
-		GraphicsManager& graphicsManager_;
-		Logger& logger_;
-		std::unordered_map<int /*sides*/, Geometry> prisms_;
-	};
+// 		GraphicsManager& graphicsManager_;
+// 		Logger& logger_;
+// 		std::unordered_map<int /*sides*/, Geometry> prisms_;
+// 	};
 
-} // gkom
+// } // gkom

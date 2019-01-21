@@ -1,6 +1,7 @@
 #include "gkom/GraphicsManager.hpp"
 
 #include <cstdio>
+#include <cassert>
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -12,6 +13,7 @@
 #include "gkom/Shader.hpp"
 #include "gkom/ShaderProgram.hpp"
 #include "gkom/Logging.hpp"
+#include "gkom/Mesh.hpp"
 
 namespace gkom {
 
@@ -42,22 +44,51 @@ GraphicsManager::~GraphicsManager()
 }
 
 unsigned int
-GraphicsManager::createVertexArray(const Vertices& vertices,
-		 				    	   const Indices& indices)
+GraphicsManager::createVertexArray(Mesh* mesh)
 {
+	assert(mesh != nullptr);
+
+	// Shouldn't this be done inside geometry manager?
+
+	logger_("Creating vertex array...");
 	auto vertexArray = VertexArray{createVertexArray()};
-	auto vertexBuffer = VertexBuffer{createVertexBuffer(vertices)};
-	auto indexBuffer = IndexBuffer{createIndexBuffer(indices)};
-
-	logger_("Setting up vertex array...");
 	vertexArray.bind();
-		indexBuffer.bind();
-		vertexBuffer.bind();
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * sizeof(GLfloat), 0);
+
+		logger_("Creating position buffer...");
+		assert(!mesh->positions.empty());
+		auto positionBuffer = VertexBuffer{createVertexBuffer()};
+		positionBuffer.bind();
+			positionBuffer.loadData(mesh->positions);
+			const auto positionStride = 3 * sizeof(GLfloat);
+			const auto positionOffset = static_cast<void*>(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, false,
+								  positionStride, positionOffset);
+		positionBuffer.unbind();
+
+		if(mesh->indices)
+		{
+			logger_("Creating indices buffer...");
+			assert(!mesh->indices->empty());
+			auto indexBuffer = IndexBuffer{createIndexBuffer()};
+			indexBuffer.bind();
+				indexBuffer.loadData(*mesh->indices);
+			// TODO: Should be here unbind?
+		}
+
+		if(mesh->normals)
+		{
+			logger_("Creating normals buffer...");
+			assert(!mesh->normals->empty());
+			auto normalsBuffer = VertexBuffer{createVertexBuffer()};
+			normalsBuffer.bind();
+				normalsBuffer.loadData(*mesh->normals);
+				const auto normalsStride = 3 * sizeof(GLfloat);
+				const auto normalsOffset = static_cast<void*>(0);
+				glVertexAttribPointer(1, 3, GL_FLOAT, false, normalsStride, normalsOffset);
+			normalsBuffer.unbind();
+		}
+
 	vertexArray.unbind();
-
-	vertexBuffer.unbind(); // That order is important!
-
 	return vertexArray;
 }
 
@@ -160,6 +191,31 @@ GraphicsManager::createTexture()
 	return texture;
 }
 
+// unsigned int
+// GraphicsManager::createVertexBuffer(const std::vector<Vertex>& vertices)
+// {
+// 	auto vertexBuffer = VertexBuffer{createVertexBuffer()};
+
+// 	logger_("Loading data into vertex buffer...");
+// 	vertexBuffer.bind();
+// 	vertexBuffer.loadData(vertices);
+// 	vertexBuffer.unbind();
+// 	return vertexBuffer;
+// }
+
+// unsigned int
+// GraphicsManager::createIndexBuffer(const std::vector<unsigned int>& indices)
+// {
+// 	auto indexBuffer = IndexBuffer{createIndexBuffer()};
+
+// 	logger_("Loading data into index buffer...");
+// 	indexBuffer.bind();
+// 	indexBuffer.loadData(indices);
+// 	indexBuffer.unbind();
+// 	return indexBuffer;
+// }
+
+
 unsigned int GraphicsManager::createVertexArray()
 {
 	logger_("Creating vertex array...");
@@ -174,36 +230,12 @@ unsigned int GraphicsManager::createVertexArray()
 	return vertexArray;
 }
 
-unsigned int
-GraphicsManager::createVertexBuffer(const std::vector<Vertex>& vertices)
-{
-	auto vertexBuffer = VertexBuffer{createVertexBuffer()};
-
-	logger_("Loading data into vertex buffer...");
-	vertexBuffer.bind();
-	vertexBuffer.loadData(vertices);
-	vertexBuffer.unbind();
-	return vertexBuffer;
-}
-
 unsigned int GraphicsManager::createVertexBuffer()
 {
 	logger_("Creating vertex buffer...");
 	const auto vertexBuffer = generateBufferOnly();
 	vertexBuffers_.emplace_back(vertexBuffer);
 	return vertexBuffer;
-}
-
-unsigned int
-GraphicsManager::createIndexBuffer(const std::vector<unsigned int>& indices)
-{
-	auto indexBuffer = IndexBuffer{createIndexBuffer()};
-
-	logger_("Loading data into index buffer...");
-	indexBuffer.bind();
-	indexBuffer.loadData(indices);
-	indexBuffer.unbind();
-	return indexBuffer;
 }
 
 unsigned int GraphicsManager::createIndexBuffer()

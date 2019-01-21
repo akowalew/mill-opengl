@@ -6,17 +6,17 @@
 
 namespace gkom {
 
-ShapesFactory::ShapesFactory(GraphicsManager& graphicsManager)
-	:	boxFactory_(graphicsManager)
-	,	pyramidFactory_(graphicsManager)
-	,	coneFactory_(graphicsManager)
-	,	prismFactory_(graphicsManager)
+ShapesFactory::ShapesFactory()
+	:	boxFactory_()
+	// ,	pyramidFactory_()
+	// ,	coneFactory_()
+	// ,	prismFactory_()
 	,	logger_(Logging::getLogger("ShapesFactory"))
 {
 	logger_("Initialized");
 }
 
-Geometry* ShapesFactory::createBox()
+Mesh* ShapesFactory::createBox()
 {
 	logger_("Creating box...");
 
@@ -25,31 +25,41 @@ Geometry* ShapesFactory::createBox()
 	return box;
 }
 
-Geometry* ShapesFactory::createPyramid()
+Mesh* ShapesFactory::createBoxWithNormals()
 {
-	logger_("Creating pyramid...");
+	logger_("Creating box with normals...");
 
-	const auto pyramid = pyramidFactory_.createPyramid();
-	assert(pyramid != nullptr);
-	return pyramid;
+	const auto boxWithNormals = boxFactory_.createBoxWithNormals();
+	assert(boxWithNormals != nullptr);
+	return boxWithNormals;
 }
 
-Geometry* ShapesFactory::createCone(int sides)
-{
-	logger_("Creating pyramid...");
 
-	const auto cone = coneFactory_.createCone(sides);
-	assert(cone != nullptr);
-	return cone;
-}
+// Mesh* ShapesFactory::createPyramid()
+// {
+// 	logger_("Creating pyramid...");
 
-Geometry* ShapesFactory::createPrism(int sides)
-{
-	logger_("Creating prism...");
+// 	const auto pyramid = pyramidFactory_.createPyramid();
+// 	assert(pyramid != nullptr);
+// 	return pyramid;
+// }
 
-	const auto prism = prismFactory_.createPrism(sides);
-	assert(prism != nullptr);
-	return prism;
-}
+// Mesh* ShapesFactory::createCone(int sides)
+// {
+// 	logger_("Creating pyramid...");
+
+// 	const auto cone = coneFactory_.createCone(sides);
+// 	assert(cone != nullptr);
+// 	return cone;
+// }
+
+// Mesh* ShapesFactory::createPrism(int sides)
+// {
+// 	logger_("Creating prism...");
+
+// 	const auto prism = prismFactory_.createPrism(sides);
+// 	assert(prism != nullptr);
+// 	return prism;
+// }
 
 } // gkom

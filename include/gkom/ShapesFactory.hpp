@@ -8,34 +8,31 @@
 namespace gkom {
 
 class Logger;
-class Geometry; // Forward declaration
-class GraphicsManager; // Forward declaration
+class Mesh; // Forward declaration
 
 class ShapesFactory
 {
 public:
-	ShapesFactory(GraphicsManager& graphicsManager);
+	ShapesFactory();
 
 	// TODO: Add ShapeBuilder to make easy calls like:
 	//  builder.withNormals(true), builder.withBitangents(true) etc
 
-	Geometry* createBox();
+	Mesh* createBox();
 
-	Geometry* createPyramid();
+	Mesh* createBoxWithNormals();
 
-	Geometry* createCone(int sides);
+	Mesh* createPyramid();
 
-	Geometry* createSphere(int segments);
+	Mesh* createCone(int sides);
 
-	Geometry* createCylinder(int sides);
-
-	Geometry* createPrism(int sides);
+	Mesh* createPrism(int sides);
 
 private:
 	gkom::BoxFactory boxFactory_;
-	gkom::PyramidFactory pyramidFactory_;
-	gkom::ConeFactory coneFactory_;
-	gkom::PrismFactory prismFactory_;
+	// gkom::PyramidFactory pyramidFactory_;
+	// gkom::ConeFactory coneFactory_;
+	// gkom::PrismFactory prismFactory_;
 
 	Logger& logger_;
 };

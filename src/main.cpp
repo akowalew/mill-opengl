@@ -44,28 +44,26 @@ int main()
 	World world;
 	Scene scene;
 
-	const auto sceneNode = scene.createNode();
-	assert(sceneNode != nullptr);
+	const auto millNode = scene.createNode();
+	assert(millNode != nullptr);
 
-	const auto entity1 = world.createEntity();
-	assert(entity1 != nullptr);
-	entity1->geometry = shapesFactory.createCone(20);
-	entity1->material = materialsFactory.createColorMaterial(
+	const auto building = world.createEntity();
+	assert(building != nullptr);
+	building->geometry = shapesFactory.createBox();
+	building->material = materialsFactory.createColorMaterial(
 		glm::vec4{1.0f, 0.0f, 0.0f, 1.0f});
-	entity1->sceneNode = sceneNode;
 
-	const auto entity2 = world.createEntity();
-	assert(entity2 != nullptr);
-	entity2->transform.scale[1] *= 2;
-	entity2->transform.position[1] -= 1.5f;
-	entity2->transform.rotation[0] = glm::radians(180.0f);
-	entity2->geometry = shapesFactory.createCone(20);
-	entity2->material = materialsFactory.createColorMaterial(
+	const auto roof = world.createEntity();
+	assert(roof != nullptr);
+	roof->transform.scale[1] *= 2;
+	roof->transform.position[1] -= 1.5f;
+	roof->transform.rotation[0] = glm::radians(180.0f);
+	roof->geometry = shapesFactory.createPyramid();
+	roof->material = materialsFactory.createColorMaterial(
 		glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
-	entity2->sceneNode = sceneNode;
 
-	sceneNode->attachEntity(entity1);
-	sceneNode->attachEntity(entity2);
+	millNode->attachEntity(building);
+	millNode->attachEntity(roof);
 
 	renderer.setScene(&scene);
 	window.show();

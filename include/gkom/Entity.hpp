@@ -3,8 +3,8 @@
 namespace gkom {
 
 // Forward declarations
-class Transform;
-class Color;
+struct Transform;
+struct Color;
 class Geometry;
 class Material;
 

@@ -10,7 +10,7 @@ class Scene;
 class Logger;
 class Entity;
 class SceneNode;
-class Transform;
+struct Transform;
 
 class Renderer
 {

@@ -8,7 +8,7 @@
 namespace gkom {
 
 // Forward declarations
-class Color;
+struct Color;
 class Logger;
 
 class ColorFactory

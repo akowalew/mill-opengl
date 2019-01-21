@@ -8,7 +8,7 @@
 namespace gkom {
 
 //! Forward declarations
-class Transform;
+struct Transform;
 class Logger;
 
 class TransformManager

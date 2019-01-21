@@ -14,62 +14,7 @@
 #include "gkom/Renderer.hpp"
 #include "gkom/Entity.hpp"
 #include "gkom/World.hpp"
-
-class EntityGenerator
-{
-public:
-	gkom::World& world;
-	gkom::GraphicsManager& graphicsManager;
-	gkom::ShapesFactory& shapesFactory;
-	gkom::MaterialsFactory& materialsFactory;
-
-	std::vector<gkom::Entity*> operator()(int count) const
-	{
-		using namespace gkom;
-		assert(count > 0);
-
-	    std::random_device rdevice;
-	    std::default_random_engine rengine(rdevice());
-	    std::uniform_real_distribution<float> positionDist(0.0, 1.0);
-	    std::uniform_real_distribution<float> scaleDist(0.1, 0.2);
-	    std::uniform_real_distribution<float> rotationDist(0.1, 0.3);
-	    std::uniform_real_distribution<float> colorDist(0.0, 1.0);
-
-		std::vector<Entity*> entities;
-		for(auto i = 0; i < count; ++i)
-		{
-			const auto px = positionDist(rengine);
-			const auto py = positionDist(rengine);
-			const auto pz = positionDist(rengine);
-			const auto position = glm::vec3{px, py, pz};
-
-			const auto sx = scaleDist(rengine);
-			const auto sy = sx;
-			const auto sz = sx;
-			const auto scale = glm::vec3{sx, sy, sz};
-
-			const auto rx = glm::radians(rotationDist(rengine) * 360.0f);
-			const auto ry = glm::radians(rotationDist(rengine) * 360.0f);
-			const auto rz = glm::radians(rotationDist(rengine) * 360.0f);
-			const auto rotation = glm::vec3{rx, ry, rz};
-
-			const auto red = colorDist(rengine);
-			const auto green = colorDist(rengine);
-			const auto blue = colorDist(rengine);
-			const auto alpha = 1.0f;
-			const auto color = glm::vec4(red, green, blue, alpha);
-
-			const auto entity = world.createEntity();
-			assert(entity != nullptr);
-			entity->transform = Transform{position, scale, rotation};
-			entity->geometry = shapesFactory.createPrism(4);
-			entity->material = materialsFactory.createColorMaterial(color);
-			entities.emplace_back(entity);
-		}
-
-		return entities;
-	}
-};
+#include "gkom/Scene.hpp"
 
 int main()
 {
@@ -87,22 +32,42 @@ int main()
 	camera.nearPlane = 1.0f;
 	camera.farPlane = 10.0f;
 
-	Renderer renderer;
-	renderer.setCamera(&camera);
-	renderer.setBackgroundColor({0.1f, 0.1f, 0.2f, 1.0f});
-
 	GraphicsManager graphicsManager;
 	ShapesFactory shapesFactory(graphicsManager);
 	ShaderLoader shaderLoader(graphicsManager);
 	MaterialsFactory materialsFactory(shaderLoader);
 
+	Renderer renderer;
+	renderer.setCamera(&camera);
+	renderer.setBackgroundColor({0.1f, 0.1f, 0.2f, 1.0f});
+
 	World world;
-	EntityGenerator entityGenerator{world, graphicsManager,
-									shapesFactory, materialsFactory};
+	Scene scene;
 
-	const auto entitiesCount = 10;
-	auto entities = entityGenerator(entitiesCount);
+	const auto sceneNode = scene.createNode();
+	assert(sceneNode != nullptr);
 
+	const auto entity1 = world.createEntity();
+	assert(entity1 != nullptr);
+	entity1->geometry = shapesFactory.createCone(20);
+	entity1->material = materialsFactory.createColorMaterial(
+		glm::vec4{1.0f, 0.0f, 0.0f, 1.0f});
+	entity1->sceneNode = sceneNode;
+
+	const auto entity2 = world.createEntity();
+	assert(entity2 != nullptr);
+	entity2->transform.scale[1] *= 2;
+	entity2->transform.position[1] -= 1.5f;
+	entity2->transform.rotation[0] = glm::radians(180.0f);
+	entity2->geometry = shapesFactory.createCone(20);
+	entity2->material = materialsFactory.createColorMaterial(
+		glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
+	entity2->sceneNode = sceneNode;
+
+	sceneNode->attachEntity(entity1);
+	sceneNode->attachEntity(entity2);
+
+	renderer.setScene(&scene);
 	window.show();
 	while(!window.shouldClose())
 	{
@@ -126,8 +91,6 @@ int main()
 	            				break;
 
 	            			case KeyCode::Enter:
-	            				world.clear();
-	            				entities = entityGenerator(entitiesCount);
 	            				break;
 
 	            			case KeyCode::Right:
@@ -167,7 +130,7 @@ int main()
 	        }, event);
 		}
 
-		renderer.render(entities);
+		renderer.render();
 		window.update();
 	}
 }

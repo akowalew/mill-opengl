@@ -14,6 +14,7 @@
 #include "gkom/ShaderProgram.hpp"
 #include "gkom/Uniform.hpp"
 #include "gkom/VertexArray.hpp"
+#include "gkom/Scene.hpp"
 
 namespace gkom {
 
@@ -41,49 +42,75 @@ Renderer::Renderer()
 	logger_("Initialized");
 }
 
-void Renderer::render(const std::vector<Entity*>& entities)
+void Renderer::render()
 {
+	if(scene_ == nullptr)
+	{
+		return; // No scene to render, go out
+	}
+
 	glClearColor(bgColor_[0], bgColor_[1], bgColor_[2], bgColor_[3]);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for(const auto entity : entities)
+	const auto rootNode = scene_->rootNode();
+	assert(rootNode != nullptr);
+	render(rootNode);
+}
+
+void Renderer::render(SceneNode* node)
+{
+	assert(node != nullptr);
+
+	for(const auto entity : node->entities())
 	{
 		assert(entity != nullptr);
-
-		const auto& transform = entity->transform;
-		const auto geometry = entity->geometry;
-		const auto material = entity->material;
-		if(geometry == nullptr || material == nullptr)
-		{
-			continue; // Don't render object, which are not renderable
-		}
-
-		auto shaderProgram = ShaderProgram{material->shaderProgram};
-		shaderProgram.use();
-			auto projUniform = shaderProgram.getUniform("proj");
-			auto viewUniform = shaderProgram.getUniform("view");
-			auto transUniform = shaderProgram.getUniform("trans");
-			auto colorUniform = shaderProgram.getUniform("color");
-
-			const auto proj = camera_->getProjection();
-			const auto view = camera_->getView();
-			const auto trans = transform.getMatrix();
-			const auto& color = material->color;
-
-			projUniform.loadMatrix(proj);
-			viewUniform.loadMatrix(view);
-			transUniform.loadMatrix(trans);
-			colorUniform.loadValue(color);
-
-			auto vertexArray = VertexArray{geometry->vertexArray};
-			vertexArray.bind();
-				vertexArray.enableAttribute(0);
-				glDrawElements(GL_TRIANGLES, geometry->indicesCount,
-							   GL_UNSIGNED_INT, 0);
-				vertexArray.disableAttribute(0);
-			vertexArray.unbind();
-		shaderProgram.unuse();
+		render(entity);
 	}
+
+	for(const auto node : node->childNodes())
+	{
+		assert(node != nullptr);
+		render(node);
+	}
+}
+
+void Renderer::render(Entity* entity)
+{
+	assert(entity != nullptr);
+
+	const auto& transform = entity->transform;
+	const auto geometry = entity->geometry;
+	const auto material = entity->material;
+	if(geometry == nullptr || material == nullptr)
+	{
+		return; // Don't render object, which are not renderable
+	}
+
+	auto shaderProgram = ShaderProgram{material->shaderProgram};
+	shaderProgram.use();
+		auto projUniform = shaderProgram.getUniform("proj");
+		auto viewUniform = shaderProgram.getUniform("view");
+		auto transUniform = shaderProgram.getUniform("trans");
+		auto colorUniform = shaderProgram.getUniform("color");
+
+		const auto proj = camera_->getProjection();
+		const auto view = camera_->getView();
+		const auto trans = transform.getMatrix();
+		const auto& color = material->color;
+
+		projUniform.loadMatrix(proj);
+		viewUniform.loadMatrix(view);
+		transUniform.loadMatrix(trans);
+		colorUniform.loadValue(color);
+
+		auto vertexArray = VertexArray{geometry->vertexArray};
+		vertexArray.bind();
+			vertexArray.enableAttribute(0);
+			glDrawElements(GL_TRIANGLES, geometry->indicesCount,
+						   GL_UNSIGNED_INT, 0);
+			vertexArray.disableAttribute(0);
+		vertexArray.unbind();
+	shaderProgram.unuse();
 }
 
 void Renderer::surfaceChanged(int width, int height)
@@ -93,6 +120,16 @@ void Renderer::surfaceChanged(int width, int height)
 
 	logger_("Updating camera's aspect ratio...");
 	camera_->aspectRatio = (static_cast<float>(width) / height);
+}
+
+void Renderer::setScene(Scene* scene)
+{
+	scene_ = scene;
+}
+
+Scene* Renderer::scene()
+{
+	return scene_;
 }
 
 void Renderer::setCamera(Camera* camera)

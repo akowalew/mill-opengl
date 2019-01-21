@@ -16,6 +16,8 @@ add_executable(ZW1-Mlyn
 	src/gkom/Window.cpp include/gkom/Window.hpp
 	src/gkom/Logging.cpp include/gkom/Logging.hpp
 	src/gkom/Camera.cpp include/gkom/Camera.hpp
+	src/gkom/Scene.cpp include/gkom/Scene.hpp
+	src/gkom/SceneNode.cpp include/gkom/SceneNode.hpp
 	src/gkom/World.cpp include/gkom/World.hpp
 	src/gkom/Transform.cpp include/gkom/Transform.hpp
 	src/gkom/GraphicsManager.cpp include/gkom/GraphicsManager.hpp

@@ -22,6 +22,8 @@
 #include "gkom/Scene.hpp"
 #include "gkom/Transform.hpp"
 
+#define NUMBER_OF_SAILS 7
+
 class MillFactory
 {
 public:
@@ -194,11 +196,11 @@ public:
 				* rotate(glm::radians(90.0f), glm::vec3{ 1.0f, 0.0f, 0.0f })
 				* scale(glm::vec3{ 0.15f, 0.4f, 0.15f }));
 		
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < NUMBER_OF_SAILS; i++) {
 			const auto sail = createSail(millNode);
 			*sail->transform =
 				(translate(glm::vec3{ 0.0f, 1.0f, 0.5f })
-					* rotate(glm::radians(360.0f/7*i), glm::vec3{ 0.0f, 0.0f, 1.0f })
+					* rotate(glm::radians(360.0f/ NUMBER_OF_SAILS *i), glm::vec3{ 0.0f, 0.0f, 1.0f })
 					* translate(glm::vec3{ 0.0f, 0.45f, 0.0f })
 					* scale(glm::vec3{ 0.1f, 0.9f, 0.1f }));
 		}
@@ -256,6 +258,7 @@ int main()
 	window.setTitle("ZW1-Mlyn");
 	window.setSize({1024, 768});
 	window.activate();
+	float wind_speed = 10.0;
 
 	Camera camera;
 	camera.position = vec3{5.0f, 0.0f, 10.0f};
@@ -286,7 +289,7 @@ int main()
 							colorFactory, shapesFactory, materialsFactory };
 	const auto propeller = propellerFactory.createPropeller();
 	*propeller->transform =
-		rotate(glm::radians(90), glm::vec3{ 1.0f, 0.0f, 0.0f })
+		rotate(glm::radians(-90.0f), glm::vec3{ 0.0f, 1.0f, 0.0f })
 		*translate(vec3(0.0f, 0.0f, 0.7f))
 		* scale(vec3(1.5f, 1.5f, 1.5f));
 
@@ -313,6 +316,7 @@ int main()
 	renderer.setBackgroundColor({0.1f, 0.1f, 0.2f});
 	renderer.setScene(&scene);
 	renderer.setLight(light);
+	auto begin = std::chrono::system_clock::now();
 
 	window.show();
 	while(!window.shouldClose())
@@ -362,7 +366,12 @@ int main()
 	            			case KeyCode::Add:
 	            				camera.fieldOfView -= radians(5.0f);
 	            				break;
-
+							case KeyCode::Y:
+								wind_speed += 2;
+								break;
+							case KeyCode::Z:
+								wind_speed -= 2;
+								break;
 	            			default:
 	            				break;
 	            		}
@@ -375,7 +384,13 @@ int main()
 	            }
 	        }, event);
 		}
-
+		auto end = std::chrono::system_clock::now();
+		auto diff = std::chrono::duration_cast<std::chrono::duration<double>>(end - begin).count();
+		*propeller->transform = *propeller->transform
+			*translate(vec3(0.0f, 1.0f, 0.0f))
+			*rotate(glm::radians(float(wind_speed*diff)), glm::vec3{ 0.0f, 0.0f, 1.0f })
+			*translate(vec3(0.0f, -1.0f, 0.0f));
+		begin = end;
 		renderer.render();
 		window.update();
 	}

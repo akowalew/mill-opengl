@@ -49,12 +49,14 @@ public:
 		const auto building = createBuilding(millNode);
 		*building->transform =
 			(translate(glm::vec3{0.0f, 0.0f, 0.0f})
+				* rotate(glm::radians(22.5f), glm::vec3{ 0.0f, 1.0f, 0.0f })
 				* scale(glm::vec3{2.0f, 4.0f, 2.0f}));
 
 		const auto roof = createRoof(millNode);
 		*roof->transform =
 			(translate(glm::vec3{0.0f, 2.75f, 0.0f})
-					* scale(glm::vec3{2.0f, 1.5f, 2.0f}));
+				* rotate(glm::radians(22.5f), glm::vec3{ 0.0f, 1.0f, 0.0f })
+				* scale(glm::vec3{2.0f, 1.5f, 2.0f}));
 
 		const auto chimney = createChimney(millNode);
 		*chimney->transform=
@@ -63,22 +65,22 @@ public:
 
 		const auto step1 = createStep(millNode);
 		*step1->transform =
-			(translate(glm::vec3{ 2.0f, -0.4f, 2.0f })
+			(translate(glm::vec3{ 0.0f, -0.4f, 1.5f })
 				* scale(glm::vec3{ 0.8f, 0.2f, 1.0f }));
 
 		const auto step2 = createStep(millNode);
 		*step2->transform =
-			(translate(glm::vec3{ 2.0f, -0.2f, 1.9f })
+			(translate(glm::vec3{ 0.0f, -0.2f, 1.4f })
 				* scale(glm::vec3{ 0.8f, 0.2f, 0.8f }));
 
 		const auto step3 = createStep(millNode);
 		*step3->transform =
-			(translate(glm::vec3{ 2.0f, 0.0f, 1.8f })
+			(translate(glm::vec3{ 0.0f, 0.0f, 1.3f })
 				* scale(glm::vec3{ 0.8f, 0.2f, 0.6f }));
 
 		const auto door = createDoor(millNode);
 		*door->transform =
-			(translate(glm::vec3{ 0.5f, +0.4f, 1.6f })
+			(translate(glm::vec3{ 0.0f, +0.6f, 1.26f })
 				* scale(glm::vec3{ 0.6f, 1.0f, 0.1f }));
 
 		return mill;
@@ -94,7 +96,7 @@ private:
 		const auto buildingColor = glm::vec3{0.2f, 0.3f, 0.0f};
 		building->transform = transformManager.createTransform();
 		building->color = colorFactory.createColor(buildingColor);
-		building->geometry = shapesFactory.createPrism(6);
+		building->geometry = shapesFactory.createPrism(8);
 		building->material = materialsFactory.createMaterial();
 		return building;
 	}
@@ -108,7 +110,7 @@ private:
 		const auto roofColor = glm::vec3{1.0f, 0.3f, 0.1f};
 		roof->transform = transformManager.createTransform();
 		roof->color = colorFactory.createColor(roofColor);
-		roof->geometry = shapesFactory.createCone(6);
+		roof->geometry = shapesFactory.createCone(8);
 		roof->material = materialsFactory.createMaterial();
 		return roof;
 	}
@@ -273,12 +275,20 @@ int main()
 	World world;
 	Scene scene;
 
-	PropellerFactory millFactory{world, scene, transformManager,
+	MillFactory millFactory{world, scene, transformManager,
 							colorFactory, shapesFactory, materialsFactory};
-	const auto mill = millFactory.createPropeller();
+	const auto mill = millFactory.createMill();
 	*mill->transform =
 		translate(vec3(0.0f, 0.0f, 0.0f))
 			* scale(vec3(1.0f, 1.0f, 1.0f));
+
+	PropellerFactory propellerFactory{ world, scene, transformManager,
+							colorFactory, shapesFactory, materialsFactory };
+	const auto propeller = propellerFactory.createPropeller();
+	*propeller->transform =
+		rotate(glm::radians(90), glm::vec3{ 1.0f, 0.0f, 0.0f })
+		*translate(vec3(0.0f, 0.0f, 0.7f))
+		* scale(vec3(1.5f, 1.5f, 1.5f));
 
 	const auto grass = world.createEntity();
 	const auto grassNode = scene.createNode();

@@ -3,43 +3,48 @@
 #include <vector>
 #include <memory>
 
-#include "gkom/Mesh.hpp"
+#include <glm/vec3.hpp>
+#include <glm/vec2.hpp>
 
 namespace gkom {
 
 //! Forward declarations
 class Logger;
+class GeometryManager;
+class Geometry;
+class World;
+class Entity;
+class Vertex;
 
 class BoxFactory
 {
 public:
-	BoxFactory();
+	BoxFactory(World& world, GeometryManager& geometryManager);
 
 	~BoxFactory();
 
 	// TODO: Add builder:
 	// withNormals(true), statical(true), dynamical(false) etc
 
-	Mesh* createBox(bool withNormals);
-
-	Mesh* createBox();
-
-	Mesh* createBoxWithNormals();
+	Entity* createBox();
 
 private:
-	std::unique_ptr<Mesh> makeBox();
+	std::unique_ptr<Geometry> makeBox();
 
-	std::unique_ptr<Mesh> makeBoxWithNormals();
+	std::vector<Vertex> makeVertices();
 
-	std::vector<Position> makePositions();
+	std::vector<glm::vec3> makePositions();
 
-	std::vector<Normal> makeNormals();
+	std::vector<glm::vec3> makeNormals();
 
-	std::vector<Texcoord> makeTexcoords();
+	std::vector<glm::vec2> makeTexcoords();
 
-	std::unique_ptr<Mesh> box_;
-	std::unique_ptr<Mesh> boxWithNormals_;
+	std::vector<unsigned int> makeIndices();
+
+	World& world_;
+	GeometryManager& geometryManager_;
 	Logger& logger_;
+	std::unique_ptr<Geometry> geometry_;
 };
 
 } // gkom

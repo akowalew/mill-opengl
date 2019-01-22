@@ -42,6 +42,16 @@ void VertexArray::disableAttribute(unsigned int attribute)
 	glDisableVertexAttribArray(attribute);
 }
 
+
+void VertexArray::setAttributeFormat(unsigned int attribute,
+									 int ncomponents,
+									 int stride,
+									 int offset)
+{
+	glVertexAttribPointer(attribute, ncomponents, GL_FLOAT,
+						  false, stride, reinterpret_cast<void*>(offset));
+}
+
 VertexArray::operator unsigned int() const noexcept
 {
 	return handle_;

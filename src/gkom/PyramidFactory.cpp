@@ -1,72 +1,76 @@
-// #include "gkom/PyramidFactory.hpp"
+#include "gkom/PyramidFactory.hpp"
 
-// #include <cassert>
+#include <cassert>
 
-// #include "gkom/GraphicsManager.hpp"
-// #include "gkom/Geometry.hpp"
-// #include "gkom/Logging.hpp"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/trigonometric.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
-// namespace gkom {
+#include "gkom/GeometryManager.hpp"
+#include "gkom/Geometry.hpp"
+#include "gkom/Logging.hpp"
+#include "gkom/World.hpp"
+#include "gkom/Entity.hpp"
 
-// PyramidFactory::PyramidFactory(GraphicsManager& graphicsManager)
-// 	:	graphicsManager_(graphicsManager)
-// 	,	logger_(Logging::getLogger("PyramidFactory"))
-// {
-// 	logger_("Initialized");
-// }
+namespace gkom {
 
-// PyramidFactory::~PyramidFactory() = default;
+PyramidFactory::PyramidFactory(World& world, GeometryManager& geometryManager)
+	:	world_(world)
+	,	geometryManager_(geometryManager)
+	,	logger_(Logging::getLogger("PyramidFactory"))
+{
+	logger_("Initialized");
+}
 
-// Geometry* PyramidFactory::createPyramid()
-// {
-// 	logger_("Looking for a pyramid geometry...");
-// 	if(pyramid_)
-// 	{
-// 		return pyramid_.get();
-// 	}
+PyramidFactory::~PyramidFactory() = default;
 
-// 	logger_("Creating new pyramid geometry");
-// 	pyramid_ = std::move(makePyramid());
-// 	assert(pyramid_);
-// 	return pyramid_.get();
-// }
+Entity* PyramidFactory::createPyramid()
+{
+	auto entity = world_.createEntity();
 
-// std::unique_ptr<Geometry> PyramidFactory::makePyramid()
-// {
-// 	const auto vertices = Vertices{
-// 		// Basis
-// 		{{-0.5f, -0.5f, 0.5f}},
-// 		{{-0.5f, -0.5f, -0.5f}},
-// 		{{0.5f, -0.5f, -0.5f}},
-// 		{{0.5f, -0.5f, 0.5f}},
+	if(!pyramid_)
+	{
+		pyramid_ = makePyramid();
+	}
 
-// 		// Corner
-// 		{{0.0f, 0.5f, 0.0f}},
-// 	};
+	entity->geometry = *pyramid_;
+	return entity;
+}
 
-// 	const auto indices = Indices{
-// 		// Basis
-// 		0, 1, 2,
-// 		2, 3, 0,
+std::unique_ptr<Geometry> PyramidFactory::makePyramid()
+{
+	logger_("Making new pyramid geometry...");
+	const auto vertices = makeVertices();
+	const auto geometry = geometryManager_.createGeometry(vertices);
+	return std::make_unique<Geometry>(geometry);
+}
 
-// 		// Left face
-// 		0, 4, 1,
+std::vector<Vertex> PyramidFactory::makeVertices()
+{
+	return {
+    	{{-0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{ 0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{ 0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{ 0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+    	{{-0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+    	{{-0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
 
-// 		// Back face
-// 		1, 4, 2,
+    	{{-0.5f, -0.5f, -0.5f}, glm::rotateZ(glm::vec3{-1.0f, 0.0f, 0.0f}, glm::radians(-30.0f))},
+    	{{ 0.0f,  0.5f,  0.0f}, glm::rotateZ(glm::vec3{-1.0f, 0.0f, 0.0f}, glm::radians(-30.0f))},
+    	{{-0.5f, -0.5f,  0.5f}, glm::rotateZ(glm::vec3{-1.0f, 0.0f, 0.0f}, glm::radians(-30.0f))},
 
-// 		// Right face
-// 		2, 4, 3,
+    	{{ 0.5f, -0.5f, -0.5f}, glm::rotateZ(glm::vec3{1.0f, 0.0f, 0.0f}, glm::radians(30.0f))},
+    	{{ 0.0f,  0.5f,  0.0f}, glm::rotateZ(glm::vec3{1.0f, 0.0f, 0.0f}, glm::radians(30.0f))},
+    	{{ 0.5f, -0.5f,  0.5f}, glm::rotateZ(glm::vec3{1.0f, 0.0f, 0.0f}, glm::radians(30.0f))},
 
-// 		// Front face
-// 		3, 4, 0,
-// 	};
+    	{{-0.5f, -0.5f, -0.5f}, glm::rotateX(glm::vec3{0.0f, 0.0f, -1.0f}, glm::radians(30.0f))},
+    	{{ 0.0f,  0.5f,  0.0f}, glm::rotateX(glm::vec3{0.0f, 0.0f, -1.0f}, glm::radians(30.0f))},
+    	{{ 0.5f, -0.5f, -0.5f}, glm::rotateX(glm::vec3{0.0f, 0.0f, -1.0f}, glm::radians(30.0f))},
 
-// 	const auto vertexArray =
-// 		graphicsManager_.createVertexArray(vertices, indices);
-// 	const auto indicesCount = static_cast<int>(indices.size());
-// 	return std::make_unique<Geometry>(vertexArray, indicesCount);
-// }
+    	{{-0.5f, -0.5f,  0.5f}, glm::rotateX(glm::vec3{0.0f, 0.0f, 1.0f}, glm::radians(-30.0f))},
+    	{{ 0.0f,  0.5f,  0.0f}, glm::rotateX(glm::vec3{0.0f, 0.0f, 1.0f}, glm::radians(-30.0f))},
+    	{{-0.5f, -0.5f,  0.5f}, glm::rotateX(glm::vec3{0.0f, 0.0f, 1.0f}, glm::radians(-30.0f))},
+	};
+}
 
-
-// } // gkom
+} // gkom

@@ -3,63 +3,51 @@
 #include <cassert>
 
 #include "gkom/Logging.hpp"
+#include "gkom/Geometry.hpp"
 
 namespace gkom {
 
-ShapesFactory::ShapesFactory()
-	:	boxFactory_()
-	// ,	pyramidFactory_()
-	// ,	coneFactory_()
-	// ,	prismFactory_()
+ShapesFactory::ShapesFactory(World& world, GeometryManager& geometryManager)
+	:	boxFactory_(world, geometryManager)
+	,	pyramidFactory_(world, geometryManager)
+	,	coneFactory_(world, geometryManager)
+	,	prismFactory_(world, geometryManager)
 	,	logger_(Logging::getLogger("ShapesFactory"))
 {
 	logger_("Initialized");
 }
 
-Mesh* ShapesFactory::createBox()
+Entity* ShapesFactory::createBox()
 {
 	logger_("Creating box...");
-
-	const auto box = boxFactory_.createBox();
-	assert(box != nullptr);
-	return box;
+	return boxFactory_.createBox();
 }
 
-Mesh* ShapesFactory::createBoxWithNormals()
+Entity* ShapesFactory::createPyramid()
 {
-	logger_("Creating box with normals...");
+	logger_("Creating pyramid...");
 
-	const auto boxWithNormals = boxFactory_.createBoxWithNormals();
-	assert(boxWithNormals != nullptr);
-	return boxWithNormals;
+	const auto pyramid = pyramidFactory_.createPyramid();
+	assert(pyramid != nullptr);
+	return pyramid;
 }
 
+Entity* ShapesFactory::createCone(int sides)
+{
+	logger_("Creating pyramid...");
 
-// Mesh* ShapesFactory::createPyramid()
-// {
-// 	logger_("Creating pyramid...");
+	const auto cone = coneFactory_.createCone(sides);
+	assert(cone != nullptr);
+	return cone;
+}
 
-// 	const auto pyramid = pyramidFactory_.createPyramid();
-// 	assert(pyramid != nullptr);
-// 	return pyramid;
-// }
+Entity* ShapesFactory::createPrism(int sides)
+{
+	logger_("Creating prism...");
 
-// Mesh* ShapesFactory::createCone(int sides)
-// {
-// 	logger_("Creating pyramid...");
-
-// 	const auto cone = coneFactory_.createCone(sides);
-// 	assert(cone != nullptr);
-// 	return cone;
-// }
-
-// Mesh* ShapesFactory::createPrism(int sides)
-// {
-// 	logger_("Creating prism...");
-
-// 	const auto prism = prismFactory_.createPrism(sides);
-// 	assert(prism != nullptr);
-// 	return prism;
-// }
+	const auto prism = prismFactory_.createPrism(sides);
+	assert(prism != nullptr);
+	return prism;
+}
 
 } // gkom

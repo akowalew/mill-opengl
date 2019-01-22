@@ -1,8 +1,9 @@
 #pragma once
 
+#include <vector>
 #include <memory>
 
-#include <glm/vec4.hpp>
+#include <glm/vec3.hpp>
 
 namespace gkom {
 
@@ -18,12 +19,13 @@ public:
 
 	~MaterialsFactory();
 
-	Material* createMaterial();
+	Material createColorMaterial(const glm::vec3& color);
 
 private:
-	std::unique_ptr<Material> makeMaterial();
+	// Material* findColorMaterial(const glm::vec3& color);
 
-	std::unique_ptr<Material> material_;
+	// std::unique_ptr<Material> makeColorMaterial(const glm::vec3& color);
+
 	ShaderLoader& shaderLoader_;
 	Logger& logger_;
 };

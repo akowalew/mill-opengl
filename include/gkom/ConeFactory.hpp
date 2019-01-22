@@ -1,34 +1,37 @@
-// #pragma once
+#pragma once
 
-// #include <memory>
-// #include <unordered_map>
+#include <memory>
+#include <unordered_map>
 
-// #include "gkom/Geometry.hpp"
+#include "gkom/Geometry.hpp"
 
-// namespace gkom {
+namespace gkom {
 
-// //! Forward declarations
-// class GraphicsManager;
-// class Geometry;
-// class Logger;
+//! Forward declarations
+class GeometryManager;
+class World;
+class Geometry;
+class Logger;
+class Entity;
+class Vertex;
 
-// class ConeFactory
-// {
-// public:
-// 	ConeFactory(GraphicsManager& graphicsManager);
+class ConeFactory
+{
+public:
+	ConeFactory(World& world, GeometryManager& geometryManager);
 
-// 	~ConeFactory();
+	~ConeFactory();
 
-// 	Geometry* createCone(int sides);
+	Entity* createCone(int sides);
 
-// 	Geometry* findCone(int sides);
+private:
+	Geometry makeCone(int sides);
 
-// private:
-// 	Geometry makeCone(int sides);
+	std::vector<Vertex> makeVertices(int sides);
 
-// 	GraphicsManager& graphicsManager_;
-// 	Logger& logger_;
-// 	std::unordered_map<int /*sides*/, Geometry> cones_;
-// };
+	World& world_;
+	GeometryManager& geometryManager_;
+	Logger& logger_;
+};
 
-// } // gkom
+} // gkom

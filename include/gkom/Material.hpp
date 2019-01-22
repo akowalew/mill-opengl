@@ -1,17 +1,25 @@
 #pragma once
 
+#include <glm/vec3.hpp>
+
+#include "gkom/ShaderProgram.hpp"
+
 namespace gkom {
 
-class Material
+//! Component
+struct Material
 {
 public:
 	Material() = default;
 
-	explicit Material(unsigned int shaderProgram)
+	explicit Material(ShaderProgram shaderProgram,
+					  const glm::vec3& color)
 		:	shaderProgram(shaderProgram)
+		,	color(color)
 	{}
 
-	unsigned int shaderProgram {0};
+	ShaderProgram shaderProgram;
+	glm::vec3 color {0.0f, 0.0f, 0.0f};
 };
 
 } // gkom

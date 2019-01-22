@@ -84,11 +84,12 @@ void Renderer::render(SceneNode* node, const Transform& tf)
 void Renderer::render(Entity* entity, const Transform& transform)
 {
 	assert(entity != nullptr);
+	assert(light_);
 
-	const auto color = entity->color;
-	const auto geometry = entity->geometry;
-	const auto material = entity->material;
-	if(geometry == nullptr || material == nullptr)
+	const auto& geometry = entity->geometry;
+	const auto& material = entity->material;
+
+	if(!entity->geometry || !entity->material)
 	{
 		return; // Don't render object, which is not renderable
 	}
@@ -106,59 +107,40 @@ void Renderer::render(Entity* entity, const Transform& transform)
 		viewUniform.loadMatrix(camera_->getView());
 		transUniform.loadMatrix(transform);
 
-		if(light_ && light_->color && light_->transform)
-		{
-			const auto& lightCol = *light_->color;
-			lightColor.loadValue(lightCol);
+		assert(light_->light);
+		assert(light_->transform);
 
-			glm::vec3 scale;
-			glm::quat rotation;
-			glm::vec3 translation;
-			glm::vec3 skew;
-			glm::vec4 perspective;
-			const auto& lightTransform = *light_->transform;
-			glm::decompose(lightTransform, scale, rotation,
-						   translation, skew, perspective);
-			lightPosition.loadValue(translation);
-		}
-		else
-		{
-			assert(false); // No light!!!
-		}
+		const auto& lightCol = light_->light->color;
+		lightColor.loadValue(lightCol);
 
-		if(color)
-		{
-			colorUniform.loadValue(*color);
-		}
-		else
-		{
-			colorUniform.loadValue(Color{});
-		}
+		glm::vec3 scale;
+		glm::quat rotation;
+		glm::vec3 translation;
+		glm::vec3 skew;
+		glm::vec4 perspective;
+		const auto& lightTransform = *light_->transform;
+		glm::decompose(lightTransform, scale, rotation,
+					   translation, skew, perspective);
+		lightPosition.loadValue(translation);
+
+		colorUniform.loadValue(entity->material->color);
 
 		auto vertexArray = VertexArray{geometry->vertexArray};
 		vertexArray.bind();
 			vertexArray.enableAttribute(0);
-			if(geometry->withNormals)
-			{
-				vertexArray.enableAttribute(1);
-			}
-
-			if(geometry->withIndices)
-			{
+			vertexArray.enableAttribute(1);
 				assert(geometry->itemsCount != -1);
-				glDrawElements(GL_TRIANGLES, geometry->itemsCount,
-							   GL_UNSIGNED_INT, 0);
-			}
-			else
-			{
-				assert(geometry->itemsCount != -1);
-				glDrawArrays(GL_TRIANGLES, 0, geometry->itemsCount);
-			}
+				if(geometry->packed)
+				{
+					glDrawArrays(GL_TRIANGLES, 0, geometry->itemsCount);
+				}
+				else
+				{
+					glDrawElements(GL_TRIANGLES, geometry->itemsCount,
+								   GL_UNSIGNED_INT, 0);
+				}
 
-			if(geometry->withNormals)
-			{
-				vertexArray.disableAttribute(1);
-			}
+			vertexArray.disableAttribute(1);
 			vertexArray.disableAttribute(0);
 		vertexArray.unbind();
 	shaderProgram.unuse();

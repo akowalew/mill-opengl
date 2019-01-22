@@ -9,18 +9,17 @@
 
 #include "gkom/GraphicsManager.hpp"
 #include "gkom/GeometryManager.hpp"
-#include "gkom/ColorFactory.hpp"
-#include "gkom/TransformManager.hpp"
 #include "gkom/ShaderLoader.hpp"
 #include "gkom/ShapesFactory.hpp"
 #include "gkom/MaterialsFactory.hpp"
-#include "gkom/LightManager.hpp"
+#include "gkom/LightFactory.hpp"
 #include "gkom/Camera.hpp"
 #include "gkom/Window.hpp"
 #include "gkom/Renderer.hpp"
 #include "gkom/Entity.hpp"
 #include "gkom/World.hpp"
 #include "gkom/Scene.hpp"
+#include "gkom/Geometry.hpp"
 
 int main()
 {
@@ -41,60 +40,47 @@ int main()
 	camera.nearPlane = 0.1f;
 	camera.farPlane = 20.0f;
 
-	ColorFactory colorFactory;
-	TransformManager transformManager;
-	GraphicsManager graphicsManager;
-	GeometryManager geometryManager{graphicsManager};
-	ShapesFactory shapesFactory;
-	ShaderLoader shaderLoader{graphicsManager};
-	MaterialsFactory materialsFactory{shaderLoader};
-
 	World world;
 	Scene scene;
 
-	const auto building = world.createEntity();
-	const auto buildingNode = scene.createNode();
-	const auto buildingColor = vec3{0.2f, 0.3f, 0.0f};
-	const auto buildingMesh = shapesFactory.createBoxWithNormals();
-	const auto buildingTf =
+	GraphicsManager graphicsManager;
+	GeometryManager geometryManager{graphicsManager};
+	ShapesFactory shapesFactory{world, geometryManager};
+	ShaderLoader shaderLoader{graphicsManager};
+	MaterialsFactory materialsFactory{shaderLoader};
+
+	auto building = shapesFactory.createPrism(10);
+	building->material = materialsFactory.createColorMaterial(vec3{0.2f, 0.3f, 0.0f});
+	*building->transform =
 		translate(vec3{0.0f, 0.0f, 0.0f})
-			// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+			* rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
 				* scale(vec3{1.0f, 1.0f, 1.0f});
-	building->transform = transformManager.createTransform(buildingTf);
-	building->color = colorFactory.createColor(buildingColor);
-	building->geometry = geometryManager.createGeometry(buildingMesh);
-	building->material = materialsFactory.createMaterial();
+	const auto buildingNode = scene.createNode();
 	buildingNode->setEntity(building);
 
-	const auto roof = world.createEntity();
-	const auto roofNode = scene.createNode();
-	const auto roofColor = vec3{1.0f, 0.3f, 0.1f};
-	const auto roofMesh = shapesFactory.createBoxWithNormals();
-	const auto roofTf =
+	const auto roof = shapesFactory.createBox();;
+	roof->material = materialsFactory.createColorMaterial(vec3{1.0f, 0.3f, 0.1f});
+	roof->transform =
 		translate(vec3{0.0f, 2*0.5f, 0.0f})
-			// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+			* rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
 				* scale(vec3{1.0f, 1.0f, 1.0f});
-	roof->transform = transformManager.createTransform(roofTf);
-	roof->color = colorFactory.createColor(roofColor);
-	roof->geometry = geometryManager.createGeometry(roofMesh);
-	roof->material = materialsFactory.createMaterial();
+	const auto roofNode = scene.createNode();
 	roofNode->setEntity(roof);
 
 	const auto mill = world.createEntity();
-	const auto millNode = scene.createNode();
-	const auto millTf =
+	mill->transform =
 		translate(vec3{0.0f, 0.0f, 0.0f})
 			* rotate(radians(45.0f), vec3(1.0f, 0.0f, 1.0f))
 				* scale(vec3{1.0f, 1.0f, 1.0f});
-	mill->transform = transformManager.createTransform(millTf);
+	const auto millNode = scene.createNode();
 	millNode->setEntity(mill);
 	millNode->attachNode(roofNode);
 	millNode->attachNode(buildingNode);
 
-	LightManager lightManager(world, transformManager, colorFactory);
+	LightFactory lightFactory(world);
 	const auto lightPosition = vec3{5.0f, 5.0f, 5.0f};
 	const auto lightColor = vec3{1.0f, 1.0f, 1.0f};
-	const auto light = lightManager.createLight(lightPosition, lightColor);
+	const auto light = lightFactory.createLight(lightPosition, lightColor);
 
 	Renderer renderer;
 	renderer.setCamera(&camera);

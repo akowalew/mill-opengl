@@ -1,6 +1,5 @@
 #include "gkom/GraphicsManager.hpp"
 
-#include <cstdio>
 #include <cassert>
 
 #define GLEW_STATIC
@@ -13,7 +12,6 @@
 #include "gkom/Shader.hpp"
 #include "gkom/ShaderProgram.hpp"
 #include "gkom/Logging.hpp"
-#include "gkom/Mesh.hpp"
 
 namespace gkom {
 
@@ -26,8 +24,7 @@ GraphicsManager::GraphicsManager()
 GraphicsManager::~GraphicsManager()
 {
 	glDeleteVertexArrays(vertexArrays_.size(), vertexArrays_.data());
-	glDeleteBuffers(vertexBuffers_.size(), vertexBuffers_.data());
-	glDeleteBuffers(indexBuffers_.size(), indexBuffers_.data());
+	glDeleteBuffers(buffers_.size(), buffers_.data());
 	glDeleteTextures(textures_.size(), textures_.data());
 
 	for(const auto shader : shaders_)
@@ -43,53 +40,34 @@ GraphicsManager::~GraphicsManager()
 	logger_("Destroyed");
 }
 
-unsigned int
-GraphicsManager::createVertexArray(Mesh* mesh)
+VertexArray GraphicsManager::createVertexArray()
 {
-	assert(mesh != nullptr);
-
-	// Shouldn't this be done inside geometry manager?
-
 	logger_("Creating vertex array...");
-	auto vertexArray = VertexArray{createVertexArray()};
-	vertexArray.bind();
+	unsigned int vertexArray = 0;
+	glGenVertexArrays(1, &vertexArray);
+	if(vertexArray == 0)
+	{
+		throw std::runtime_error("Could not generate vertex array");
+	}
 
-		logger_("Creating position buffer...");
-		assert(!mesh->positions.empty());
-		auto positionBuffer = VertexBuffer{createVertexBuffer()};
-		positionBuffer.bind();
-			positionBuffer.loadData(mesh->positions);
-			const auto positionStride = 3 * sizeof(GLfloat);
-			const auto positionOffset = static_cast<void*>(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, false,
-								  positionStride, positionOffset);
-		positionBuffer.unbind();
+	vertexArrays_.emplace_back(vertexArray);
+	return VertexArray{vertexArray};
+}
 
-		if(mesh->indices)
-		{
-			logger_("Creating indices buffer...");
-			assert(!mesh->indices->empty());
-			auto indexBuffer = IndexBuffer{createIndexBuffer()};
-			indexBuffer.bind();
-				indexBuffer.loadData(*mesh->indices);
-			// TODO: Should be here unbind?
-		}
+VertexBuffer GraphicsManager::createVertexBuffer()
+{
+	logger_("Creating vertex buffer...");
+	const auto buffer = createBuffer();
+	assert(buffer != 0);
+	return VertexBuffer{buffer};
+}
 
-		if(mesh->normals)
-		{
-			logger_("Creating normals buffer...");
-			assert(!mesh->normals->empty());
-			auto normalsBuffer = VertexBuffer{createVertexBuffer()};
-			normalsBuffer.bind();
-				normalsBuffer.loadData(*mesh->normals);
-				const auto normalsStride = 3 * sizeof(GLfloat);
-				const auto normalsOffset = static_cast<void*>(0);
-				glVertexAttribPointer(1, 3, GL_FLOAT, false, normalsStride, normalsOffset);
-			normalsBuffer.unbind();
-		}
-
-	vertexArray.unbind();
-	return vertexArray;
+IndexBuffer GraphicsManager::createIndexBuffer()
+{
+	logger_("Creating index buffer...");
+	const auto buffer = createBuffer();
+	assert(buffer != 0);
+	return IndexBuffer{buffer};
 }
 
 unsigned int
@@ -191,62 +169,8 @@ GraphicsManager::createTexture()
 	return texture;
 }
 
-// unsigned int
-// GraphicsManager::createVertexBuffer(const std::vector<Vertex>& vertices)
-// {
-// 	auto vertexBuffer = VertexBuffer{createVertexBuffer()};
-
-// 	logger_("Loading data into vertex buffer...");
-// 	vertexBuffer.bind();
-// 	vertexBuffer.loadData(vertices);
-// 	vertexBuffer.unbind();
-// 	return vertexBuffer;
-// }
-
-// unsigned int
-// GraphicsManager::createIndexBuffer(const std::vector<unsigned int>& indices)
-// {
-// 	auto indexBuffer = IndexBuffer{createIndexBuffer()};
-
-// 	logger_("Loading data into index buffer...");
-// 	indexBuffer.bind();
-// 	indexBuffer.loadData(indices);
-// 	indexBuffer.unbind();
-// 	return indexBuffer;
-// }
-
-
-unsigned int GraphicsManager::createVertexArray()
-{
-	logger_("Creating vertex array...");
-	unsigned int vertexArray = 0;
-	glGenVertexArrays(1, &vertexArray);
-	if(vertexArray == 0)
-	{
-		throw std::runtime_error("Could not generate vertex array");
-	}
-
-	vertexArrays_.emplace_back(vertexArray);
-	return vertexArray;
-}
-
-unsigned int GraphicsManager::createVertexBuffer()
-{
-	logger_("Creating vertex buffer...");
-	const auto vertexBuffer = generateBufferOnly();
-	vertexBuffers_.emplace_back(vertexBuffer);
-	return vertexBuffer;
-}
-
-unsigned int GraphicsManager::createIndexBuffer()
-{
-	logger_("Creating index buffer...");
-	const auto indexBuffer = generateBufferOnly();
-	indexBuffers_.emplace_back(indexBuffer);
-	return indexBuffer;
-}
-
-unsigned int GraphicsManager::generateBufferOnly()
+unsigned int
+GraphicsManager::createBuffer()
 {
 	unsigned int buffer = 0;
 	glGenBuffers(1, &buffer);

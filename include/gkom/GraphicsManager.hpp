@@ -6,13 +6,13 @@
 
 #include <glm/vec3.hpp>
 
-#include "gkom/Vertex.hpp"
-
 namespace gkom {
 
 //! Forward declarations
 class Logger;
-class Mesh;
+class VertexArray;
+class VertexBuffer;
+class IndexBuffer;
 
 class GraphicsManager
 {
@@ -21,11 +21,11 @@ public:
 
 	~GraphicsManager();
 
-	// TODO: Shall we accept mesh here? Or maybe raw arrays?
-	// TODO: Or maybe just create vertexArray,vertexBuffers,IndexBuffers
-	//  and let the caller construct what he want?
+	VertexArray createVertexArray();
 
-	unsigned int createVertexArray(Mesh* mesh);
+	VertexBuffer createVertexBuffer();
+
+	IndexBuffer createIndexBuffer();
 
 	unsigned int createShaderProgram(std::string_view vertexShaderCode,
 							         std::string_view fragmentShaderCode);
@@ -46,17 +46,10 @@ private:
 
 	unsigned int createTexture();
 
-	unsigned int createVertexArray();
-
-	unsigned int createVertexBuffer();
-
-	unsigned int createIndexBuffer();
-
-	unsigned int generateBufferOnly();
+	unsigned int createBuffer();
 
 	std::vector<unsigned int> vertexArrays_;
-	std::vector<unsigned int> vertexBuffers_;
-	std::vector<unsigned int> indexBuffers_;
+	std::vector<unsigned int> buffers_;
 	std::vector<unsigned int> textures_;
 	std::vector<unsigned int> shaders_;
 	std::vector<unsigned int> programs_;

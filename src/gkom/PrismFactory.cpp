@@ -1,108 +1,67 @@
-// #include "gkom/PrismFactory.hpp"
+#include "gkom/PrismFactory.hpp"
 
-// #include <cassert>
+#include <cassert>
 
-// #define GLM_ENABLE_EXPERIMENTAL
-// #include <glm/gtx/rotate_vector.hpp>
-// #include <glm/trigonometric.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/trigonometric.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
-// #include "gkom/GraphicsManager.hpp"
-// #include "gkom/Geometry.hpp"
-// #include "gkom/Logging.hpp"
+#include "gkom/GeometryManager.hpp"
+#include "gkom/Geometry.hpp"
+#include "gkom/Logging.hpp"
+#include "gkom/World.hpp"
+#include "gkom/Entity.hpp"
 
-// namespace gkom {
+namespace gkom {
 
-// 	PrismFactory::PrismFactory(GraphicsManager& graphicsManager)
-// 		: graphicsManager_(graphicsManager)
-// 		, logger_(Logging::getLogger("PrismFactory"))
-// 	{
-// 		logger_("Initialized");
-// 	}
+	PrismFactory::PrismFactory(World& world, GeometryManager& geometryManager)
+		: 	world_(world)
+		,	geometryManager_(geometryManager)
+		, logger_(Logging::getLogger("PrismFactory"))
+	{
+		logger_("Initialized");
+	}
 
-// 	PrismFactory::~PrismFactory() = default;
+	PrismFactory::~PrismFactory() = default;
 
-// 	Geometry* PrismFactory::createPrism(int sides)
-// 	{
-// 		assert(sides >= 3); // At least triangle
+	Entity* PrismFactory::createPrism(int sides)
+	{
+		assert(sides >= 3); // At least triangle
+		const auto entity = world_.createEntity();
+		entity->geometry = makePrism(sides);
+		return entity;
+	}
 
-// 		logger_("Looking for an existing cone geometry...");
-// 		const auto prism = findPrism(sides);
-// 		if (prism != nullptr)
-// 		{
-// 			return prism;
-// 		}
+	Geometry PrismFactory::makePrism(int sides)
+	{
+		assert(sides >= 3); // At least triangle
 
-// 		logger_("Creating a new cone geometry...");
-// 		const auto newPrismPos =
-// 			prisms_.emplace_hint(prisms_.end(),
-// 				std::make_pair(sides, makePrism(sides)));
-// 		auto& newPrism = newPrismPos->second;
-// 		return &newPrism;
-// 	}
+		std::vector<Vertex> vertices;
 
-// 	Geometry* PrismFactory::findPrism(int sides)
-// 	{
-// 		const auto prismPos = prisms_.find(sides);
-// 		if (prismPos == prisms_.end())
-// 		{
-// 			return nullptr;
-// 		}
+		const auto angle = glm::radians(360.0f / sides);
+		auto lower = glm::vec3{ -0.5f, -0.5f, 0.5f };
+		auto upper = glm::vec3{ -0.5f,  0.5f, 0.5f };
+		auto normal = glm::rotateZ(glm::vec3{-1.0f, 0.0f, 0.0f}, glm::radians(-30.0f));
+		normal = glm::rotateY(normal, angle/2);
+		for(auto i = 0; i < sides; ++i)
+		{
+			const auto nextUpper = glm::rotateY(upper, angle);
+			const auto nextLower = glm::rotateY(lower, angle);
 
-// 		return &(prismPos->second);
-// 	}
+			vertices.push_back(Vertex{lower, normal});
+			vertices.push_back(Vertex{upper, normal});
+			vertices.push_back(Vertex{nextUpper, normal});
 
-// 	Geometry PrismFactory::makePrism(int sides)
-// 	{
-// 		assert(sides >= 3); // At least triangle
+			vertices.push_back(Vertex{nextUpper, normal});
+			vertices.push_back(Vertex{nextLower, normal});
+			vertices.push_back(Vertex{lower, normal});
 
-// 		// Generate vertices
-// 		const auto angle = glm::radians(360.0f / sides);
-// 		const auto corner = Vertex{ {0.0f, 0.5f, 0.0f} };
-// 		auto corner2 = glm::vec3{ 0.0f, -0.5f, 0.0f };
-// 		auto vertices = Vertices{ corner };
-// 		vertices.emplace_back(Vertex{ corner2 });
+			lower = nextLower;
+			upper = nextUpper;
+			normal = glm::rotateY(normal, angle);
+		}
 
-// 		auto point2 = glm::vec3{ -0.5f, -0.5f, 0.5f };
-// 		auto point = glm::vec3{ -0.5f, 0.5f, 0.5f };
-// 		for (auto i = 0; i < sides; ++i)
-// 		{
-// 			vertices.emplace_back(Vertex{ point });
-// 			vertices.emplace_back(Vertex{ point2 });
-// 			point = glm::rotateY(point, angle);
-// 			point2 = glm::rotateY(point2, angle);
-// 		}
+		return geometryManager_.createGeometry(vertices);
+	}
 
-// 		// Generate indices
-// 		auto indices = Indices{};
-// 		for (unsigned int i = 2; i < sides * 2; i += 2)
-// 		{
-// 			// Insert next triangles
-// 			indices.insert(indices.end(), { i, i + 1, i + 2 });
-// 			indices.insert(indices.end(), { i + 1, i + 2, i + 3 });
-// 		}
-
-// 		// Insert last triangles
-// 		indices.insert(indices.end(), { static_cast<unsigned int>(sides) * 2, static_cast<unsigned int>(sides) * 2 + 1, 2 });
-// 		indices.insert(indices.end(), { static_cast<unsigned int>(sides) * 2 + 1, 2, 3 });
-
-// 		for (unsigned int i = 1; i < sides; i++)
-// 		{
-// 			// Insert next triangles
-// 			indices.insert(indices.end(), { i * 2, 0, i * 2 + 2 });
-// 		}
-// 		indices.insert(indices.end(), { static_cast<unsigned int>(sides) * 2, 0, 2 });
-
-// 		for (unsigned int i = 1; i < sides; i++)
-// 		{
-// 			// Insert next triangles
-// 			indices.insert(indices.end(), { i * 2 + 1, 1, i * 2 + 3 });
-// 		}
-// 		indices.insert(indices.end(), { static_cast<unsigned int>(sides) * 2 + 1, 1, 3 });
-
-// 		const auto vertexArray = graphicsManager_.createVertexArray(vertices,
-// 			indices);
-// 		const auto indicesCount = static_cast<int>(indices.size());
-// 		return Geometry{ vertexArray, indicesCount };
-// 	}
-
-// } // gkom
+} // gkom

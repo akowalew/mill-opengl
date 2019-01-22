@@ -1,5 +1,6 @@
 #include "gkom/VertexBuffer.hpp"
 
+#include <cstdio>
 #include <cassert>
 
 #define GLEW_STATIC
@@ -41,6 +42,7 @@ VertexBuffer::loadSubData(std::ptrdiff_t offset, std::ptrdiff_t size,
 void
 VertexBuffer::loadData(std::ptrdiff_t size, const void *data)
 {
+	printf("%d\n", size);
 	reallocate(size);
 
 	const auto offset = 0;

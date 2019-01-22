@@ -250,7 +250,7 @@ int main()
 	const auto grassColor = vec3{ 0.0f, 1.0f, 0.0f };
 	grass->transform =
 		translate(vec3{ 0.0f, -0.5f, 0.0f })
-			* scale(vec3{ 30.0f, 0.01f, 30.0f });
+			* scale(vec3{ 3000.0f, 0.01f, 3000.0f });
 	grass->material = materialsFactory.createColorMaterial(grassColor);
 	grassNode->setEntity(grass);
 
@@ -261,7 +261,7 @@ int main()
 
 	Renderer renderer;
 	renderer.setCamera(&camera);
-	renderer.setBackgroundColor({0.1f, 0.1f, 0.2f});
+	renderer.setBackgroundColor({0.52f, 0.807f, 0.92f});
 	renderer.setScene(&scene);
 	renderer.setLight(light);
 	auto begin = std::chrono::system_clock::now();
@@ -300,11 +300,14 @@ int main()
 	            				break;
 
 	            			case KeyCode::Down:
-	            				camera.position[2] += 0.1;
+	            				camera.position[1] += 0.1;
 	            				break;
 
 	            			case KeyCode::Up:
-	            				camera.position[2] -= 0.1;
+	            				if(camera.position[1] > 0.1)
+	            				{
+		            				camera.position[1] -= 0.1;
+	            				}
 	            				break;
 
 	            			case KeyCode::Subtract:

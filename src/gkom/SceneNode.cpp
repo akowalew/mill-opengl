@@ -8,8 +8,10 @@ SceneNode::SceneNode() = default;
 
 SceneNode::SceneNode(SceneNode* parent)
 {
-	assert(parent != nullptr);
-	parent->attachNode(this);
+	if(parent != nullptr)
+	{
+		parent->attachNode(this);
+	}
 }
 
 SceneNode::~SceneNode() = default;

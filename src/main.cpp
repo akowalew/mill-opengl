@@ -20,8 +20,81 @@
 #include "gkom/Entity.hpp"
 #include "gkom/World.hpp"
 #include "gkom/Scene.hpp"
+#include "gkom/Transform.hpp"
 
+class MillFactory
+{
+public:
+	MillFactory(gkom::World& world,
+				gkom::Scene& scene,
+				gkom::TransformManager& transformManager,
+				gkom::ColorFactory& colorFactory,
+				gkom::ShapesFactory& shapesFactory,
+				gkom::MaterialsFactory& materialsFactory)
+		:	world(world)
+		,	scene(scene)
+		,	transformManager(transformManager)
+		,	colorFactory(colorFactory)
+		,	shapesFactory(shapesFactory)
+		,	materialsFactory(materialsFactory)
+	{}
 
+	gkom::Entity* createMill(gkom::SceneNode* parent = nullptr)
+	{
+		const auto mill = world.createEntity();
+		const auto millNode = scene.createNode(parent);
+		millNode->setEntity(mill);
+		mill->transform = transformManager.createTransform();
+
+		const auto building = createBuilding(millNode);
+		*building->transform =
+			(translate(glm::vec3{0.0f, 0.0f, 0.0f})
+				* scale(glm::vec3{2.0f, 4.0f, 2.0f}));
+
+		const auto roof = createRoof(millNode);
+		*roof->transform =
+			(translate(glm::vec3{0.0f, 2.75f, 0.0f})
+					* scale(glm::vec3{2.0f, 1.5f, 2.0f}));
+
+		return mill;
+	}
+
+private:
+	gkom::Entity* createBuilding(gkom::SceneNode* parent)
+	{
+		const auto building = world.createEntity();
+		const auto buildingNode = scene.createNode(parent);
+		buildingNode->setEntity(building);
+
+		const auto buildingColor = glm::vec3{0.2f, 0.3f, 0.0f};
+		building->transform = transformManager.createTransform();
+		building->color = colorFactory.createColor(buildingColor);
+		building->geometry = shapesFactory.createPrism(6);
+		building->material = materialsFactory.createMaterial();
+		return building;
+	}
+
+	gkom::Entity* createRoof(gkom::SceneNode* parent)
+	{
+		const auto roof = world.createEntity();
+		const auto roofNode = scene.createNode(parent);
+		roofNode->setEntity(roof);
+
+		const auto roofColor = glm::vec3{1.0f, 0.3f, 0.1f};
+		roof->transform = transformManager.createTransform();
+		roof->color = colorFactory.createColor(roofColor);
+		roof->geometry = shapesFactory.createCone(6);
+		roof->material = materialsFactory.createMaterial();
+		return roof;
+	}
+
+	gkom::World& world;
+	gkom::Scene& scene;
+	gkom::TransformManager& transformManager;
+	gkom::ColorFactory& colorFactory;
+	gkom::ShapesFactory& shapesFactory;
+	gkom::MaterialsFactory& materialsFactory;
+};
 
 int main()
 {
@@ -52,159 +125,128 @@ int main()
 	World world;
 	Scene scene;
 
-	const auto building = world.createEntity();
-	const auto buildingNode = scene.createNode();
-	const auto buildingColor = vec3{0.2f, 0.3f, 0.0f};
-	const auto buildingTf =
-		translate(vec3{0.0f, 0.0f, 0.0f})
-			// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-				* scale(vec3{2.0f, 4.0f, 2.0f});
-	building->transform = transformManager.createTransform(buildingTf);
-	building->color = colorFactory.createColor(buildingColor);
-	building->geometry = shapesFactory.createPrism(6);
-	building->material = materialsFactory.createMaterial();
-	buildingNode->setEntity(building);
-
-	const auto roof = world.createEntity();
-	const auto roofNode = scene.createNode();
-	const auto roofColor = vec3{1.0f, 0.3f, 0.1f};
-	const auto roofTf =
-		translate(vec3{0.0f, 2.75f, 0.0f})
-			// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-				* scale(vec3{2.0f, 1.5f, 2.0f});
-	roof->transform = transformManager.createTransform(roofTf);
-	roof->color = colorFactory.createColor(roofColor);
-	roof->geometry = shapesFactory.createCone(6);
-	roof->material = materialsFactory.createMaterial();
-	//roofNode->setEntity(roof);
-
-	const auto mill = world.createEntity();
-	const auto millNode = scene.createNode();
-	const auto millTf =
-		translate(vec3{0.0f, 0.0f, 0.0f})
-			//* rotate(radians(45.0f), vec3(1.0f, 0.0f, 1.0f))
-				* scale(vec3{0.5f, 0.5f, 0.5f});
-	mill->transform = transformManager.createTransform(millTf);
-	millNode->setEntity(mill);
-	millNode->attachNode(roofNode);
-	//millNode->attachNode(buildingNode);
+	MillFactory millFactory{world, scene, transformManager,
+							colorFactory, shapesFactory, materialsFactory};
+	const auto mill = millFactory.createMill();
+	*mill->transform =
+		translate(vec3(0.0f, 0.0f, 0.0f))
+			* scale(vec3(1.0f, 1.0f, 1.0f));
 
 	const auto grass = world.createEntity();
 	const auto grassNode = scene.createNode();
 	const auto grassColor = vec3{ 0.0f, 1.0f, 0.0f };
 	const auto grassTf =
 		translate(vec3{ 0.0f, -0.5f, 0.0f })
-		// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-		* scale(vec3{ 30.0f, 0.01f, 30.0f });
+			* scale(vec3{ 30.0f, 0.01f, 30.0f });
 	grass->transform = transformManager.createTransform(grassTf);
 	grass->color = colorFactory.createColor(grassColor);
 	grass->geometry = shapesFactory.createPrism(4);
 	grass->material = materialsFactory.createMaterial();
 	grassNode->setEntity(grass);
 
-	const auto chimney = world.createEntity();
-	const auto chimneyNode = scene.createNode();
-	const auto chimneyColor = vec3{ 1.0f, 0.0f, 0.0f };
-	const auto chimneyTf =
-		translate(vec3{ 0.3f, +1.35f, 0.3f })
-		// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-		* scale(vec3{ 0.2f, 0.6f, 0.2f });
-	chimney->transform = transformManager.createTransform(chimneyTf);
-	chimney->color = colorFactory.createColor(chimneyColor);
-	chimney->geometry = shapesFactory.createPrism(4);
-	chimney->material = materialsFactory.createMaterial();
-	//chimneyNode->setEntity(chimney);
+	// const auto chimney = world.createEntity();
+	// const auto chimneyNode = scene.createNode();
+	// const auto chimneyColor = vec3{ 1.0f, 0.0f, 0.0f };
+	// const auto chimneyTf =
+	// 	translate(vec3{ 0.3f, +1.35f, 0.3f })
+	// 	// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+	// 	* scale(vec3{ 0.2f, 0.6f, 0.2f });
+	// chimney->transform = transformManager.createTransform(chimneyTf);
+	// chimney->color = colorFactory.createColor(chimneyColor);
+	// chimney->geometry = shapesFactory.createPrism(4);
+	// chimney->material = materialsFactory.createMaterial();
+	// //chimneyNode->setEntity(chimney);
 
-	const auto step1 = world.createEntity();
-	const auto step1Node = scene.createNode();
-	const auto step1Color = vec3{ 0.5f, 0.5f, 0.5f };
-	const auto step1Tf =
-		translate(vec3{ 0.0f, -0.45f, 0.0f })
-		// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-		* scale(vec3{ 0.2f, 0.1f, 0.5f });
-	step1->transform = transformManager.createTransform(step1Tf);
-	step1->color = colorFactory.createColor(step1Color);
-	step1->geometry = shapesFactory.createPrism(4);
-	step1->material = materialsFactory.createMaterial();
-	//step1Node->setEntity(step1);
+	// const auto step1 = world.createEntity();
+	// const auto step1Node = scene.createNode();
+	// const auto step1Color = vec3{ 0.5f, 0.5f, 0.5f };
+	// const auto step1Tf =
+	// 	translate(vec3{ 0.0f, -0.45f, 0.0f })
+	// 	// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+	// 	* scale(vec3{ 0.2f, 0.1f, 0.5f });
+	// step1->transform = transformManager.createTransform(step1Tf);
+	// step1->color = colorFactory.createColor(step1Color);
+	// step1->geometry = shapesFactory.createPrism(4);
+	// step1->material = materialsFactory.createMaterial();
+	// //step1Node->setEntity(step1);
 
-	const auto step2 = world.createEntity();
-	const auto step2Node = scene.createNode();
-	const auto step2Color = vec3{ 0.6f, 0.6f, 0.6f };
-	const auto step2Tf =
-		translate(vec3{ 0.0f, -0.35f, 0.05f })
-		// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-		* scale(vec3{ 0.2f, 0.1f, 0.4f });
-	step2->transform = transformManager.createTransform(step2Tf);
-	step2->color = colorFactory.createColor(step2Color);
-	step2->geometry = shapesFactory.createPrism(4);
-	step2->material = materialsFactory.createMaterial();
-	//step2Node->setEntity(step2);
+	// const auto step2 = world.createEntity();
+	// const auto step2Node = scene.createNode();
+	// const auto step2Color = vec3{ 0.6f, 0.6f, 0.6f };
+	// const auto step2Tf =
+	// 	translate(vec3{ 0.0f, -0.35f, 0.05f })
+	// 	// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+	// 	* scale(vec3{ 0.2f, 0.1f, 0.4f });
+	// step2->transform = transformManager.createTransform(step2Tf);
+	// step2->color = colorFactory.createColor(step2Color);
+	// step2->geometry = shapesFactory.createPrism(4);
+	// step2->material = materialsFactory.createMaterial();
+	// //step2Node->setEntity(step2);
 
-	const auto step3 = world.createEntity();
-	const auto step3Node = scene.createNode();
-	const auto step3Color = vec3{ 0.7f, 0.7f, 0.7f };
-	const auto step3Tf =
-		translate(vec3{ 0.0f, -0.25f, 0.10f })
-		// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-		* scale(vec3{ 0.2f, 0.1f, 0.3f });
-	step3->transform = transformManager.createTransform(step3Tf);
-	step3->color = colorFactory.createColor(step3Color);
-	step3->geometry = shapesFactory.createPrism(4);
-	step3->material = materialsFactory.createMaterial();
-	//step3Node->setEntity(step3);
+	// const auto step3 = world.createEntity();
+	// const auto step3Node = scene.createNode();
+	// const auto step3Color = vec3{ 0.7f, 0.7f, 0.7f };
+	// const auto step3Tf =
+	// 	translate(vec3{ 0.0f, -0.25f, 0.10f })
+	// 	// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+	// 	* scale(vec3{ 0.2f, 0.1f, 0.3f });
+	// step3->transform = transformManager.createTransform(step3Tf);
+	// step3->color = colorFactory.createColor(step3Color);
+	// step3->geometry = shapesFactory.createPrism(4);
+	// step3->material = materialsFactory.createMaterial();
+	// //step3Node->setEntity(step3);
 
-	const auto door = world.createEntity();
-	const auto doorNode = scene.createNode();
-	const auto doorColor = vec3{ 0.0f, 0.0f, 0.0f };
-	const auto doorTf =
-		translate(vec3{ 0.0f, -0.0f, 0.25f })
-		// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
-		* scale(vec3{ 0.2f, 0.4f, 0.02f });
-	door->transform = transformManager.createTransform(doorTf);
-	door->color = colorFactory.createColor(doorColor);
-	door->geometry = shapesFactory.createPrism(4);
-	door->material = materialsFactory.createMaterial();
-	//doorNode->setEntity(door);
+	// const auto door = world.createEntity();
+	// const auto doorNode = scene.createNode();
+	// const auto doorColor = vec3{ 0.0f, 0.0f, 0.0f };
+	// const auto doorTf =
+	// 	translate(vec3{ 0.0f, -0.0f, 0.25f })
+	// 	// * rotate(radians(0.0f), vec3{0.0f, 1.0f, 0.0f})
+	// 	* scale(vec3{ 0.2f, 0.4f, 0.02f });
+	// door->transform = transformManager.createTransform(doorTf);
+	// door->color = colorFactory.createColor(doorColor);
+	// door->geometry = shapesFactory.createPrism(4);
+	// door->material = materialsFactory.createMaterial();
+	// //doorNode->setEntity(door);
 
-	const auto connector = world.createEntity();
-	const auto connectorNode = scene.createNode();
-	const auto connectorColor = vec3{ 0.5f, 0.5f, 0.0f };
-	const auto connectorTf =
-		translate(vec3{ 0.0f, 0.0f, 0.10f })
-		* rotate(radians(90.0f), vec3{ 1.0f, 0.0f, 0.0f })
-		* scale(vec3{ 0.1f, 1.0f, 0.1f });
-	connector->transform = transformManager.createTransform(connectorTf);
-	connector->color = colorFactory.createColor(connectorColor);
-	connector->geometry = shapesFactory.createPrism(12);
-	connector->material = materialsFactory.createMaterial();
-	connectorNode->setEntity(connector);
+	// const auto connector = world.createEntity();
+	// const auto connectorNode = scene.createNode();
+	// const auto connectorColor = vec3{ 0.5f, 0.5f, 0.0f };
+	// const auto connectorTf =
+	// 	translate(vec3{ 0.0f, 0.0f, 0.10f })
+	// 	* rotate(radians(90.0f), vec3{ 1.0f, 0.0f, 0.0f })
+	// 	* scale(vec3{ 0.1f, 1.0f, 0.1f });
+	// connector->transform = transformManager.createTransform(connectorTf);
+	// connector->color = colorFactory.createColor(connectorColor);
+	// connector->geometry = shapesFactory.createPrism(12);
+	// connector->material = materialsFactory.createMaterial();
+	// connectorNode->setEntity(connector);
 
-	Entity* createPropeller(SceneNode* parent)
-	{
-		auto propeller = world.createEntity();
-		auto propellerNode = scene.createNode();
-		auto propellerColor = vec3{ 0.7f, 0.7f, 0.7f };
-		// Tworzysz pusty transform (0, 0, 0) pos, (1, 1, 1) scale, 
-		propeller->transform = transformManager.createTransform();
-		propeller->color = colorFactory.createColor(propellerColor);
-		propeller->geometry = shapesFactory.createBox();
-		propeller->material = materialsFactory.createMaterial();
-		propellerNode->setEntity(propeller);
-		parent->attachNode(propellerNode);
-		return propeller;
-	};
+	// Entity* createPropeller(SceneNode* parent)
+	// {
+	// 	auto propeller = world.createEntity();
+	// 	auto propellerNode = scene.createNode();
+	// 	auto propellerColor = vec3{ 0.7f, 0.7f, 0.7f };
+	// 	// Tworzysz pusty transform (0, 0, 0) pos, (1, 1, 1) scale,
+	// 	propeller->transform = transformManager.createTransform();
+	// 	propeller->color = colorFactory.createColor(propellerColor);
+	// 	propeller->geometry = shapesFactory.createBox();
+	// 	propeller->material = materialsFactory.createMaterial();
+	// 	propellerNode->setEntity(propeller);
+	// 	parent->attachNode(propellerNode);
+	// 	return propeller;
+	// };
 
-	for (int i = 0; i < 4; i++) {
-		auto propeller = createPropeller(connectorNode);
+	// for (int i = 0; i < 4; i++) {
+	// 	auto propeller = createPropeller(connectorNode);
 
-		const auto propellerTransform =
-			translate(vec3{ 0.0f, 0.0f, 0.10f })
-			* rotate(radians(90.0f), vec3{ 1.0f, 0.0f, 0.0f })
-			* scale(vec3{ 0.1f, 1.0f, 0.1f });
-		*(propeller->transform) = propellerTransform;
+	// 	const auto propellerTransform =
+	// 		translate(vec3{ 0.0f, 0.0f, 0.10f })
+	// 		* rotate(radians(90.0f), vec3{ 1.0f, 0.0f, 0.0f })
+	// 		* scale(vec3{ 0.1f, 1.0f, 0.1f });
+	// 	*(propeller->transform) = propellerTransform;
 
-	}
+	// }
 
 	LightManager lightManager(world, transformManager, colorFactory);
 	const auto lightPosition = vec3{5.0f, 5.0f, 5.0f};

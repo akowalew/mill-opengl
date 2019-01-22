@@ -18,12 +18,12 @@ public:
 
 	~Scene();
 
-	SceneNode* createNode();
+	SceneNode* createNode(SceneNode* parent = nullptr);
 
 	SceneNode* rootNode();
 
 private:
-	std::unique_ptr<SceneNode> makeNode();
+	std::unique_ptr<SceneNode> makeNode(SceneNode* parent);
 
 	std::vector<std::unique_ptr<SceneNode>> nodes_;
 	SceneNode rootNode_;

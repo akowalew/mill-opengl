@@ -14,8 +14,12 @@ enum class KeyCode
 	Up = 265,
 	Subtract = 333,
 	Add = 334,
+	A = 65,
+	D = 68,
+	S = 83,
 	Y = 89,
-	Z = 90
+	W = 87,
+	Z = 90,
 };
 
 enum class KeyAction

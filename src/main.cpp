@@ -104,7 +104,7 @@ private:
 
 	gkom::Entity* createChimney(gkom::SceneNode* parent)
 	{
-		const auto chimney = shapesFactory.createPrism(4);
+		const auto chimney = shapesFactory.createBox();
 		const auto chimneyNode = scene.createNode(parent);
 		chimneyNode->setEntity(chimney);
 		chimney->material = materialsFactory.createColorMaterial(glm::vec3{ 1.0f, 0.0f, 0.0f });
@@ -113,7 +113,7 @@ private:
 
 	gkom::Entity* createStep(gkom::SceneNode* parent)
 	{
-		const auto step = shapesFactory.createPrism(4);
+		const auto step = shapesFactory.createBox();
 		const auto stepNode = scene.createNode(parent);
 		stepNode->setEntity(step);
 		const auto stepColor = glm::vec3{ 0.5f, 0.5f, 0.5f };
@@ -123,7 +123,7 @@ private:
 
 	gkom::Entity* createDoor(gkom::SceneNode* parent)
 	{
-		const auto Door = shapesFactory.createPrism(4);
+		const auto Door = shapesFactory.createBox();
 		const auto DoorNode = scene.createNode(parent);
 		DoorNode->setEntity(Door);
 		const auto DoorColor = glm::vec3{ 0.0f, 0.0f, 0.0f };
@@ -188,7 +188,7 @@ private:
 
 	gkom::Entity* createSail(gkom::SceneNode* parent)
 	{
-		const auto sail = shapesFactory.createPrism(4);
+		const auto sail = shapesFactory.createBox();
 		const auto sailNode = scene.createNode(parent);
 		sailNode->setEntity(sail);
 
@@ -216,7 +216,7 @@ int main()
 	float wind_speed = 10.0;
 
 	Camera camera;
-	camera.position = vec3{5.0f, 0.0f, 10.0f};
+	camera.position = vec3{5.0f, 5.0f, 10.0f};
 	camera.centerPoint = vec3{0.0f, 0.0f, 0.0f};
 	camera.upAxis = vec3{0.0f, 1.0f, 0.0f};
 	camera.fieldOfView = radians(45.0f);
@@ -317,6 +317,27 @@ int main()
 	            			case KeyCode::Add:
 	            				camera.fieldOfView -= radians(5.0f);
 	            				break;
+
+	            			case KeyCode::W:
+	            				light->transform = *light->transform
+	            					* translate(glm::vec3{0.0f, 0.5f, 0.0f});
+	            				break;
+
+	            			case KeyCode::A:
+	            				light->transform = *light->transform
+	            					* translate(glm::vec3{-0.5f, 0.0f, 0.0f});
+	            				break;
+
+	            			case KeyCode::S:
+	            				light->transform = *light->transform
+	            					* translate(glm::vec3{0.0f, -0.5f, 0.0f});
+	            				break;
+
+	            			case KeyCode::D:
+	            				light->transform = *light->transform
+	            					* translate(glm::vec3{0.5f, 0.0f, 0.0f});
+	            				break;
+
 							case KeyCode::Y:
 								wind_speed += 2;
 								break;

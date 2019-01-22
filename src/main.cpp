@@ -196,7 +196,7 @@ int main()
 	};
 
 	for (int i = 0; i < 4; i++) {
-		const auto propeller = createPropeller(connectorNode);
+		auto propeller = createPropeller(connectorNode);
 
 		const auto propellerTransform =
 			translate(vec3{ 0.0f, 0.0f, 0.10f })

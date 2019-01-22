@@ -16,14 +16,14 @@ add_executable(ZW1-Mlyn
 	src/gkom/Window.cpp include/gkom/Window.hpp
 	src/gkom/Logging.cpp include/gkom/Logging.hpp
 	src/gkom/Camera.cpp include/gkom/Camera.hpp
+	src/gkom/Geometry.cpp include/gkom/Geometry.hpp
+	src/gkom/GeometryManager.cpp include/gkom/GeometryManager.hpp
 	src/gkom/Scene.cpp include/gkom/Scene.hpp
 	src/gkom/SceneNode.cpp include/gkom/SceneNode.hpp
 	src/gkom/World.cpp include/gkom/World.hpp
 	src/gkom/Color.cpp include/gkom/Color.hpp
-	src/gkom/ColorFactory.cpp include/gkom/ColorFactory.hpp
 	src/gkom/Transform.cpp include/gkom/Transform.hpp
-	src/gkom/TransformManager.cpp include/gkom/TransformManager.hpp
-	src/gkom/LightManager.cpp include/gkom/LightManager.hpp
+	src/gkom/LightFactory.cpp include/gkom/LightFactory.hpp
 	src/gkom/GraphicsManager.cpp include/gkom/GraphicsManager.hpp
 	src/gkom/MaterialsFactory.cpp include/gkom/MaterialsFactory.hpp
 	src/gkom/ShapesFactory.cpp include/gkom/ShapesFactory.hpp

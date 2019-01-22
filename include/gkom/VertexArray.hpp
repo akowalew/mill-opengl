@@ -17,6 +17,11 @@ public:
 
 	void disableAttribute(unsigned int attribute);
 
+	void setAttributeFormat(unsigned int attribute,
+							int ncomponents,
+							int stride,
+							int offset);
+
 	operator unsigned int() const noexcept;
 
 private:

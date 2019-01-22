@@ -3,29 +3,27 @@
 #include <cassert>
 
 #include "gkom/Logging.hpp"
+#include "gkom/Geometry.hpp"
 
 namespace gkom {
 
-ShapesFactory::ShapesFactory(GraphicsManager& graphicsManager)
-	:	boxFactory_(graphicsManager)
-	,	pyramidFactory_(graphicsManager)
-	,	coneFactory_(graphicsManager)
-	,	prismFactory_(graphicsManager)
+ShapesFactory::ShapesFactory(World& world, GeometryManager& geometryManager)
+	:	boxFactory_(world, geometryManager)
+	,	pyramidFactory_(world, geometryManager)
+	,	coneFactory_(world, geometryManager)
+	,	prismFactory_(world, geometryManager)
 	,	logger_(Logging::getLogger("ShapesFactory"))
 {
 	logger_("Initialized");
 }
 
-Geometry* ShapesFactory::createBox()
+Entity* ShapesFactory::createBox()
 {
 	logger_("Creating box...");
-
-	const auto box = boxFactory_.createBox();
-	assert(box != nullptr);
-	return box;
+	return boxFactory_.createBox();
 }
 
-Geometry* ShapesFactory::createPyramid()
+Entity* ShapesFactory::createPyramid()
 {
 	logger_("Creating pyramid...");
 
@@ -34,7 +32,7 @@ Geometry* ShapesFactory::createPyramid()
 	return pyramid;
 }
 
-Geometry* ShapesFactory::createCone(int sides)
+Entity* ShapesFactory::createCone(int sides)
 {
 	logger_("Creating pyramid...");
 
@@ -43,7 +41,7 @@ Geometry* ShapesFactory::createCone(int sides)
 	return cone;
 }
 
-Geometry* ShapesFactory::createPrism(int sides)
+Entity* ShapesFactory::createPrism(int sides)
 {
 	logger_("Creating prism...");
 

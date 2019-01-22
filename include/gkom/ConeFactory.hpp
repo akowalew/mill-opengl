@@ -8,27 +8,30 @@
 namespace gkom {
 
 //! Forward declarations
-class GraphicsManager;
+class GeometryManager;
+class World;
 class Geometry;
 class Logger;
+class Entity;
+class Vertex;
 
 class ConeFactory
 {
 public:
-	ConeFactory(GraphicsManager& graphicsManager);
+	ConeFactory(World& world, GeometryManager& geometryManager);
 
 	~ConeFactory();
 
-	Geometry* createCone(int sides);
-
-	Geometry* findCone(int sides);
+	Entity* createCone(int sides);
 
 private:
 	Geometry makeCone(int sides);
 
-	GraphicsManager& graphicsManager_;
+	std::vector<Vertex> makeVertices(int sides);
+
+	World& world_;
+	GeometryManager& geometryManager_;
 	Logger& logger_;
-	std::unordered_map<int /*sides*/, Geometry> cones_;
 };
 
 } // gkom

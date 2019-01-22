@@ -1,5 +1,6 @@
 #version 330 core
 
+in vec3 surfaceNormal;
 in vec3 toLightVector;
 
 out vec4 outColor;
@@ -9,7 +10,7 @@ uniform vec3 lightColor;
 
 void main()
 {
-	vec3 unitNormal = normalize(vec3(1.0, 0.0, 1.0));
+	vec3 unitNormal = normalize(surfaceNormal);
 	vec3 unitLightVector = normalize(toLightVector);
 
 	float nDotl = dot(unitNormal, unitLightVector);

@@ -1,6 +1,6 @@
 #include "gkom/GraphicsManager.hpp"
 
-#include <cstdio>
+#include <cassert>
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -24,8 +24,7 @@ GraphicsManager::GraphicsManager()
 GraphicsManager::~GraphicsManager()
 {
 	glDeleteVertexArrays(vertexArrays_.size(), vertexArrays_.data());
-	glDeleteBuffers(vertexBuffers_.size(), vertexBuffers_.data());
-	glDeleteBuffers(indexBuffers_.size(), indexBuffers_.data());
+	glDeleteBuffers(buffers_.size(), buffers_.data());
 	glDeleteTextures(textures_.size(), textures_.data());
 
 	for(const auto shader : shaders_)
@@ -41,24 +40,34 @@ GraphicsManager::~GraphicsManager()
 	logger_("Destroyed");
 }
 
-unsigned int
-GraphicsManager::createVertexArray(const Vertices& vertices,
-		 				    	   const Indices& indices)
+VertexArray GraphicsManager::createVertexArray()
 {
-	auto vertexArray = VertexArray{createVertexArray()};
-	auto vertexBuffer = VertexBuffer{createVertexBuffer(vertices)};
-	auto indexBuffer = IndexBuffer{createIndexBuffer(indices)};
+	logger_("Creating vertex array...");
+	unsigned int vertexArray = 0;
+	glGenVertexArrays(1, &vertexArray);
+	if(vertexArray == 0)
+	{
+		throw std::runtime_error("Could not generate vertex array");
+	}
 
-	logger_("Setting up vertex array...");
-	vertexArray.bind();
-		indexBuffer.bind();
-		vertexBuffer.bind();
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * sizeof(GLfloat), 0);
-	vertexArray.unbind();
+	vertexArrays_.emplace_back(vertexArray);
+	return VertexArray{vertexArray};
+}
 
-	vertexBuffer.unbind(); // That order is important!
+VertexBuffer GraphicsManager::createVertexBuffer()
+{
+	logger_("Creating vertex buffer...");
+	const auto buffer = createBuffer();
+	assert(buffer != 0);
+	return VertexBuffer{buffer};
+}
 
-	return vertexArray;
+IndexBuffer GraphicsManager::createIndexBuffer()
+{
+	logger_("Creating index buffer...");
+	const auto buffer = createBuffer();
+	assert(buffer != 0);
+	return IndexBuffer{buffer};
 }
 
 unsigned int
@@ -160,61 +169,8 @@ GraphicsManager::createTexture()
 	return texture;
 }
 
-unsigned int GraphicsManager::createVertexArray()
-{
-	logger_("Creating vertex array...");
-	unsigned int vertexArray = 0;
-	glGenVertexArrays(1, &vertexArray);
-	if(vertexArray == 0)
-	{
-		throw std::runtime_error("Could not generate vertex array");
-	}
-
-	vertexArrays_.emplace_back(vertexArray);
-	return vertexArray;
-}
-
 unsigned int
-GraphicsManager::createVertexBuffer(const std::vector<Vertex>& vertices)
-{
-	auto vertexBuffer = VertexBuffer{createVertexBuffer()};
-
-	logger_("Loading data into vertex buffer...");
-	vertexBuffer.bind();
-	vertexBuffer.loadData(vertices);
-	vertexBuffer.unbind();
-	return vertexBuffer;
-}
-
-unsigned int GraphicsManager::createVertexBuffer()
-{
-	logger_("Creating vertex buffer...");
-	const auto vertexBuffer = generateBufferOnly();
-	vertexBuffers_.emplace_back(vertexBuffer);
-	return vertexBuffer;
-}
-
-unsigned int
-GraphicsManager::createIndexBuffer(const std::vector<unsigned int>& indices)
-{
-	auto indexBuffer = IndexBuffer{createIndexBuffer()};
-
-	logger_("Loading data into index buffer...");
-	indexBuffer.bind();
-	indexBuffer.loadData(indices);
-	indexBuffer.unbind();
-	return indexBuffer;
-}
-
-unsigned int GraphicsManager::createIndexBuffer()
-{
-	logger_("Creating index buffer...");
-	const auto indexBuffer = generateBufferOnly();
-	indexBuffers_.emplace_back(indexBuffer);
-	return indexBuffer;
-}
-
-unsigned int GraphicsManager::generateBufferOnly()
+GraphicsManager::createBuffer()
 {
 	unsigned int buffer = 0;
 	glGenBuffers(1, &buffer);

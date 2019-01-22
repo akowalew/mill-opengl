@@ -4,6 +4,7 @@
 
 namespace gkom {
 
+//! Component
 struct Transform : public glm::mat4
 {
 	Transform()

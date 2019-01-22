@@ -1,22 +1,27 @@
 #pragma once
 
-#include <cstdint>
+#include "gkom/VertexArray.hpp"
+#include "gkom/IndexBuffer.hpp"
 
 namespace gkom {
 
+//! Component
 class Geometry
 {
 public:
 	Geometry() = default;
 
-	Geometry(unsigned int vertexArray,
-		     int indicesCount)
+	Geometry(VertexArray vertexArray,
+		     int itemsCount,
+		     bool packed)
 		:	vertexArray(vertexArray)
-		,	indicesCount(indicesCount)
+		,	itemsCount(itemsCount)
+		,	packed(packed)
 	{}
 
-	unsigned int vertexArray {0};
-	int indicesCount {-1};
+	VertexArray vertexArray;
+	int itemsCount {-1};
+	bool packed {false};
 };
 
 } // gkom

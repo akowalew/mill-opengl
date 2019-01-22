@@ -1,19 +1,18 @@
 #include "gkom/BoxFactory.hpp"
 
-#include <cstdio>
-#include <initializer_list>
+#include <cassert>
 
+#include "gkom/GeometryManager.hpp"
 #include "gkom/Geometry.hpp"
-#include "gkom/Vertex.hpp"
-#include "gkom/GraphicsManager.hpp"
 #include "gkom/Logging.hpp"
-
-#include <string.h>
+#include "gkom/World.hpp"
+#include "gkom/Entity.hpp"
 
 namespace gkom {
 
-BoxFactory::BoxFactory(GraphicsManager& graphicsManager)
-	:	graphicsManager_(graphicsManager)
+BoxFactory::BoxFactory(World& world, GeometryManager& geometryManager)
+	:	world_(world)
+	,	geometryManager_(geometryManager)
 	,	logger_(Logging::getLogger("BoxFactory"))
 {
 	logger_("Initialized");
@@ -21,55 +20,179 @@ BoxFactory::BoxFactory(GraphicsManager& graphicsManager)
 
 BoxFactory::~BoxFactory() = default;
 
-Geometry* BoxFactory::createBox()
+Entity* BoxFactory::createBox()
 {
-	if(!box_)
+	auto entity = world_.createEntity();
+
+	if(!geometry_)
 	{
-		box_ = std::move(makeBox());
-		assert(box_);
+		geometry_ = makeBox();
 	}
 
-	assert(box_);
-	return box_.get();
+	entity->geometry = *geometry_;
+	return entity;
 }
 
 std::unique_ptr<Geometry> BoxFactory::makeBox()
 {
-	logger_("Making box...");
+	logger_("Making new box geometry...");
+	const auto vertices = makeVertices();
+	const auto geometry =
+		geometryManager_.createGeometry(vertices);
+	return std::make_unique<Geometry>(geometry);
+}
 
-	const auto vertices = Vertices{
+std::vector<Vertex> BoxFactory::makeVertices()
+{
+	return {
+ 		{{-0.5f, -0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f}},
+     	{{0.5f, -0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f}},
+     	{{0.5f,  0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f}},
+     	{{0.5f,  0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f}},
+    	{{-0.5f,  0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f}},
+    	{{-0.5f, -0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f}},
+
+    	{{-0.5f, -0.5f,  0.5f}, { 0.0f,  0.0f, 1.0f}},
+     	{{0.5f, -0.5f,  0.5f}, { 0.0f,  0.0f, 1.0f}},
+     	{{0.5f,  0.5f,  0.5f}, { 0.0f,  0.0f, 1.0f}},
+     	{{0.5f,  0.5f,  0.5f}, { 0.0f,  0.0f, 1.0f}},
+    	{{-0.5f,  0.5f,  0.5f}, { 0.0f,  0.0f, 1.0f}},
+    	{{-0.5f, -0.5f,  0.5f}, { 0.0f,  0.0f, 1.0f}},
+
+    	{{-0.5f,  0.5f,  0.5f}, {-1.0f,  0.0f,  0.0f}},
+    	{{-0.5f,  0.5f, -0.5f}, {-1.0f,  0.0f,  0.0f}},
+    	{{-0.5f, -0.5f, -0.5f}, {-1.0f,  0.0f,  0.0f}},
+    	{{-0.5f, -0.5f, -0.5f}, {-1.0f,  0.0f,  0.0f}},
+    	{{-0.5f, -0.5f,  0.5f}, {-1.0f,  0.0f,  0.0f}},
+    	{{-0.5f,  0.5f,  0.5f}, {-1.0f,  0.0f,  0.0f}},
+
+     	{{0.5f,  0.5f,  0.5f}, { 1.0f,  0.0f,  0.0f}},
+     	{{0.5f,  0.5f, -0.5f}, { 1.0f,  0.0f,  0.0f}},
+     	{{0.5f, -0.5f, -0.5f}, { 1.0f,  0.0f,  0.0f}},
+     	{{0.5f, -0.5f, -0.5f}, { 1.0f,  0.0f,  0.0f}},
+     	{{0.5f, -0.5f,  0.5f}, { 1.0f,  0.0f,  0.0f}},
+     	{{0.5f,  0.5f,  0.5f}, { 1.0f,  0.0f,  0.0f}},
+
+    	{{-0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+    	{{-0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+    	{{-0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
+
+    	{{-0.5f,  0.5f, -0.5f}, { 0.0f,  1.0f,  0.0f}},
+     	{{0.5f,  0.5f, -0.5f}, { 0.0f,  1.0f,  0.0f}},
+     	{{0.5f,  0.5f,  0.5f}, { 0.0f,  1.0f,  0.0f}},
+     	{{0.5f,  0.5f,  0.5f}, { 0.0f,  1.0f,  0.0f}},
+    	{{-0.5f,  0.5f,  0.5f}, { 0.0f,  1.0f,  0.0f}},
+    	{{-0.5f,  0.5f, -0.5f}, { 0.0f,  1.0f,  0.0f}}
+	};
+}
+
+std::vector<glm::vec3> BoxFactory::makePositions()
+{
+	return {
+		// // Back face
+		// {-0.5f, -0.5f, -0.5f},
+		// { 0.5f, -0.5f, -0.5f},
+		// { 0.5f,  0.5f, -0.5f},
+		// {-0.5f,  0.5f, -0.5f},
+
 		// Front face
-		{{-0.5f, 0.5f, 0.5f}},
-		{{0.5f, 0.5f, 0.5f}},
-		{{-0.5f, -0.5f, 0.5f}},
-		{{0.5f, -0.5f, 0.5f}},
+		{-0.5f, -0.5f,  0.5f},
+		{ 0.5f, -0.5f,  0.5f},
+		{ 0.5f,  0.5f,  0.5f},
+		{-0.5f,  0.5f,  0.5f},
 
+		// // Left face
+		// {-0.5f,  0.5f,  0.5f},
+		// {-0.5f,  0.5f, -0.5f},
+		// {-0.5f, -0.5f, -0.5f},
+		// {-0.5f, -0.5f,  0.5f},
+
+		// // Right face
+		// { 0.5f,  0.5f,  0.5f},
+		// { 0.5f,  0.5f, -0.5f},
+		// { 0.5f, -0.5f, -0.5f},
+		// { 0.5f, -0.5f,  0.5f},
+
+		// // Lower face
+		// {-0.5f, -0.5f,  0.5f},
+		// {-0.5f, -0.5f, -0.5f},
+		// { 0.5f, -0.5f, -0.5f},
+		// { 0.5f, -0.5f,  0.5f},
+
+		// // Upper face
+		// {-0.5f,  0.5f,  0.5f},
+		// {-0.5f,  0.5f, -0.5f},
+		// { 0.5f,  0.5f, -0.5f},
+		// { 0.5f,  0.5f,  0.5f},
+	};
+}
+
+std::vector<glm::vec3> BoxFactory::makeNormals()
+{
+	return {
+		{ 0.0f,  0.0f, -1.0f},
+		{ 0.0f,  0.0f, -1.0f},
+		{ 0.0f,  0.0f, -1.0f},
+		{ 0.0f,  0.0f, -1.0f},
+
+		// { 0.0f,  0.0f,  1.0f},
+		// { 0.0f,  0.0f,  1.0f},
+		// { 0.0f,  0.0f,  1.0f},
+		// { 0.0f,  0.0f,  1.0f},
+
+		// {-1.0f,  0.0f,  0.0f},
+		// {-1.0f,  0.0f,  0.0f},
+		// {-1.0f,  0.0f,  0.0f},
+		// {-1.0f,  0.0f,  0.0f},
+
+		// { 1.0f,  0.0f,  0.0f},
+		// { 1.0f,  0.0f,  0.0f},
+		// { 1.0f,  0.0f,  0.0f},
+		// { 1.0f,  0.0f,  0.0f},
+
+		// { 0.0f, -1.0f,  1.0f},
+		// { 0.0f, -1.0f,  1.0f},
+		// { 0.0f, -1.0f,  1.0f},
+		// { 0.0f, -1.0f,  1.0f},
+
+		// { 0.0f,  1.0f,  0.0f},
+		// { 0.0f,  1.0f,  0.0f},
+		// { 0.0f,  1.0f,  0.0f},
+		// { 0.0f,  1.0f,  0.0f},
+	};
+}
+
+std::vector<unsigned int> BoxFactory::makeIndices()
+{
+	return {
 		// Back face
-		{{-0.5f, 0.5f, -0.5f}},
-		{{0.5f, 0.5f, -0.5f}},
-		{{-0.5f, -0.5f, -0.5f}},
-		{{0.5f, -0.5f, -0.5f}},
-	};
+		0, 1, 2,
+		0, 2, 3,
+		// 2, 1, 3,
 
-	const auto indices = Indices{
-		0, 2, 1,
-		1, 2, 3,
-		5, 7, 4,
-		4, 7, 6,
-		4, 6, 0,
-		0, 6, 2,
-		1, 3, 5,
-		5, 3, 7,
-		4, 0, 5,
-		5, 0, 1,
-		2, 6, 3,
-		3, 6, 7
-	};
+		// Front face
+		// 4, 5, 6,
+		// 5, 6, 7,
 
-	const auto vertexArray =
-		graphicsManager_.createVertexArray(vertices, indices);
-	const auto indicesCount = static_cast<int>(indices.size());
-	return std::make_unique<Geometry>(vertexArray, indicesCount);
+		// // Left face
+		// 8, 9, 10,
+		// 10, 11, 8,
+
+		// // Right face
+		// 12, 13, 14,
+		// 14, 15, 12,
+
+		// // Lower face
+		// 16, 17, 18,
+		// 18, 19, 16,
+
+		// // Upper face
+		// 20, 21, 22,
+		// 22, 23, 20
+	};
 }
 
 } // gkom

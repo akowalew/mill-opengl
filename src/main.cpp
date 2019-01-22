@@ -8,18 +8,18 @@
 #include <glm/gtx/transform.hpp>
 
 #include "gkom/GraphicsManager.hpp"
-#include "gkom/ColorFactory.hpp"
-#include "gkom/TransformManager.hpp"
+#include "gkom/GeometryManager.hpp"
 #include "gkom/ShaderLoader.hpp"
 #include "gkom/ShapesFactory.hpp"
 #include "gkom/MaterialsFactory.hpp"
-#include "gkom/LightManager.hpp"
+#include "gkom/LightFactory.hpp"
 #include "gkom/Camera.hpp"
 #include "gkom/Window.hpp"
 #include "gkom/Renderer.hpp"
 #include "gkom/Entity.hpp"
 #include "gkom/World.hpp"
 #include "gkom/Scene.hpp"
+#include "gkom/Geometry.hpp"
 #include "gkom/Transform.hpp"
 
 #define NUMBER_OF_SAILS 7
@@ -29,14 +29,10 @@ class MillFactory
 public:
 	MillFactory(gkom::World& world,
 				gkom::Scene& scene,
-				gkom::TransformManager& transformManager,
-				gkom::ColorFactory& colorFactory,
 				gkom::ShapesFactory& shapesFactory,
 				gkom::MaterialsFactory& materialsFactory)
 		:	world(world)
 		,	scene(scene)
-		,	transformManager(transformManager)
-		,	colorFactory(colorFactory)
 		,	shapesFactory(shapesFactory)
 		,	materialsFactory(materialsFactory)
 	{}
@@ -46,42 +42,41 @@ public:
 		const auto mill = world.createEntity();
 		const auto millNode = scene.createNode(parent);
 		millNode->setEntity(mill);
-		mill->transform = transformManager.createTransform();
 
 		const auto building = createBuilding(millNode);
-		*building->transform =
-			(translate(glm::vec3{0.0f, 0.0f, 0.0f})
+		building->transform =
+			(translate(glm::vec3{0.0f, 1.0f, 0.0f})
 				* rotate(glm::radians(22.5f), glm::vec3{ 0.0f, 1.0f, 0.0f })
 				* scale(glm::vec3{2.0f, 4.0f, 2.0f}));
 
 		const auto roof = createRoof(millNode);
-		*roof->transform =
-			(translate(glm::vec3{0.0f, 2.75f, 0.0f})
+		roof->transform =
+			(translate(glm::vec3{0.0f, 3.75f, 0.0f})
 				* rotate(glm::radians(22.5f), glm::vec3{ 0.0f, 1.0f, 0.0f })
 				* scale(glm::vec3{2.0f, 1.5f, 2.0f}));
 
 		const auto chimney = createChimney(millNode);
-		*chimney->transform=
-			(translate(glm::vec3{ 0.3f, +3.0f, 0.3f })
+		chimney->transform=
+			(translate(glm::vec3{ 0.3f, +4.0f, 0.3f })
 				* scale(glm::vec3{ 0.4f, 1.0f, 0.4f }));
 
 		const auto step1 = createStep(millNode);
-		*step1->transform =
+		step1->transform =
 			(translate(glm::vec3{ 0.0f, -0.4f, 1.5f })
 				* scale(glm::vec3{ 0.8f, 0.2f, 1.0f }));
 
 		const auto step2 = createStep(millNode);
-		*step2->transform =
+		step2->transform =
 			(translate(glm::vec3{ 0.0f, -0.2f, 1.4f })
 				* scale(glm::vec3{ 0.8f, 0.2f, 0.8f }));
 
 		const auto step3 = createStep(millNode);
-		*step3->transform =
+		step3->transform =
 			(translate(glm::vec3{ 0.0f, 0.0f, 1.3f })
 				* scale(glm::vec3{ 0.8f, 0.2f, 0.6f }));
 
 		const auto door = createDoor(millNode);
-		*door->transform =
+		door->transform =
 			(translate(glm::vec3{ 0.0f, +0.6f, 1.26f })
 				* scale(glm::vec3{ 0.6f, 1.0f, 0.1f }));
 
@@ -91,77 +86,53 @@ public:
 private:
 	gkom::Entity* createBuilding(gkom::SceneNode* parent)
 	{
-		const auto building = world.createEntity();
+		const auto building = shapesFactory.createPrism(8);
 		const auto buildingNode = scene.createNode(parent);
 		buildingNode->setEntity(building);
-
-		const auto buildingColor = glm::vec3{0.2f, 0.3f, 0.0f};
-		building->transform = transformManager.createTransform();
-		building->color = colorFactory.createColor(buildingColor);
-		building->geometry = shapesFactory.createPrism(8);
-		building->material = materialsFactory.createMaterial();
+		building->material = materialsFactory.createColorMaterial(glm::vec3{0.2f, 0.3f, 0.0f});
 		return building;
 	}
 
 	gkom::Entity* createRoof(gkom::SceneNode* parent)
 	{
-		const auto roof = world.createEntity();
+		const auto roof = shapesFactory.createCone(8);
 		const auto roofNode = scene.createNode(parent);
 		roofNode->setEntity(roof);
-
-		const auto roofColor = glm::vec3{1.0f, 0.3f, 0.1f};
-		roof->transform = transformManager.createTransform();
-		roof->color = colorFactory.createColor(roofColor);
-		roof->geometry = shapesFactory.createCone(8);
-		roof->material = materialsFactory.createMaterial();
+		roof->material = materialsFactory.createColorMaterial(glm::vec3{1.0f, 0.3f, 0.1f});
 		return roof;
 	}
 
 	gkom::Entity* createChimney(gkom::SceneNode* parent)
 	{
-		const auto chimney = world.createEntity();
+		const auto chimney = shapesFactory.createPrism(4);
 		const auto chimneyNode = scene.createNode(parent);
 		chimneyNode->setEntity(chimney);
-		const auto chimneyColor = glm::vec3{ 1.0f, 0.0f, 0.0f };
-		chimney->transform = transformManager.createTransform();
-		chimney->color = colorFactory.createColor(chimneyColor);
-		chimney->geometry = shapesFactory.createPrism(4);
-		chimney->material = materialsFactory.createMaterial();
+		chimney->material = materialsFactory.createColorMaterial(glm::vec3{ 1.0f, 0.0f, 0.0f });
 		return chimney;
 	}
 
 	gkom::Entity* createStep(gkom::SceneNode* parent)
 	{
-		const auto step = world.createEntity();
+		const auto step = shapesFactory.createPrism(4);
 		const auto stepNode = scene.createNode(parent);
 		stepNode->setEntity(step);
-
 		const auto stepColor = glm::vec3{ 0.5f, 0.5f, 0.5f };
-		step->transform = transformManager.createTransform();
-		step->color = colorFactory.createColor(stepColor);
-		step->geometry = shapesFactory.createPrism(4);
-		step->material = materialsFactory.createMaterial();
+		step->material = materialsFactory.createColorMaterial(stepColor);
 		return step;
 	}
 
 	gkom::Entity* createDoor(gkom::SceneNode* parent)
 	{
-		const auto Door = world.createEntity();
+		const auto Door = shapesFactory.createPrism(4);
 		const auto DoorNode = scene.createNode(parent);
 		DoorNode->setEntity(Door);
-
 		const auto DoorColor = glm::vec3{ 0.0f, 0.0f, 0.0f };
-		Door->transform = transformManager.createTransform();
-		Door->color = colorFactory.createColor(DoorColor);
-		Door->geometry = shapesFactory.createPrism(4);
-		Door->material = materialsFactory.createMaterial();
+		Door->material = materialsFactory.createColorMaterial(DoorColor);
 		return Door;
 	}
 
 	gkom::World& world;
 	gkom::Scene& scene;
-	gkom::TransformManager& transformManager;
-	gkom::ColorFactory& colorFactory;
 	gkom::ShapesFactory& shapesFactory;
 	gkom::MaterialsFactory& materialsFactory;
 };
@@ -171,14 +142,10 @@ class PropellerFactory
 public:
 	PropellerFactory(gkom::World& world,
 		gkom::Scene& scene,
-		gkom::TransformManager& transformManager,
-		gkom::ColorFactory& colorFactory,
 		gkom::ShapesFactory& shapesFactory,
 		gkom::MaterialsFactory& materialsFactory)
 		: world(world)
 		, scene(scene)
-		, transformManager(transformManager)
-		, colorFactory(colorFactory)
 		, shapesFactory(shapesFactory)
 		, materialsFactory(materialsFactory)
 	{}
@@ -188,23 +155,21 @@ public:
 		const auto mill = world.createEntity();
 		const auto millNode = scene.createNode(parent);
 		millNode->setEntity(mill);
-		mill->transform = transformManager.createTransform();
 
 		const auto connector = createConnector(millNode);
-		*connector->transform =
+		connector->transform =
 			(translate(glm::vec3{ 0.0f, 1.0f, 0.36f })
 				* rotate(glm::radians(90.0f), glm::vec3{ 1.0f, 0.0f, 0.0f })
 				* scale(glm::vec3{ 0.15f, 0.4f, 0.15f }));
-		
+
 		for (int i = 0; i < NUMBER_OF_SAILS; i++) {
 			const auto sail = createSail(millNode);
-			*sail->transform =
+			sail->transform =
 				(translate(glm::vec3{ 0.0f, 1.0f, 0.5f })
 					* rotate(glm::radians(360.0f/ NUMBER_OF_SAILS *i), glm::vec3{ 0.0f, 0.0f, 1.0f })
 					* translate(glm::vec3{ 0.0f, 0.45f, 0.0f })
 					* scale(glm::vec3{ 0.1f, 0.9f, 0.1f }));
 		}
-
 
 		return mill;
 	}
@@ -212,41 +177,31 @@ public:
 private:
 	gkom::Entity* createConnector(gkom::SceneNode* parent)
 	{
-		const auto connector = world.createEntity();
+		const auto connector = shapesFactory.createPrism(12);
 		const auto connectorNode = scene.createNode(parent);
 		connectorNode->setEntity(connector);
 
 		const auto connectorColor = glm::vec3{ 0.5f, 0.5f, 0.0f };
-		connector->transform = transformManager.createTransform();
-		connector->color = colorFactory.createColor(connectorColor);
-		connector->geometry = shapesFactory.createPrism(12);
-		connector->material = materialsFactory.createMaterial();
+		connector->material = materialsFactory.createColorMaterial(connectorColor);
 		return connector;
 	}
 
 	gkom::Entity* createSail(gkom::SceneNode* parent)
 	{
-		const auto sail = world.createEntity();
+		const auto sail = shapesFactory.createPrism(4);
 		const auto sailNode = scene.createNode(parent);
 		sailNode->setEntity(sail);
 
 		const auto sailColor = glm::vec3{ 0.0f, 0.5f, 1.0f };
-		sail->transform = transformManager.createTransform();
-		sail->color = colorFactory.createColor(sailColor);
-		sail->geometry = shapesFactory.createPrism(4);
-		sail->material = materialsFactory.createMaterial();
+		sail->material = materialsFactory.createColorMaterial(sailColor);
 		return sail;
 	}
 
-
 	gkom::World& world;
 	gkom::Scene& scene;
-	gkom::TransformManager& transformManager;
-	gkom::ColorFactory& colorFactory;
 	gkom::ShapesFactory& shapesFactory;
 	gkom::MaterialsFactory& materialsFactory;
 };
-
 
 int main()
 {
@@ -268,48 +223,41 @@ int main()
 	camera.nearPlane = 0.1f;
 	camera.farPlane = 20.0f;
 
-	ColorFactory colorFactory;
-	TransformManager transformManager;
-	GraphicsManager graphicsManager;
-	ShapesFactory shapesFactory(graphicsManager);
-	ShaderLoader shaderLoader(graphicsManager);
-	MaterialsFactory materialsFactory(shaderLoader);
-
 	World world;
 	Scene scene;
 
-	MillFactory millFactory{world, scene, transformManager,
-							colorFactory, shapesFactory, materialsFactory};
+	GraphicsManager graphicsManager;
+	GeometryManager geometryManager(graphicsManager);
+	ShapesFactory shapesFactory(world, geometryManager);
+	ShaderLoader shaderLoader(graphicsManager);
+	MaterialsFactory materialsFactory(shaderLoader);
+
+	MillFactory millFactory{world, scene, shapesFactory, materialsFactory};
 	const auto mill = millFactory.createMill();
-	*mill->transform =
+	mill->transform =
 		translate(vec3(0.0f, 0.0f, 0.0f))
 			* scale(vec3(1.0f, 1.0f, 1.0f));
 
-	PropellerFactory propellerFactory{ world, scene, transformManager,
-							colorFactory, shapesFactory, materialsFactory };
+	PropellerFactory propellerFactory{ world, scene, shapesFactory, materialsFactory };
 	const auto propeller = propellerFactory.createPropeller();
-	*propeller->transform =
+	propeller->transform =
 		rotate(glm::radians(-90.0f), glm::vec3{ 0.0f, 1.0f, 0.0f })
-		*translate(vec3(0.0f, 0.0f, 0.7f))
-		* scale(vec3(1.5f, 1.5f, 1.5f));
+			* translate(vec3(0.0f, 1.0f, 0.7f))
+				* scale(vec3(1.5f, 1.5f, 1.5f));
 
-	const auto grass = world.createEntity();
+	const auto grass = shapesFactory.createBox();
 	const auto grassNode = scene.createNode();
 	const auto grassColor = vec3{ 0.0f, 1.0f, 0.0f };
-	const auto grassTf =
+	grass->transform =
 		translate(vec3{ 0.0f, -0.5f, 0.0f })
 			* scale(vec3{ 30.0f, 0.01f, 30.0f });
-	grass->transform = transformManager.createTransform(grassTf);
-	grass->color = colorFactory.createColor(grassColor);
-	grass->geometry = shapesFactory.createPrism(4);
-	grass->material = materialsFactory.createMaterial();
+	grass->material = materialsFactory.createColorMaterial(grassColor);
 	grassNode->setEntity(grass);
 
-
-	LightManager lightManager(world, transformManager, colorFactory);
-	const auto lightPosition = vec3{5.0f, 5.0f, 5.0f};
-	const auto lightColor = vec3{1.0f, 1.0f, 1.0f};
-	const auto light = lightManager.createLight(lightPosition, lightColor);
+	LightFactory lightFactory(world);
+	const auto lightPosition = glm::vec3{5.0f, 5.0f, 5.0f};
+	const auto lightColor = glm::vec3{1.0, 1.0, 1.0};
+	auto light = lightFactory.createLight(lightPosition, lightColor);
 
 	Renderer renderer;
 	renderer.setCamera(&camera);
@@ -386,7 +334,7 @@ int main()
 		}
 		auto end = std::chrono::system_clock::now();
 		auto diff = std::chrono::duration_cast<std::chrono::duration<double>>(end - begin).count();
-		*propeller->transform = *propeller->transform
+		propeller->transform = *propeller->transform
 			*translate(vec3(0.0f, 1.0f, 0.0f))
 			*rotate(glm::radians(float(wind_speed*diff)), glm::vec3{ 0.0f, 0.0f, 1.0f })
 			*translate(vec3(0.0f, -1.0f, 0.0f));

@@ -7,28 +7,31 @@
 
 namespace gkom {
 
-	//! Forward declarations
-	class GraphicsManager;
-	class Geometry;
-	class Logger;
+//! Forward declarations
+class GeometryManager;
+class World;
+class Geometry;
+class Logger;
+class Entity;
+class Vertex;
 
-	class PrismFactory
-	{
-	public:
-		PrismFactory(GraphicsManager& graphicsManager);
+class PrismFactory
+{
+public:
+	PrismFactory(World& world, GeometryManager& geometryManager);
 
-		~PrismFactory();
+	~PrismFactory();
 
-		Geometry* createPrism(int sides);
+	Entity* createPrism(int sides);
 
-		Geometry* findPrism(int sides);
+private:
+	Geometry makePrism(int sides);
 
-	private:
-		Geometry makePrism(int sides);
+	std::vector<Vertex> makeVertices(int sides);
 
-		GraphicsManager& graphicsManager_;
-		Logger& logger_;
-		std::unordered_map<int /*sides*/, Geometry> prisms_;
-	};
+	World& world_;
+	GeometryManager& geometryManager_;
+	Logger& logger_;
+};
 
 } // gkom

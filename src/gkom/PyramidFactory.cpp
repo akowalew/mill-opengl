@@ -2,14 +2,21 @@
 
 #include <cassert>
 
-#include "gkom/GraphicsManager.hpp"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/trigonometric.hpp>
+#include <glm/gtx/rotate_vector.hpp>
+
+#include "gkom/GeometryManager.hpp"
 #include "gkom/Geometry.hpp"
 #include "gkom/Logging.hpp"
+#include "gkom/World.hpp"
+#include "gkom/Entity.hpp"
 
 namespace gkom {
 
-PyramidFactory::PyramidFactory(GraphicsManager& graphicsManager)
-	:	graphicsManager_(graphicsManager)
+PyramidFactory::PyramidFactory(World& world, GeometryManager& geometryManager)
+	:	world_(world)
+	,	geometryManager_(geometryManager)
 	,	logger_(Logging::getLogger("PyramidFactory"))
 {
 	logger_("Initialized");
@@ -17,56 +24,53 @@ PyramidFactory::PyramidFactory(GraphicsManager& graphicsManager)
 
 PyramidFactory::~PyramidFactory() = default;
 
-Geometry* PyramidFactory::createPyramid()
+Entity* PyramidFactory::createPyramid()
 {
-	logger_("Looking for a pyramid geometry...");
-	if(pyramid_)
+	auto entity = world_.createEntity();
+
+	if(!pyramid_)
 	{
-		return pyramid_.get();
+		pyramid_ = makePyramid();
 	}
 
-	logger_("Creating new pyramid geometry");
-	pyramid_ = std::move(makePyramid());
-	assert(pyramid_);
-	return pyramid_.get();
+	entity->geometry = *pyramid_;
+	return entity;
 }
 
 std::unique_ptr<Geometry> PyramidFactory::makePyramid()
 {
-	const auto vertices = Vertices{
-		// Basis
-		{{-0.5f, -0.5f, 0.5f}},
-		{{-0.5f, -0.5f, -0.5f}},
-		{{0.5f, -0.5f, -0.5f}},
-		{{0.5f, -0.5f, 0.5f}},
-
-		// Corner
-		{{0.0f, 0.5f, 0.0f}},
-	};
-
-	const auto indices = Indices{
-		// Basis
-		0, 1, 2,
-		2, 3, 0,
-
-		// Left face
-		0, 4, 1,
-
-		// Back face
-		1, 4, 2,
-
-		// Right face
-		2, 4, 3,
-
-		// Front face
-		3, 4, 0,
-	};
-
-	const auto vertexArray =
-		graphicsManager_.createVertexArray(vertices, indices);
-	const auto indicesCount = static_cast<int>(indices.size());
-	return std::make_unique<Geometry>(vertexArray, indicesCount);
+	logger_("Making new pyramid geometry...");
+	const auto vertices = makeVertices();
+	const auto geometry = geometryManager_.createGeometry(vertices);
+	return std::make_unique<Geometry>(geometry);
 }
 
+std::vector<Vertex> PyramidFactory::makeVertices()
+{
+	return {
+    	{{-0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{ 0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{ 0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+     	{{ 0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+    	{{-0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f}},
+    	{{-0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f}},
+
+    	{{-0.5f, -0.5f, -0.5f}, glm::rotateZ(glm::vec3{-1.0f, 0.0f, 0.0f}, glm::radians(-30.0f))},
+    	{{ 0.0f,  0.5f,  0.0f}, glm::rotateZ(glm::vec3{-1.0f, 0.0f, 0.0f}, glm::radians(-30.0f))},
+    	{{-0.5f, -0.5f,  0.5f}, glm::rotateZ(glm::vec3{-1.0f, 0.0f, 0.0f}, glm::radians(-30.0f))},
+
+    	{{ 0.5f, -0.5f, -0.5f}, glm::rotateZ(glm::vec3{1.0f, 0.0f, 0.0f}, glm::radians(30.0f))},
+    	{{ 0.0f,  0.5f,  0.0f}, glm::rotateZ(glm::vec3{1.0f, 0.0f, 0.0f}, glm::radians(30.0f))},
+    	{{ 0.5f, -0.5f,  0.5f}, glm::rotateZ(glm::vec3{1.0f, 0.0f, 0.0f}, glm::radians(30.0f))},
+
+    	{{-0.5f, -0.5f, -0.5f}, glm::rotateX(glm::vec3{0.0f, 0.0f, -1.0f}, glm::radians(30.0f))},
+    	{{ 0.0f,  0.5f,  0.0f}, glm::rotateX(glm::vec3{0.0f, 0.0f, -1.0f}, glm::radians(30.0f))},
+    	{{ 0.5f, -0.5f, -0.5f}, glm::rotateX(glm::vec3{0.0f, 0.0f, -1.0f}, glm::radians(30.0f))},
+
+    	{{-0.5f, -0.5f,  0.5f}, glm::rotateX(glm::vec3{0.0f, 0.0f, 1.0f}, glm::radians(-30.0f))},
+    	{{ 0.0f,  0.5f,  0.0f}, glm::rotateX(glm::vec3{0.0f, 0.0f, 1.0f}, glm::radians(-30.0f))},
+    	{{-0.5f, -0.5f,  0.5f}, glm::rotateX(glm::vec3{0.0f, 0.0f, 1.0f}, glm::radians(-30.0f))},
+	};
+}
 
 } // gkom

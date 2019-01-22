@@ -4,16 +4,15 @@
 #include <memory>
 #include <string_view>
 
-#include "gkom/Vertex.hpp"
+#include <glm/vec3.hpp>
 
 namespace gkom {
 
-using Index = unsigned int;
-using Vertices = std::vector<Vertex>;
-using Indices = std::vector<Index>;
-
 //! Forward declarations
 class Logger;
+class VertexArray;
+class VertexBuffer;
+class IndexBuffer;
 
 class GraphicsManager
 {
@@ -22,8 +21,11 @@ public:
 
 	~GraphicsManager();
 
-	unsigned int createVertexArray(const Vertices& vertices,
-								   const Indices& indices);
+	VertexArray createVertexArray();
+
+	VertexBuffer createVertexBuffer();
+
+	IndexBuffer createIndexBuffer();
 
 	unsigned int createShaderProgram(std::string_view vertexShaderCode,
 							         std::string_view fragmentShaderCode);
@@ -44,25 +46,10 @@ private:
 
 	unsigned int createTexture();
 
-	unsigned int createVertexArray();
-
-	unsigned int createVertexBuffer(const std::vector<Vertex>& vertices);
-
-	unsigned int createVertexBuffer();
-
-	unsigned int createIndexBuffer(const std::vector<unsigned int>& indices);
-
-	unsigned int createIndexBuffer();
-
-	unsigned int generateBufferOnly();
-
-	void storeIndices(const Indices& indices);
-
-	void storeVertices(const Vertices& vertices);
+	unsigned int createBuffer();
 
 	std::vector<unsigned int> vertexArrays_;
-	std::vector<unsigned int> vertexBuffers_;
-	std::vector<unsigned int> indexBuffers_;
+	std::vector<unsigned int> buffers_;
 	std::vector<unsigned int> textures_;
 	std::vector<unsigned int> shaders_;
 	std::vector<unsigned int> programs_;

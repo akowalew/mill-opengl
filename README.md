@@ -3,7 +3,7 @@
 Celem projektu było zaprojektowanie aplikacji rysującej trójwymiarowy młyn z wykorzystaniem technologii OpenGL.
 
 ![ZW1-Mlyn-linux.jpg](https://i.ibb.co/qpVnyXc/ZW1-Mlyn-linux.png "Zrzut aplikacji w systemie Linux")
-
+![ZW1-Mlyn-windows.png](https://ibb.co/9nnj9Mr "Zrzut aplikacji w systemie Windows")
 ## Jak uruchamiać
 
 Projekt (mimo braku takich wymagań) z założenia ma być uruchamiany przynajmniej na dwóch systemach: Windows oraz Linuksowych. Z tego względu skrypty budujące tworzone są przy użyciu programu *CMake*, dzięki czemu program może być z łatwością budowany przy pomocy kompilatorów GNU/LLVM, a także przy użyciu środowiska Visual Studio.

@@ -1,6 +1,6 @@
 # ZW1 - Młyn
 
-Celem projektu jest zaprojektowanie aplikacji rysującej trójwymiarowy młyn z wykorzystaniem technologii OpenGL.
+Celem projektu było zaprojektowanie aplikacji rysującej trójwymiarowy młyn z wykorzystaniem technologii OpenGL.
 
 ![ZW1-Mlyn-linux.jpg](https://i.ibb.co/qpVnyXc/ZW1-Mlyn-linux.png "Zrzut aplikacji w systemie Linux")
 
@@ -12,7 +12,7 @@ Projekt (mimo braku takich wymagań) z założenia ma być uruchamiany przynajmn
 
 1. Pobierz projekt oraz jego submoduły. Można to zrobić z poziomu konsoli (poprzez SSH) lub z poziomu samego Visual Studio.
 - W przypadku wiersza poleceń, należy wpisać:
-```cmd
+```
 	git clone git@galeranew.ii.pw.edu.pl:GKOM.18z/ZW1-Mlyn.git --recurse-submodules
 ```
 - W przypadku Visual Studio należy wybrać "Otwórz"->"Otwórz z kontroli źródła". Następnie w wyświetlonym panelu "Team Explorer" wybierz "Klonuj" oraz zaznacz "Klonuj rekursywnie submoduły". Następnie w polu "URL" podaj adres `http://galeranew.ii.pw.edu.pl:8100/GKOM.18z/ZW1-Mlyn.git`.
@@ -49,7 +49,7 @@ Przewidziano możliwość sterowania trzema elementami w aplikacji:
 ## Kontrybucja
 
 Stworzyłem dla projektu stosowną grupę Slack: `zw1-mlyn.slack.com`
-Do niej też podpięte są nityfikacje z serwera Gitlab.
+Do niej też podpięte są notyfikacje z serwera Gitlab.
 
 ## Autorzy
 
@@ -59,6 +59,7 @@ Do niej też podpięte są nityfikacje z serwera Gitlab.
 
 ## Literatura
 
+- https://www.youtube.com/playlist?list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP - OpenGL 3D Game Tutorials
 - http://gamedev.net
 - http://learnopengl.com/
 - http://www.opengl.org/

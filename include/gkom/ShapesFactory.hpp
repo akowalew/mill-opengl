@@ -9,7 +9,7 @@ namespace gkom {
 
 class GeometryManager;
 class Logger;
-class Geometry; // Forward declaration
+struct Geometry; // Forward declaration
 class World; // Forward declaration
 
 class ShapesFactory

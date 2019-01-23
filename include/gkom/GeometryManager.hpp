@@ -9,7 +9,7 @@ namespace gkom {
 
 class GraphicsManager;
 class Logger;
-class Geometry;
+struct Geometry;
 class VertexBuffer;
 class IndexBuffer;
 

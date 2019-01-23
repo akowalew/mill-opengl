@@ -6,7 +6,7 @@
 namespace gkom {
 
 //! Component
-class Geometry
+struct Geometry
 {
 public:
 	Geometry() = default;

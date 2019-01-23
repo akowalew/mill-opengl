@@ -11,10 +11,10 @@ namespace gkom {
 //! Forward declarations
 class Logger;
 class GeometryManager;
-class Geometry;
+struct Geometry;
 class World;
 class Entity;
-class Vertex;
+struct Vertex;
 
 class BoxFactory
 {

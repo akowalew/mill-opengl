@@ -21,6 +21,7 @@
 #include "gkom/Scene.hpp"
 #include "gkom/Geometry.hpp"
 #include "gkom/Transform.hpp"
+#include "gkom/Event.hpp"
 
 #define NUMBER_OF_SAILS 7
 
@@ -304,10 +305,10 @@ int main()
 	            				break;
 
 	            			case KeyCode::Up:
-	            				if(camera.position[1] > 0.1)
-	            				{
+	            				//if(camera.position[1] > 0.1f)
+	            				//{
 		            				camera.position[1] -= 0.1;
-	            				}
+	            				//}
 	            				break;
 
 	            			case KeyCode::Subtract:

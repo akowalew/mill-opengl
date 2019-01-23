@@ -10,10 +10,10 @@ namespace gkom {
 //! Forward declarations
 class GeometryManager;
 class World;
-class Geometry;
+struct Geometry;
 class Logger;
 class Entity;
-class Vertex;
+struct Vertex;
 
 class PrismFactory
 {

@@ -2,9 +2,7 @@
 
 Celem projektu jest zaprojektowanie aplikacji rysującej trójwymiarowy młyn z wykorzystaniem technologii OpenGL.
 
-## Schemat poglądowy
-
-![mlyn-zw1.jpg](https://preview.ibb.co/h6sm4f/mlyn-zw1.jpg "Schemat poglądowy")
+![ZW1-Mlyn-linux.jpg](https://i.ibb.co/qpVnyXc/ZW1-Mlyn-linux.png "Zrzut aplikacji w systemie Linux")
 
 ## Jak uruchamiać
 
@@ -12,12 +10,15 @@ Projekt (mimo braku takich wymagań) z założenia ma być uruchamiany przynajmn
 
 ### Uruchamianie w Visual Studio 2017
 
-1. Pobierz projekt oraz jego submoduły. W wierszu polecenia wpisać:
+1. Pobierz projekt oraz jego submoduły. Można to zrobić z poziomu konsoli (poprzez SSH) lub z poziomu samego Visual Studio.
+- W przypadku wiersza poleceń, należy wpisać:
 ```cmd
 	git clone git@galeranew.ii.pw.edu.pl:GKOM.18z/ZW1-Mlyn.git --recurse-submodules
 ```
+- W przypadku Visual Studio należy wybrać "Otwórz"->"Otwórz z kontroli źródła". Następnie w wyświetlonym panelu "Team Explorer" wybierz "Klonuj" oraz zaznacz "Klonuj rekursywnie submoduły". Następnie w polu "URL" podaj adres `http://galeranew.ii.pw.edu.pl:8100/GKOM.18z/ZW1-Mlyn.git`.
+
 2. Uruchomić pobrany folder w Visual Studio 2017. Środowisko powinno automatycznie wykryć, iż projekt konfigurowany jest poprzez CMake.
-3. Wybrać domyślny Target jako *ZW1-Mlyn*
+3. Wybrać domyślny cel budowania jako *ZW1-Mlyn*
 4. Skompilować i uruchomić.
 
 ### Uruchamianie pod Linux
@@ -35,9 +36,15 @@ Projekt (mimo braku takich wymagań) z założenia ma być uruchamiany przynajmn
 ```
 3. Uruchom projekt:
 ```sh
-	cd src
 	./ZW1-Mlyn
 ```
+
+## Obsługa aplikacji
+
+Przewidziano możliwość sterowania trzema elementami w aplikacji:
+-	Kamerą: Zoom realizuje się klawiszami `+`, `-`, natomiast klawiszami strzałek przesuwa się kamerę po świecie.
+-	Pozycją źródła światła: Klawiszami `W`, `A`, `S`, `D`.
+-	Prędkością obrotową śmigieł: zwiększanie `Y`, zmniejszanie `Z`.
 
 ## Kontrybucja
 
@@ -46,12 +53,13 @@ Do niej też podpięte są nityfikacje z serwera Gitlab.
 
 ## Autorzy
 
-- Anna Kamińska
+- ~~Anna Kamińska~~
 - Adam Kowalewski
 - Paweł Krysztofik
 
 ## Literatura
 
+- http://gamedev.net
 - http://learnopengl.com/
 - http://www.opengl.org/
 - https://www.youtube.com/channel/UC1Gx4dn-QcSpJtZNdiqxy0A - VRLab ZGK
